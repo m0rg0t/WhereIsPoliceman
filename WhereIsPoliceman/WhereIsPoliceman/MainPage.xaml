@@ -29,7 +29,7 @@
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <controls:Panorama Margin="0">
             <controls:Panorama.Title>
-                <TextBlock Text="Где участковый?" Margin="15,10,0,0"/>
+                <TextBlock Text="Где участковый?" Margin="15,130,0,0" FontSize="64"/>
             </controls:Panorama.Title>
 
             <controls:PanoramaItem>
@@ -39,6 +39,12 @@
                     </Border>
                 </controls:PanoramaItem.Header>
                 <Grid Margin="10,-10,10,0">
+                    <telerikPrimitives:RadWrapPanel x:Name="MenuPanel">
+                        <telerikPrimitives:RadHubTile Title="Карта участковых"/>
+                        <telerikPrimitives:RadHubTile Title="Карта МВД"/>
+                        <telerikPrimitives:RadHubTile Title="Участки МВД"/>
+                        <telerikPrimitives:RadHubTile Title="Памятка"/>
+                    </telerikPrimitives:RadWrapPanel>
                 </Grid>
             </controls:PanoramaItem>
 
@@ -49,13 +55,25 @@
                         <TextBlock Text="Участковые" Margin="15,-15,0,0"/>
                     </Border>
                 </controls:PanoramaItem.Header>
-
-                    <telerikData:RadJumpList x:Name="TownPolicemans" 
+                    <telerikPrimitives:RadDataBoundListBox x:Name="TownPolicemans" 
                                      ItemsSource="{Binding Path=Policemans.Current_policemans}"
                                      DataContext="{Binding Main, Source={StaticResource Locator}}">
-                        <telerikData:RadJumpList.ItemTemplate>
+                    <telerikPrimitives:RadDataBoundListBox.VirtualizationStrategyDefinition>
+                        <telerikPrimitives:WrapVirtualizationStrategyDefinition Orientation="Horizontal" WrapLineAlignment="Center"/>
+                    </telerikPrimitives:RadDataBoundListBox.VirtualizationStrategyDefinition>
+                    <telerikPrimitives:RadDataBoundListBox.ItemTemplate>
                             <DataTemplate>
-                                <Grid Margin="10,10,0,0">
+                                <Grid Margin="10,10,10,10">
+                                <telerikPrimitives:RadSlideHubTile Title="{Binding Fullname}">
+                                    <telerikPrimitives:RadSlideHubTile.Picture>
+                                        <Image Source="{Binding Img}" Stretch="UniformToFill"/>
+                                    </telerikPrimitives:RadSlideHubTile.Picture>
+                                </telerikPrimitives:RadSlideHubTile>
+                                <!--
+                                    <ItemsPanelTemplate>
+                <telerikPrimitives:RadWrapPanel Margin="18,18,0,0" ItemWidth="111" ItemHeight="111" />
+            </ItemsPanelTemplate>
+                                    
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="150" />
                                         <ColumnDefinition Width="*" />
@@ -64,12 +82,12 @@
                                     <StackPanel Grid.Column="1" Margin="10,0,0,0" Grid.Row="0">
                                         <TextBlock Text="{Binding Fullname}" TextWrapping="Wrap" />
                                         <TextBlock Text="{Binding Position}" TextWrapping="Wrap" />
-                                    </StackPanel>
+                                    </StackPanel>-->
                                 </Grid>
                             </DataTemplate>
-                        </telerikData:RadJumpList.ItemTemplate>
-                    </telerikData:RadJumpList>
-                    <!--<TextBlock Text="123" FontFamily="Segoe WP"/>-->
+                            </telerikPrimitives:RadDataBoundListBox.ItemTemplate>
+                </telerikPrimitives:RadDataBoundListBox>
+                <!--<TextBlock Text="123" FontFamily="Segoe WP"/>-->
             </controls:PanoramaItem>
         </controls:Panorama>
     </Grid>
