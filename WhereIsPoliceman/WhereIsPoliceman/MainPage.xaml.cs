@@ -36,5 +36,25 @@ namespace WhereIsPoliceman
             }
             catch { };
         }
+
+        private void PolicemansMap_Tap(object sender, GestureEventArgs e)
+        {
+            try
+            {
+                NavigationService.Navigate(new Uri("/PolicemanMapPage.xaml", UriKind.Relative));
+            }
+            catch { };
+        }
+
+        private void MVDMap_Tap(object sender, GestureEventArgs e)
+        {
+            try
+            {
+                NavigationService.Navigate(new Uri("/MVDMapPage.xaml", UriKind.Relative));
+            }
+            catch { };
+        }
+
+        
     }
 }

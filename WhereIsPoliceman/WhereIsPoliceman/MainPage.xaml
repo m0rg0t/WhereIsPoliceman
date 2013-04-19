@@ -40,10 +40,10 @@
                 </controls:PanoramaItem.Header>
                 <Grid Margin="10,-10,10,0">
                     <telerikPrimitives:RadWrapPanel x:Name="MenuPanel">
-                        <telerikPrimitives:RadHubTile Title="Карта участковых"/>
-                        <telerikPrimitives:RadHubTile Title="Карта МВД"/>
-                        <telerikPrimitives:RadHubTile Title="Участки МВД"/>
-                        <telerikPrimitives:RadHubTile Title="Памятка"/>
+                        <telerikPrimitives:RadHubTile Title="Карта участковых" ImageSource="/Images/map2.png" Name="PolicemansMap" Tap="PolicemansMap_Tap"/>
+                        <telerikPrimitives:RadHubTile Title="Карта МВД" ImageSource="/Images/map2.png" Name="MVDMap" Tap="MVDMap_Tap"/>
+                        <telerikPrimitives:RadHubTile Title="Участки МВД" ImageSource="/Images/map2.png"/>
+                        <telerikPrimitives:RadHubTile Title="Памятка" ImageSource="/Images/map2.png"/>
                     </telerikPrimitives:RadWrapPanel>
                 </Grid>
             </controls:PanoramaItem>

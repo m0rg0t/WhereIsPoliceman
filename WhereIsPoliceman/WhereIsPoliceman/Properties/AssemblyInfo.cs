@@ -6,7 +6,7 @@ using System.Resources;
 // Управление общими сведениями о сборке осуществляется с помощью следующего 
 // набора атрибутов. Измените значения этих атрибутов для изменения
 // сведений о сборке.
-[assembly: AssemblyTitle("WhereIsPoliceman")]
+[assembly: AssemblyTitle("Где участковый?")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
