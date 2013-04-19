@@ -1,4 +1,9 @@
 using GalaSoft.MvvmLight;
+using Newtonsoft.Json.Linq;
+using RestSharp;
+using System;
+using System.Device.Location;
+
 
 namespace WhereIsPoliceman.ViewModel
 {
@@ -31,7 +36,7 @@ namespace WhereIsPoliceman.ViewModel
             ////}
         }
 
-        private bool _loading = false;
+        private bool _loading = true;
         public bool Loading
         {
             get
@@ -45,9 +50,120 @@ namespace WhereIsPoliceman.ViewModel
             }
         }
 
+        private string _town = "";
+        public string Town
+        {
+            get
+            {
+                return _town;
+            }
+            set
+            {
+                if (_town != value)
+                {
+                    _town = value;
+                    ViewModelLocator.MainStatic.Policemans.LoadCurrentPolicemans();
+                    RaisePropertyChanged("Town");
+                };
+            }
+        }
+
+        private string _street = "";
+        public string Street
+        {
+            get
+            {
+                return _street;
+            }
+            set
+            {
+                if (_street != value)
+                {
+                    _street = value;
+                    RaisePropertyChanged("Street");
+                };
+            }
+        }
+
+        public void UpdateCoordinatesWatcher()
+        {
+            try
+            {
+                myCoordinateWatcher.Stop();
+                myCoordinateWatcher = new GeoCoordinateWatcher(GeoPositionAccuracy.Default);
+                myCoordinateWatcher.PositionChanged += new EventHandler<GeoPositionChangedEventArgs<GeoCoordinate>>(myCoordinateWatcher_PositionChanged);
+                myCoordinateWatcher.Start();
+            }
+            catch { };
+        }
+        public GeoCoordinateWatcher myCoordinateWatcher = new GeoCoordinateWatcher(GeoPositionAccuracy.Default);
+        private bool _getCoordinates = false;
+
+        void myCoordinateWatcher_PositionChanged(object sender, GeoPositionChangedEventArgs<GeoCoordinate> e)
+        {
+            //if (ViewModelLocator.MainStatic.Settings.Location == true)
+            //{
+                if (((!e.Position.Location.IsUnknown) && (_getCoordinates == false)))
+                {
+                    Latitued = e.Position.Location.Latitude;
+                    Longitude = e.Position.Location.Longitude;
+
+                    _getCoordinates = true;
+                    GetPlaceInfo(Latitued, Longitude);
+                };
+            /*}
+            else
+            {
+                Latitued = 55.45;
+                Longitude = 37.36;
+            };*/
+        }
+
+        public void GetPlaceInfo(double lat, double lon)
+        {
+            ///reverse?format=json&lat=58.17&lon=38.6&zoom=18&addressdetails=1
+            var client = new RestClient("http://nominatim.openstreetmap.org");
+            var request = new RestRequest("reverse?format=json&zoom=18&addressdetails=1&lat=" + lat.ToString().Replace(",", ".") + "&lon=" + lon.ToString().Replace(",", "."), Method.GET);
+            request.Parameters.Clear();
+            client.ExecuteAsync(request, response =>
+            {
+                try
+                {
+                    JObject o = JObject.Parse(response.Content.ToString());
+                    string town = o["address"]["city"].ToString();
+                    string road = o["address"]["road"].ToString();
+                    this.Street = road;
+                    this.Town = town;
+                }
+                catch
+                {
+                };
+
+            });
+        }
+        public double Latitued = 55.45;
+        public double Longitude = 37.36; 
+
+
         public void LoadFromIsolatedStorage()
         {
             //throw new System.NotImplementedException();
+        }
+
+        private PolicemanViewModel _policemans = new PolicemanViewModel();
+        public PolicemanViewModel Policemans
+        {
+            get
+            {
+                return _policemans;
+            }
+            set
+            {
+                if (_policemans!=value)
+                {
+                    _policemans = value;
+                };
+            }
         }
     }
 }

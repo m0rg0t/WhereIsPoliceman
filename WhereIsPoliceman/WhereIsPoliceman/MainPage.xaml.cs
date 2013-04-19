@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
+using WhereIsPoliceman.ViewModel;
 
 namespace WhereIsPoliceman
 {
@@ -19,6 +20,11 @@ namespace WhereIsPoliceman
         public MainPage()
         {
             InitializeComponent();
+        }
+
+        private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            ViewModelLocator.MainStatic.UpdateCoordinatesWatcher();
         }
     }
 }

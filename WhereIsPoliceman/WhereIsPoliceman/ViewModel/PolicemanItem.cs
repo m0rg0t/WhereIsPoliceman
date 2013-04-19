@@ -9,7 +9,7 @@ namespace WhereIsPoliceman.ViewModel
     /// <summary>
     /// Класс полицейского-участкового
     /// </summary>
-    class PolicemanItem: ViewModelBase
+    public class PolicemanItem: ViewModelBase
     {
         public PolicemanItem()
         {

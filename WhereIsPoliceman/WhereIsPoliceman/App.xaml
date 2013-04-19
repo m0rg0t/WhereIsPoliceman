@@ -12,6 +12,10 @@
   <!--Ресурсы приложения-->
   <Application.Resources>
         <vm:ViewModelLocator  x:Key="Locator" d:IsDataSource="True" />
+
+        <DataTemplate x:Key="NoDataListTemlate">
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Нет даннх" />
+        </DataTemplate>
         <!--<ResourceDictionary>
             <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" />            
             <ResourceDictionary.MergedDictionaries></ResourceDictionary.MergedDictionaries>

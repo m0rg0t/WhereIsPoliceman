@@ -10,24 +10,68 @@
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
+    xmlns:telerikData="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Data"
+    xmlns:telerikPrimitives="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Primitives"
+    xmlns:telerikCore="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Core"
+    xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
     SupportedOrientations="Portrait" Orientation="Portrait"
-    shell:SystemTray.IsVisible="True">
+    shell:SystemTray.IsVisible="{Binding Loading}"
+    shell:SystemTray.Opacity="0"
+    shell:SystemTray.BackgroundColor="White"
+    shell:SystemTray.ForegroundColor="Black"
+    DataContext="{Binding Main, Source={StaticResource Locator}}" Background="White" Loaded="PhoneApplicationPage_Loaded">
+
+    <shell:SystemTray.ProgressIndicator>
+        <shell:ProgressIndicator IsIndeterminate="true" IsVisible="{Binding Loading}" Text="Загрузка" />
+    </shell:SystemTray.ProgressIndicator>
 
     <!--LayoutRoot представляет корневую сетку, где размещается все содержимое страницы-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+        <controls:Panorama Margin="0">
+            <controls:Panorama.Title>
+                <TextBlock Text="Где участковый?" Margin="15,10,0,0"/>
+            </controls:Panorama.Title>
 
-        <!--TitlePanel содержит имя приложения и заголовок страницы-->
-        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock x:Name="ApplicationTitle" Text="МОЕ ПРИЛОЖЕНИЕ" Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock x:Name="PageTitle" Text="имя страницы" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
-        </StackPanel>
+            <controls:PanoramaItem>
+                <controls:PanoramaItem.Header>
+                    <Border  Margin="-12,0,0,0">
+                        <TextBlock Text="Меню" Margin="15,-15,0,0"/>
+                    </Border>
+                </controls:PanoramaItem.Header>
+                <Grid Margin="10,-10,10,0">
+                </Grid>
+            </controls:PanoramaItem>
 
-        <!--ContentPanel — поместите здесь дополнительное содержимое-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0"></Grid>
+
+            <controls:PanoramaItem>
+                <controls:PanoramaItem.Header>
+                    <Border Margin="-12,0,0,0">
+                        <TextBlock Text="Участковые" Margin="15,-15,0,0"/>
+                    </Border>
+                </controls:PanoramaItem.Header>
+
+                    <telerikData:RadJumpList x:Name="TownPolicemans" 
+                                     ItemsSource="{Binding Path=Policemans.Current_policemans}"
+                                     DataContext="{Binding Main, Source={StaticResource Locator}}">
+                        <telerikData:RadJumpList.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="10,10,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="150" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Image Source="{Binding Img}" Width="140" Grid.Row="0" Grid.Column="0"/>
+                                    <StackPanel Grid.Column="1" Margin="10,0,0,0" Grid.Row="0">
+                                        <TextBlock Text="{Binding Fullname}" TextWrapping="Wrap" />
+                                        <TextBlock Text="{Binding Position}" TextWrapping="Wrap" />
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </telerikData:RadJumpList.ItemTemplate>
+                    </telerikData:RadJumpList>
+                    <!--<TextBlock Text="123" FontFamily="Segoe WP"/>-->
+            </controls:PanoramaItem>
+        </controls:Panorama>
     </Grid>
  
 </phone:PhoneApplicationPage>
