@@ -30,5 +30,24 @@ namespace WhereIsPoliceman.ViewModel
             ////    // Code runs "for real"
             ////}
         }
+
+        private bool _loading = false;
+        public bool Loading
+        {
+            get
+            {
+                return _loading;
+            }
+            set
+            {
+                _loading = value;
+                RaisePropertyChanged("Loading");
+            }
+        }
+
+        public void LoadFromIsolatedStorage()
+        {
+            //throw new System.NotImplementedException();
+        }
     }
 }

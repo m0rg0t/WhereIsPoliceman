@@ -104,7 +104,7 @@ namespace WhereIsPoliceman.ViewModel
         /// <summary>
         /// Второй уровень административного деления - населенный пункт\иное
         /// </summary>
-        public string Level2
+        public string Level3
         {
             get
             {

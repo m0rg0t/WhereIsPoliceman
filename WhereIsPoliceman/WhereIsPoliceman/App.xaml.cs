@@ -12,6 +12,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using WhereIsPoliceman.ViewModel;
 
 namespace WhereIsPoliceman
 {
@@ -22,6 +23,8 @@ namespace WhereIsPoliceman
         /// </summary>
         /// <returns>Корневой кадр приложения телефона.</returns>
         public PhoneApplicationFrame RootFrame { get; private set; }
+
+        public const string ACCESS_TOKEN = "8c466790d505cf90ccf7c8d3558a4c97";
 
         /// <summary>
         /// Конструктор объекта приложения.
