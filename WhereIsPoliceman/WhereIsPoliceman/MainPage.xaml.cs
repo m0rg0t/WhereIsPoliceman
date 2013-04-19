@@ -26,5 +26,15 @@ namespace WhereIsPoliceman
         {
             ViewModelLocator.MainStatic.UpdateCoordinatesWatcher();
         }
+
+        private void Policemans_ItemTap(object sender, Telerik.Windows.Controls.ListBoxItemTapEventArgs e)
+        {
+            try
+            {
+                ViewModelLocator.MainStatic.CurrentPoliceman = (PolicemanItem)this.TownPolicemans.SelectedItem;
+                NavigationService.Navigate(new Uri("/PoliceItem.xaml", UriKind.Relative));
+            }
+            catch { };
+        }
     }
 }

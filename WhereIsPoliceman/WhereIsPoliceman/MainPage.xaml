@@ -19,7 +19,7 @@
     shell:SystemTray.Opacity="0"
     shell:SystemTray.BackgroundColor="White"
     shell:SystemTray.ForegroundColor="Black"
-    DataContext="{Binding Main, Source={StaticResource Locator}}" Background="White" Loaded="PhoneApplicationPage_Loaded">
+    DataContext="{Binding Main, Source={StaticResource Locator}}" Loaded="PhoneApplicationPage_Loaded">
 
     <shell:SystemTray.ProgressIndicator>
         <shell:ProgressIndicator IsIndeterminate="true" IsVisible="{Binding Loading}" Text="Загрузка" />
@@ -56,6 +56,7 @@
                     </Border>
                 </controls:PanoramaItem.Header>
                     <telerikPrimitives:RadDataBoundListBox x:Name="TownPolicemans" 
+                                     ItemTap="Policemans_ItemTap"
                                      ItemsSource="{Binding Path=Policemans.Current_policemans}"
                                      DataContext="{Binding Main, Source={StaticResource Locator}}">
                     <telerikPrimitives:RadDataBoundListBox.VirtualizationStrategyDefinition>
@@ -69,20 +70,6 @@
                                         <Image Source="{Binding Img}" Stretch="UniformToFill"/>
                                     </telerikPrimitives:RadSlideHubTile.Picture>
                                 </telerikPrimitives:RadSlideHubTile>
-                                <!--
-                                    <ItemsPanelTemplate>
-                <telerikPrimitives:RadWrapPanel Margin="18,18,0,0" ItemWidth="111" ItemHeight="111" />
-            </ItemsPanelTemplate>
-                                    
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="150" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <Image Source="{Binding Img}" Width="140" Grid.Row="0" Grid.Column="0"/>
-                                    <StackPanel Grid.Column="1" Margin="10,0,0,0" Grid.Row="0">
-                                        <TextBlock Text="{Binding Fullname}" TextWrapping="Wrap" />
-                                        <TextBlock Text="{Binding Position}" TextWrapping="Wrap" />
-                                    </StackPanel>-->
                                 </Grid>
                             </DataTemplate>
                             </telerikPrimitives:RadDataBoundListBox.ItemTemplate>

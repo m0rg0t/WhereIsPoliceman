@@ -50,6 +50,20 @@ namespace WhereIsPoliceman.ViewModel
             }
         }
 
+        private PolicemanItem _currentPoliceman = new PolicemanItem();
+        public PolicemanItem CurrentPoliceman
+        {
+            get
+            {
+                return _currentPoliceman;
+            }
+            set
+            {
+                _currentPoliceman = value;
+                RaisePropertyChanged("CurrentPoliceman");
+            }
+        }
+
         private string _town = "";
         public string Town
         {
