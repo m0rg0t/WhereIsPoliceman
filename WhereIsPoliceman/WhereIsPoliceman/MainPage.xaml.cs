@@ -11,6 +11,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using WhereIsPoliceman.ViewModel;
+using Microsoft.Phone.Tasks;
 
 namespace WhereIsPoliceman
 {
@@ -80,6 +81,12 @@ namespace WhereIsPoliceman
                 NavigationService.Navigate(new Uri("/FacebookPages/FacebookLoginPage.xaml", UriKind.Relative));
             }
             catch { };
+        }
+
+        private void RateAppMenuItem_Click(object sender, EventArgs e)
+        {
+            var marketplaceReviewTask = new MarketplaceReviewTask();
+            marketplaceReviewTask.Show();
         }
         
     }

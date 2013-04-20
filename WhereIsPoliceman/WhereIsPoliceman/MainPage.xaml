@@ -20,6 +20,13 @@
     shell:SystemTray.BackgroundColor="White"
     shell:SystemTray.ForegroundColor="Black"
     DataContext="{Binding Main, Source={StaticResource Locator}}" Loaded="PhoneApplicationPage_Loaded">
+	<phone:PhoneApplicationPage.ApplicationBar>
+		<shell:ApplicationBar Mode="Minimized">
+			<shell:ApplicationBar.MenuItems>
+				<shell:ApplicationBarMenuItem x:Name="RateAppMenuItem" Text="Оценить приложение" Click="RateAppMenuItem_Click"/>
+			</shell:ApplicationBar.MenuItems>
+		</shell:ApplicationBar>
+	</phone:PhoneApplicationPage.ApplicationBar>
 
     <shell:SystemTray.ProgressIndicator>
         <shell:ProgressIndicator IsIndeterminate="true" IsVisible="{Binding Loading}" Text="Загрузка" />
@@ -29,20 +36,20 @@
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <controls:Panorama Margin="0">
             <controls:Panorama.Title>
-                <TextBlock Text="Где участковый?" Margin="15,130,0,0" FontSize="64"/>
+                <TextBlock Text="Где участковый?" Margin="15,130,0,0" FontSize="90"/>
             </controls:Panorama.Title>
 
             <controls:PanoramaItem>
                 <controls:PanoramaItem.Header>
                     <Border  Margin="-12,0,0,0">
-                        <TextBlock Text="Меню" Margin="15,-15,0,0"/>
+                        <TextBlock Text="Меню" FontSize="60" Margin="15,-15,0,0"/>
                     </Border>
                 </controls:PanoramaItem.Header>
                 <Grid Margin="10,-10,10,0">
                     <telerikPrimitives:RadWrapPanel x:Name="MenuPanel">
                         <telerikPrimitives:RadHubTile Title="Карта участковых" ImageSource="/Images/map2.png" Name="PolicemansMap" Tap="PolicemansMap_Tap"/>
-                        <telerikPrimitives:RadHubTile Title="Карта МВД" ImageSource="/Images/map2.png" Name="MVDMap" Tap="MVDMap_Tap"/>
-                        <telerikPrimitives:RadHubTile Title="Поиск МВД" ImageSource="/Images/search2.png"/>
+                        <!--<telerikPrimitives:RadHubTile Title="Карта МВД" ImageSource="/Images/map2.png" Name="MVDMap" Tap="MVDMap_Tap"/>
+                        <telerikPrimitives:RadHubTile Title="Поиск МВД" ImageSource="/Images/search2.png"/>-->
                         <telerikPrimitives:RadHubTile Title="Поиск участковых" ImageSource="/Images/search2.png" Name="PoliceFind" Tap="PoliceFind_Tap"/>
                         <telerikPrimitives:RadHubTile Title="Памятка" ImageSource="/Images/help2.png" Tap="RadHubTile_Tap"/>
                         <telerikPrimitives:RadHubTile Title="Вход" ImageSource="/Images/facebook2.png" Name="FacebookLogin" Tap="FacebookLogin_Tap"/>
@@ -54,11 +61,12 @@
             <controls:PanoramaItem>
                 <controls:PanoramaItem.Header>
                     <Border Margin="-12,0,0,0">
-                        <TextBlock Text="Участковые" Margin="15,-15,0,0"/>
+                        <TextBlock Text="Участковые" FontSize="60" Margin="15,-15,0,0"/>
                     </Border>
                 </controls:PanoramaItem.Header>
                     <telerikPrimitives:RadDataBoundListBox x:Name="TownPolicemans" 
                                      ItemTap="Policemans_ItemTap"
+                                     EmptyContent="Нет данных"
                                      ItemsSource="{Binding Path=Policemans.Current_policemans}"
                                      DataContext="{Binding Main, Source={StaticResource Locator}}">
                     <telerikPrimitives:RadDataBoundListBox.VirtualizationStrategyDefinition>
