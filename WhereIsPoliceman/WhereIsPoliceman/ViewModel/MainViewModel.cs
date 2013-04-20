@@ -200,6 +200,45 @@ namespace WhereIsPoliceman.ViewModel
             }
         }
 
+        public void SendReview(string policeman_id = "", string comment = "", double rate = 1.0)
+        {
+            try
+            {
+                this.Loading = true;
+                var client = new RestClient("https://api.parse.com");
+                var request = new RestRequest("1/classes/PolicemanReview", Method.POST);
+                request.AddHeader("Accept", "application/json");
+                request.Parameters.Clear();
+                string strJSONContent = "{\"comment\":\"" + comment + "\", \"facebook_id\": \"" 
+                    + ViewModelLocator.UserStatic.FacebookId.ToString() + "\", \"policeman_id\": \"" + policeman_id.ToString() + 
+                    "\", \"rate\":" + rate.ToString() + 
+                    ", \"facebook_name\":\"" + ViewModelLocator.UserStatic.First_name+ " " 
+                    + ViewModelLocator.UserStatic.Last_name + "\"}";
+
+                request.AddHeader("X-Parse-Application-Id", App.XParseApplicationId);
+                request.AddHeader("X-Parse-REST-API-Key", App.XParseRESTAPIKey);
+                request.AddHeader("Content-Type", "application/json");
+
+                request.AddParameter("application/json", strJSONContent, ParameterType.RequestBody);
+                client.ExecuteAsync(request, response =>
+                {
+                    try
+                    {
+                        JObject o = JObject.Parse(response.Content.ToString());
+                        this.Loading = false;
+                        if (o["error"] == null)
+                        {
+                            LoadPolicemanReviews(policeman_id);
+                        };
+                    }
+                    catch { };
+                });
+            }
+            catch {
+                this.Loading = false;
+            };
+        }
+
         public void LoadPolicemanReviews(string policeman_id = "")
         {
             try
@@ -221,7 +260,8 @@ namespace WhereIsPoliceman.ViewModel
                     {
                         try
                         {
-                            ObservableCollection<ReviewItem> items = JsonConvert.DeserializeObject<ObservableCollection<ReviewItem>>(responseuser.Content.ToString());
+                            JObject o = JObject.Parse(responseuser.Content.ToString());
+                            ObservableCollection<ReviewItem> items = JsonConvert.DeserializeObject<ObservableCollection<ReviewItem>>(o["results"].ToString());
                             Deployment.Current.Dispatcher.BeginInvoke(() =>
                             {
                                 Comments = items;

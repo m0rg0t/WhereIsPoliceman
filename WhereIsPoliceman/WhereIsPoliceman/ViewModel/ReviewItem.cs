@@ -7,7 +7,7 @@ using System.Text;
 
 namespace WhereIsPoliceman.ViewModel
 {
-    class ReviewItem: ViewModelBase
+    public class ReviewItem: ViewModelBase
     {
         public ReviewItem()
         {
@@ -24,6 +24,24 @@ namespace WhereIsPoliceman.ViewModel
             {
                 _facebook_id = value;
                 RaisePropertyChanged("Facebook_id");
+            }
+        }
+
+
+        private string _facebook_name = "";
+        /// <summary>
+        /// Комментарий к участковому
+        /// </summary>
+        public string Facebook_name
+        {
+            get
+            {
+                return _facebook_name;
+            }
+            set
+            {
+                _facebook_name = value;
+                RaisePropertyChanged("Facebook_name");
             }
         }
 
@@ -77,6 +95,25 @@ namespace WhereIsPoliceman.ViewModel
                 RaisePropertyChanged("Rate");
             }
         }
+
+        private string _police_id = "";
+        /// <summary>
+        /// Идентификатор отщыва относительно полицейского
+        /// </summary>
+        public string Police_id
+        {
+            get
+            {
+                return _police_id;
+            }
+            set
+            {
+                _police_id = value;
+                RaisePropertyChanged("Police_id");
+            }
+        }
+
+
 
     }
 }

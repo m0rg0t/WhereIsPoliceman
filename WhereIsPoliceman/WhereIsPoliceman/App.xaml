@@ -11,7 +11,7 @@
     <!--xmlns:vm="clr-namespace:WhereIsPoliceman.ViewModel"-->
   <!--Ресурсы приложения-->
   <Application.Resources>
-        <!--<vm:ViewModelLocator  x:Key="Locator" d:IsDataSource="True" />-->
+        <vm:ViewModelLocator  x:Key="Locator" d:IsDataSource="True" />
 
         <DataTemplate x:Key="NoDataListTemlate">
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Нет данных" />

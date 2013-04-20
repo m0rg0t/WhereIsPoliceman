@@ -29,14 +29,27 @@ namespace WhereIsPoliceman
 
         private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
         {
-            if (ViewModelLocator.MainStatic.CurrentPoliceman.FromSearch == true)
+            try
             {
-                MapAppbarButton.IsEnabled = false;
+                if (ViewModelLocator.MainStatic.CurrentPoliceman.FromSearch == true)
+                {
+                    MapAppbarButton.IsEnabled = false;
+                }
+                else
+                {
+                    MapAppbarButton.IsEnabled = true;
+                };
             }
-            else
+            catch { };
+        }
+
+        private void ReviewAppbarButton_Click(object sender, EventArgs e)
+        {
+            try
             {
-                MapAppbarButton.IsEnabled = true;
-            };
+                NavigationService.Navigate(new Uri("/PoliceReviewsPage.xaml", UriKind.Relative));
+            }
+            catch { };
         }
     }
 }
