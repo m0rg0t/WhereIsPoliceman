@@ -16,5 +16,14 @@ namespace WhereIsPoliceman
         {
             InitializeComponent();
         }
+
+        private void ApplicationBarIconButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                NavigationService.Navigate(new Uri("/CurrentPolicemanMapPage.xaml", UriKind.Relative));
+            }
+            catch { };
+        }
     }
 }

@@ -19,6 +19,11 @@
     shell:SystemTray.BackgroundColor="White"
     shell:SystemTray.ForegroundColor="Black"
     DataContext="{Binding Main, Source={StaticResource Locator}}">
+	<phone:PhoneApplicationPage.ApplicationBar>
+		<shell:ApplicationBar>
+            <shell:ApplicationBarIconButton IconUri="/Assets/AppBar/ic_ApplicationBar_map.png" Text="Карта" Click="ApplicationBarIconButton_Click"/>
+		</shell:ApplicationBar>
+	</phone:PhoneApplicationPage.ApplicationBar>
 
     <shell:SystemTray.ProgressIndicator>
         <shell:ProgressIndicator IsIndeterminate="true" IsVisible="{Binding Loading}" Text="Загрузка" />
@@ -42,6 +47,7 @@
             <ScrollViewer>
                 <StackPanel>
                     <Image Source="{Binding CurrentPoliceman.Img}" HorizontalAlignment="Center" Width="300"/>
+                    <TextBlock Text="{Binding CurrentPoliceman.Fullname}" Margin="0,10,0,10" TextWrapping="Wrap"/>
                     <TextBlock Text="{Binding CurrentPoliceman.Position}" Margin="0,10,0,10" TextWrapping="Wrap"/>
 
                     <telerikPrimitives:RadDataBoundListBox x:Name="TerrList" 
@@ -54,8 +60,7 @@
                                 <TextBlock Text="{Binding}" Margin="0,10,0,0"/>
                             </DataTemplate>
                         </telerikPrimitives:RadDataBoundListBox.ItemTemplate>
-                    </telerikPrimitives:RadDataBoundListBox>
-                    
+                    </telerikPrimitives:RadDataBoundListBox>                    
                 </StackPanel>
             </ScrollViewer>
         </Grid>

@@ -1,0 +1,88 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="WhereIsPoliceman.CurrentPolicemanMapPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    xmlns:maps="clr-namespace:Microsoft.Phone.Controls.Maps;assembly=Microsoft.Phone.Controls.Maps"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d"
+    shell:SystemTray.IsVisible="{Binding Loading}"
+    shell:SystemTray.Opacity="0"
+    xmlns:ARControls="clr-namespace:GART.Controls;assembly=GART"
+    shell:SystemTray.BackgroundColor="White"
+    shell:SystemTray.ForegroundColor="Black"
+    DataContext="{Binding Main, Source={StaticResource Locator}}" Loaded="PhoneApplicationPage_Loaded">
+
+    <phone:PhoneApplicationPage.Resources>
+        <DataTemplate x:Key="RestaurantItem">
+            <Border BorderBrush="Black" BorderThickness="4" Background="#FF003847" Width="320">
+                <Grid Margin="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="0.5*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.33*"/>
+                        <RowDefinition Height="0.33*"/>
+                        <RowDefinition Height="16"/>
+                    </Grid.RowDefinitions>
+                    <Image Grid.RowSpan="3" Source="{Binding Img}" Stretch="None" HorizontalAlignment="Center" 
+                           VerticalAlignment="Center" Margin="0,0,10,0"/>
+                    <StackPanel Grid.Column="1">
+                    <TextBlock x:Name="NameBlock" TextWrapping="NoWrap" Text="{Binding Content}" FontSize="32" 
+                               VerticalAlignment="Center" Margin="0,0,4,0" d:LayoutOverrides="Width"  
+                               TextTrimming="WordEllipsis"/>
+                    <TextBlock TextWrapping="Wrap" Text="{Binding Adress}" FontSize="24" VerticalAlignment="Center" 
+                               Margin="0,0,4,0" d:LayoutOverrides="Width" TextTrimming="WordEllipsis"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </DataTemplate>
+
+        <maps:ApplicationIdCredentialsProvider x:Key="BingCredentials" ApplicationId="AleF-exBAWd-gM9i3JJ0yWTEBsTGK2cHob09pmgpnHc5MCl3XjMhWToUK6MlmgFx" />
+    </phone:PhoneApplicationPage.Resources>
+
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar>
+            <!--<shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem x:Name="GoFixedMenuItem" IsEnabled="True" Text="Fixed Location Mode" Click="GoFixedMenuItem_Click"/>
+            </shell:ApplicationBar.MenuItems>-->
+            <shell:ApplicationBarIconButton x:Name="ThreeDButton" IconUri="/Assets/AppBar/appbar.feature.camera.rest.png" IsEnabled="True" Text="3D" Click="ThreeDButton_Click"/>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+
+    <shell:SystemTray.ProgressIndicator>
+        <shell:ProgressIndicator IsIndeterminate="true" IsVisible="{Binding Loading}" Text="Загрузка" />
+    </shell:SystemTray.ProgressIndicator>
+
+    
+    <!--LayoutRoot представляет корневую сетку, где размещается все содержимое страницы-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--TitlePanel содержит имя приложения и заголовок страницы-->
+        <StackPanel Grid.Row="0" Margin="12,17,0,28">
+            <TextBlock Text="Где участковый?" Style="{StaticResource PhoneTextNormalStyle}"/>
+            <TextBlock Text="{Binding CurrentPoliceman.Fullname}" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+        </StackPanel>
+
+        <!--ContentPanel – поместите здесь дополнительное содержимое-->
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+            <maps:Map Name="map1" Margin="0,10,0,0" CredentialsProvider="{StaticResource BingCredentials}"/>
+            <ARControls:ARDisplay Visibility="Collapsed" x:Name="ARDisplay" LocationChanged="ARDisplay_LocationChanged">
+                <ARControls:VideoPreview x:Name="VideoPreview" />
+                <ARControls:WorldView Visibility="Collapsed" x:Name="WorldView" ItemTemplate="{StaticResource RestaurantItem}"/>
+            </ARControls:ARDisplay>
+        </Grid>
+    </Grid>
+
+</phone:PhoneApplicationPage>

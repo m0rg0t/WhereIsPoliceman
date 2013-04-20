@@ -42,8 +42,9 @@
                     <telerikPrimitives:RadWrapPanel x:Name="MenuPanel">
                         <telerikPrimitives:RadHubTile Title="Карта участковых" ImageSource="/Images/map2.png" Name="PolicemansMap" Tap="PolicemansMap_Tap"/>
                         <telerikPrimitives:RadHubTile Title="Карта МВД" ImageSource="/Images/map2.png" Name="MVDMap" Tap="MVDMap_Tap"/>
-                        <telerikPrimitives:RadHubTile Title="Участки МВД" ImageSource="/Images/map2.png"/>
-                        <telerikPrimitives:RadHubTile Title="Памятка" ImageSource="/Images/map2.png"/>
+                        <telerikPrimitives:RadHubTile Title="Поиск МВД" ImageSource="/Images/search2.png"/>
+                        <telerikPrimitives:RadHubTile Title="Поиск участковых" ImageSource="/Images/search2.png"/>
+                        <telerikPrimitives:RadHubTile Title="Памятка" ImageSource="/Images/help2.png" Tap="RadHubTile_Tap"/>
                     </telerikPrimitives:RadWrapPanel>
                 </Grid>
             </controls:PanoramaItem>

@@ -131,6 +131,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="HelpPolicemanPage.xaml.cs">
+      <DependentUpon>HelpPolicemanPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Languages\AppResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -155,12 +158,19 @@
     <Compile Include="MVDMapPage.xaml.cs">
       <DependentUpon>MVDMapPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CurrentPolicemanMapPage.xaml.cs">
+      <DependentUpon>CurrentPolicemanMapPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Page Include="HelpPolicemanPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -177,6 +187,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="CurrentPolicemanMapPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -190,13 +204,18 @@
     <Content Include="Assets\AppBar\appbar.feature.camera.rest.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\AppBar\ic_ApplicationBar_map.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\help2.png" />
+    <Content Include="Images\ic_ApplicationBar_map.png" />
     <Content Include="Images\map1.png" />
     <Content Include="Images\map2.png" />
+    <Content Include="Images\search2.png" />
     <Content Include="Libs\GART.dll" />
-    <Content Include="MVVMLight.Nuget.Readme.txt" />
     <Content Include="SplashScreenImage.jpg" />
     <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Check.png" />

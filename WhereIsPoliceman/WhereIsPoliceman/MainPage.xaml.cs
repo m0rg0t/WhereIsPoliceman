@@ -55,6 +55,15 @@ namespace WhereIsPoliceman
             catch { };
         }
 
+        private void RadHubTile_Tap(object sender, GestureEventArgs e)
+        {
+            try
+            {
+                NavigationService.Navigate(new Uri("/HelpPolicemanPage.xaml", UriKind.Relative));
+            }
+            catch { };
+        }
+
         
     }
 }

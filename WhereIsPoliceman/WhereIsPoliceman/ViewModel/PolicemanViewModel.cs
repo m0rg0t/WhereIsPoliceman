@@ -61,6 +61,20 @@ namespace WhereIsPoliceman.ViewModel
             }
         }
 
+        public List<PolicemanMapItem> Current_distance_current_policemans_mapitems
+        {
+            private set
+            {
+            }
+            get
+            {
+                return (from item in Current_policemans_mapitems
+                        where ((item.Lat != 0.0) && (item.Lon != 0.0)) && (item.Id == ViewModelLocator.MainStatic.CurrentPoliceman.Id)
+                        orderby item.Distance ascending
+                        select item).Take(15).ToList();
+            }
+        }
+
         public void LoadCurrentPolicemans()
         {
             ViewModelLocator.MainStatic.Loading = true;
@@ -90,6 +104,7 @@ namespace WhereIsPoliceman.ViewModel
                                     PolicemanMapItem mapitem = new PolicemanMapItem();
                                     mapitem.Img = item.Img;
                                     mapitem.Content = item.Fullname;
+                                    mapitem.Id = item.Id;
                                     mapitem.Adress = street + " дом " + housenumber.ToString();
                                     Current_policemans_mapitems.Add(mapitem);
                                 };
