@@ -14,17 +14,53 @@
     mc:Ignorable="d"
     shell:SystemTray.IsVisible="{Binding Loading}"
     shell:SystemTray.Opacity="0"
+    xmlns:ARControls="clr-namespace:GART.Controls;assembly=GART"
     shell:SystemTray.BackgroundColor="White"
     shell:SystemTray.ForegroundColor="Black"
-    DataContext="{Binding Main, Source={StaticResource Locator}}">
+    DataContext="{Binding Main, Source={StaticResource Locator}}" Loaded="PhoneApplicationPage_Loaded">
+
+    <phone:PhoneApplicationPage.Resources>
+        <DataTemplate x:Key="RestaurantItem">
+            <Border BorderBrush="Black" BorderThickness="4" Background="#FF003847" Width="320">
+                <Grid Margin="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="0.5*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.33*"/>
+                        <RowDefinition Height="0.33*"/>
+                        <RowDefinition Height="16"/>
+                    </Grid.RowDefinitions>
+                    <Image Grid.RowSpan="3" Source="{Binding Img}" Stretch="None" HorizontalAlignment="Center" 
+                           VerticalAlignment="Center" Margin="0,0,10,0"/>
+                    <StackPanel Grid.Column="1">
+                    <TextBlock x:Name="NameBlock" TextWrapping="NoWrap" Text="{Binding Content}" FontSize="32" 
+                               VerticalAlignment="Center" Margin="0,0,4,0" d:LayoutOverrides="Width"  
+                               TextTrimming="WordEllipsis"/>
+                    <TextBlock TextWrapping="Wrap" Text="{Binding Adress}" FontSize="24" VerticalAlignment="Center" 
+                               Margin="0,0,4,0" d:LayoutOverrides="Width" TextTrimming="WordEllipsis"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </DataTemplate>
+
+        <maps:ApplicationIdCredentialsProvider x:Key="BingCredentials" ApplicationId="AleF-exBAWd-gM9i3JJ0yWTEBsTGK2cHob09pmgpnHc5MCl3XjMhWToUK6MlmgFx" />
+    </phone:PhoneApplicationPage.Resources>
+
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar>
+            <!--<shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem x:Name="GoFixedMenuItem" IsEnabled="True" Text="Fixed Location Mode" Click="GoFixedMenuItem_Click"/>
+            </shell:ApplicationBar.MenuItems>-->
+            <shell:ApplicationBarIconButton x:Name="ThreeDButton" IconUri="/Assets/AppBar/appbar.feature.camera.rest.png" IsEnabled="True" Text="3D" Click="ThreeDButton_Click"/>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
 
     <shell:SystemTray.ProgressIndicator>
         <shell:ProgressIndicator IsIndeterminate="true" IsVisible="{Binding Loading}" Text="Загрузка" />
     </shell:SystemTray.ProgressIndicator>
 
-    <phone:PhoneApplicationPage.Resources>
-        <maps:ApplicationIdCredentialsProvider x:Key="BingCredentials" ApplicationId="AleF-exBAWd-gM9i3JJ0yWTEBsTGK2cHob09pmgpnHc5MCl3XjMhWToUK6MlmgFx" />
-    </phone:PhoneApplicationPage.Resources>
     
     <!--LayoutRoot представляет корневую сетку, где размещается все содержимое страницы-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
@@ -41,7 +77,22 @@
 
         <!--ContentPanel – поместите здесь дополнительное содержимое-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <maps:Map Name="map1" Margin="0,10,0,0" CredentialsProvider="{StaticResource BingCredentials}" />
+            <maps:Map Name="map1" Margin="0,10,0,0" CredentialsProvider="{StaticResource BingCredentials}" Visibility="Collapsed"/>
+            <ARControls:ARDisplay x:Name="ARDisplay" LocationChanged="ARDisplay_LocationChanged">
+                <ARControls:VideoPreview x:Name="VideoPreview" />
+                <!--<ARControls:OverheadMap x:Name="OverheadMap" CredentialsProvider="{StaticResource BingCredentials}" />-->
+                <!--<ARControls:HeadingIndicator x:Name="HeadingIndicator" Width="300" Height="300" HorizontalAlignment="Center" VerticalAlignment="Center" />-->
+                <ARControls:WorldView x:Name="WorldView" Visibility="Visible" ItemTemplate="{StaticResource RestaurantItem}"/>
+            </ARControls:ARDisplay>
+            <!--<ARControls:ARDisplay x:Name="ARDisplay" 
+                DataContext="{Binding Main, Source={StaticResource Locator}}"
+                LocationChanged="ARDisplay_LocationChanged">
+                <ARControls:VideoPreview x:Name="VideoPreview" />
+                <ARControls:OverheadMap x:Name="OverheadMap" CredentialsProvider="{StaticResource BingCredentials}" />
+                <ARControls:WorldView x:Name="WorldView"/>
+                ItemTemplate="{StaticResource RestaurantItem}"
+                <ARControls:HeadingIndicator x:Name="HeadingIndicator" Width="300" Height="300" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </ARControls:ARDisplay>-->
         </Grid>
     </Grid>
 

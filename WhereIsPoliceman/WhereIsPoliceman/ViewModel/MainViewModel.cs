@@ -152,7 +152,6 @@ namespace WhereIsPoliceman.ViewModel
                 catch
                 {
                 };
-
             });
         }
         public double Latitued = 55.45;

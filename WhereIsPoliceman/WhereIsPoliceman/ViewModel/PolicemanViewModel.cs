@@ -32,6 +32,20 @@ namespace WhereIsPoliceman.ViewModel
             }
         }
 
+        private ObservableCollection<PolicemanMapItem> _current_policemans_mapitems = new ObservableCollection<PolicemanMapItem>();
+        public ObservableCollection<PolicemanMapItem> Current_policemans_mapitems
+        {
+            get
+            {
+                return _current_policemans_mapitems;
+            }
+            set
+            {
+                _current_policemans_mapitems = value;
+                RaisePropertyChanged("Current_policemans_mapitems");
+            }
+        }
+
         public void LoadCurrentPolicemans()
         {
             ViewModelLocator.MainStatic.Loading = true;
@@ -49,6 +63,23 @@ namespace WhereIsPoliceman.ViewModel
                         JObject o = JObject.Parse(response.Content.ToString());
                         string policemanslist = o["Persons"]["data"].ToString();
                         ObservableCollection<PolicemanItem> items = JsonConvert.DeserializeObject<ObservableCollection<PolicemanItem>>(policemanslist);
+
+                        foreach (var item in items)
+                        {
+                            foreach (var adress in item.Terr) {
+                                string housenumbers = adress.Split(':')[1].Replace(" ", "").Replace(".", "").Trim();
+                                string street = adress.Split(':')[0].Replace("дома","").Trim();
+
+                                foreach (var housenumber in housenumbers.Split(','))
+                                {
+                                    PolicemanMapItem mapitem = new PolicemanMapItem();
+                                    mapitem.Img = item.Img;
+                                    mapitem.Content = item.Fullname;
+                                    mapitem.Adress = street + " дом " + housenumber.ToString();
+                                    Current_policemans_mapitems.Add(mapitem);
+                                };
+                            };
+                        };
 
                         Deployment.Current.Dispatcher.BeginInvoke(() =>
                         {
