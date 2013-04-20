@@ -32,6 +32,20 @@ namespace WhereIsPoliceman.ViewModel
             }
         }
 
+        private ObservableCollection<PolicemanItem> _FindPolicemans = new ObservableCollection<PolicemanItem>();
+        public ObservableCollection<PolicemanItem> FindPolicemans
+        {
+            get
+            {
+                return _FindPolicemans;
+            }
+            set
+            {
+                _FindPolicemans = value;
+                RaisePropertyChanged("FindPolicemans");
+            }
+        }
+
         private ObservableCollection<PolicemanMapItem> _current_policemans_mapitems = new ObservableCollection<PolicemanMapItem>();
         public ObservableCollection<PolicemanMapItem> Current_policemans_mapitems
         {
@@ -122,5 +136,41 @@ namespace WhereIsPoliceman.ViewModel
             };
             bw.RunWorkerAsync();
         }
+
+        public void LoadFindPolicemans(string town = "", string street = "")
+        {
+            ViewModelLocator.MainStatic.Loading = true;
+            var bw = new BackgroundWorker();
+            bw.DoWork += delegate
+            {
+                var client = new RestClient("http://api.openpolice.ru/");
+                var request = new RestRequest("api/v1/refbook/Copfinder/place=" + town + "&street=" + street, Method.GET);
+                request.Parameters.Clear();
+
+                client.ExecuteAsync(request, response =>
+                {
+                    try
+                    {
+                        JObject o = JObject.Parse(response.Content.ToString());
+                        string policemanslist = o["Persons"]["data"].ToString();
+                        ObservableCollection<PolicemanItem> items = JsonConvert.DeserializeObject<ObservableCollection<PolicemanItem>>(policemanslist);
+
+                        foreach (var item in items)
+                        {
+                            item.FromSearch = true;
+                        };
+
+                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+                        {
+                            this.FindPolicemans = items;
+                            ViewModelLocator.MainStatic.Loading = false;
+                        });
+                    }
+                    catch { };
+                });
+            };
+            bw.RunWorkerAsync();
+        }
+
     }
 }

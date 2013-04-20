@@ -33,6 +33,23 @@ namespace WhereIsPoliceman.ViewModel
             }
         }
 
+        private bool _fromSearch = false;
+        /// <summary>
+        /// загруженный полицейский из поиска?
+        /// </summary>
+        public bool FromSearch
+        {
+            get
+            {
+                return _fromSearch;
+            }
+            set
+            {
+                _fromSearch = value;
+                RaisePropertyChanged("FromSearch");
+            }
+        }
+
         private string _id = "";
         /// <summary>
         /// Идентификатор полицейского

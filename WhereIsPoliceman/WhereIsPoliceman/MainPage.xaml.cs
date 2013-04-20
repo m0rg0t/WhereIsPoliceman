@@ -64,6 +64,14 @@ namespace WhereIsPoliceman
             catch { };
         }
 
+        private void PoliceFind_Tap(object sender, GestureEventArgs e)
+        {
+            try
+            {
+                NavigationService.Navigate(new Uri("/SearchPolicemansPage.xaml", UriKind.Relative));
+            }
+            catch { };
+        }
         
     }
 }

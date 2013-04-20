@@ -1,0 +1,77 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="WhereIsPoliceman.SearchPolicemansPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:telerikData="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Data"
+    xmlns:telerikPrimitives="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Primitives"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d"
+    shell:SystemTray.IsVisible="True">
+	<phone:PhoneApplicationPage.ApplicationBar>
+		<shell:ApplicationBar>
+			<shell:ApplicationBarIconButton x:Name="FindPolicemans"  IconUri="/Assets/AppBar/appbar.feature.search.rest.png" Text="Найти" Click="FindPolicemans_Click"/>
+		</shell:ApplicationBar>
+	</phone:PhoneApplicationPage.ApplicationBar>
+
+    <!--LayoutRoot представляет корневую сетку, где размещается все содержимое страницы-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--TitlePanel содержит имя приложения и заголовок страницы-->
+        <StackPanel Grid.Row="0" Margin="12,17,0,28">
+            <TextBlock Text="Где участковый?" Style="{StaticResource PhoneTextNormalStyle}"/>
+            <TextBlock Text="Поиск участковых" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+        </StackPanel>
+
+        <!--ContentPanel – поместите здесь дополнительное содержимое-->
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+            <StackPanel>
+                <TextBlock Text="Город" />
+                <TextBox Text="" Name="City"/>
+                <TextBlock Text="Улица"/>
+                <TextBox Text="" Name="Street"/>
+            
+            <ScrollViewer Height="330">
+                <telerikData:RadJumpList 
+                Margin="0,0,0,0" Width="Auto"                
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                ScrollViewer.VerticalScrollBarVisibility="Disabled"               
+                ScrollViewer.ManipulationMode="System"
+                EmptyContentTemplate="{StaticResource NoDataListTemlate}"
+                x:Name="FindPolicemansList"                                          
+                ItemsSource="{Binding Path=Policemans.FindPolicemans}"
+                DataContext="{Binding Main, Source={StaticResource Locator}}" 
+                HorizontalContentAlignment="Left" HorizontalAlignment="Left" ItemTap="FindPolicemansList_ItemTap">
+                    <telerikData:RadJumpList.ItemTemplate>
+                        <DataTemplate>
+                                <Grid Margin="15,20,0,0" Width="Auto">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="109"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Grid.Column="0" Width="108" Source="{Binding Img}" VerticalAlignment="Center" />
+
+                                    <StackPanel Grid.Column="1" Margin="15,-5,0,0" VerticalAlignment="Top" HorizontalAlignment="Stretch" Width="Auto">
+                                        <TextBlock Text="{Binding Fullname}" TextWrapping="NoWrap" />                                        
+                                        <TextBlock Text="{Binding Position}" TextWrapping="NoWrap" Margin="0,4,0,0" />
+                                    </StackPanel>
+                                </Grid>
+                        </DataTemplate>
+                    </telerikData:RadJumpList.ItemTemplate>
+                </telerikData:RadJumpList>
+            </ScrollViewer>
+            </StackPanel>
+        </Grid>
+    </Grid>
+
+</phone:PhoneApplicationPage>

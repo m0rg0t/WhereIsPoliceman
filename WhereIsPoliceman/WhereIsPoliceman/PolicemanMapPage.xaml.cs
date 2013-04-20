@@ -60,7 +60,6 @@ namespace WhereIsPoliceman
             
 
             ObservableCollection<ARItem> aritems = new ObservableCollection<ARItem>();
-            int i = 0;
             foreach (var item in ViewModelLocator.MainStatic.Policemans.Distance_current_policemans_mapitems)
             {
                 aritems.Add(item);
