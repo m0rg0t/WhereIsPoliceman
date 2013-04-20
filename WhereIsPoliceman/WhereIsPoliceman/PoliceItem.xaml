@@ -22,6 +22,7 @@
 	<phone:PhoneApplicationPage.ApplicationBar>
 		<shell:ApplicationBar>
             <shell:ApplicationBarIconButton IconUri="/Assets/AppBar/ic_ApplicationBar_map.png" Text="Карта" Click="ApplicationBarIconButton_Click" x:Name="MapAppbarButton"/>
+            <shell:ApplicationBarIconButton IconUri="/Assets/AppBar/appbar.edit.rest.png" Text="Отзывы"/>
 		</shell:ApplicationBar>
 	</phone:PhoneApplicationPage.ApplicationBar>
 

@@ -26,6 +26,9 @@ namespace WhereIsPoliceman
 
         public const string ACCESS_TOKEN = "8c466790d505cf90ccf7c8d3558a4c97";
 
+        public const string XParseApplicationId = "";
+        public const string XParseRESTAPIKey = "";
+
         /// <summary>
         /// Конструктор объекта приложения.
         /// </summary>

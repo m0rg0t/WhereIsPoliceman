@@ -1,8 +1,12 @@
 using GalaSoft.MvvmLight;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Device.Location;
+using System.Windows;
 
 
 namespace WhereIsPoliceman.ViewModel
@@ -178,5 +182,63 @@ namespace WhereIsPoliceman.ViewModel
                 };
             }
         }
+
+        private ObservableCollection<ReviewItem> _comments = new ObservableCollection<ReviewItem>();
+        public ObservableCollection<ReviewItem> Comments
+        {
+            get
+            {
+                return _comments;
+            }
+            set
+            {
+                if (_comments != value)
+                {
+                    _comments = value;
+                    RaisePropertyChanged("Comments");
+                };
+            }
+        }
+
+        public void LoadPolicemanReviews(string policeman_id = "")
+        {
+            try
+            {
+                ViewModelLocator.MainStatic.Loading = true;
+                var bw = new BackgroundWorker();
+                bw.DoWork += delegate
+                {
+
+                    var clientuser = new RestClient("https://api.parse.com");
+                    var requestuser = new RestRequest("1/classes/PolicemanReview", Method.GET);
+
+                    requestuser.Parameters.Clear();
+                    requestuser.AddParameter("where", "{\"policeman_id\":\"" + policeman_id + "\"}");
+                    requestuser.AddHeader("X-Parse-Application-Id", App.XParseApplicationId);
+                    requestuser.AddHeader("X-Parse-REST-API-Key", App.XParseRESTAPIKey);
+
+                    clientuser.ExecuteAsync(requestuser, responseuser =>
+                    {
+                        try
+                        {
+                            ObservableCollection<ReviewItem> items = JsonConvert.DeserializeObject<ObservableCollection<ReviewItem>>(responseuser.Content.ToString());
+                            Deployment.Current.Dispatcher.BeginInvoke(() =>
+                            {
+                                Comments = items;
+                                ViewModelLocator.MainStatic.Loading = false;
+                            });
+                        }
+                        catch { };
+                    });
+                };
+                bw.RunWorkerAsync();
+            }
+            catch {
+                ViewModelLocator.MainStatic.Loading = false;
+            };
+        }
+
+
+
     }
 }
