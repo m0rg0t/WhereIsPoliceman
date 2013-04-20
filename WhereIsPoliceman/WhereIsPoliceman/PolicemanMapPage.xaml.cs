@@ -61,13 +61,9 @@ namespace WhereIsPoliceman
 
             ObservableCollection<ARItem> aritems = new ObservableCollection<ARItem>();
             int i = 0;
-            foreach (var item in ViewModelLocator.MainStatic.Policemans.Current_policemans_mapitems)
+            foreach (var item in ViewModelLocator.MainStatic.Policemans.Distance_current_policemans_mapitems)
             {
-                if (i < 6)
-                {
-                    aritems.Add(item);
-                };
-                i++;
+                aritems.Add(item);
             };
             //aritems = new ObservableCollection<ARItem>();
             PolicemanMapItem item1 = new PolicemanMapItem()
@@ -81,7 +77,7 @@ namespace WhereIsPoliceman
             aritems.Add(item1);
             ARDisplay.ARItems = aritems;
             //ARDisplay.Visibility = Visibility.Collapsed;
-            //GoFixed();        
+            //GoFixed();       
             ARDisplay.StartServices();
 
             base.OnNavigatedTo(e);
@@ -91,7 +87,7 @@ namespace WhereIsPoliceman
         {
             GeoCoordinate currentLocation = new GeoCoordinate(ViewModelLocator.MainStatic.Latitued, ViewModelLocator.MainStatic.Longitude);
             map1.Children.Add(new Pushpin() { Location = currentLocation, Content = "Я" });
-            foreach (var item in ViewModelLocator.MainStatic.Policemans.Current_policemans_mapitems)
+            foreach (var item in ViewModelLocator.MainStatic.Policemans.Distance_current_policemans_mapitems)
             {                
                 map1.Children.Add(new Pushpin() { Location = item.GeoLocation, Content = item.Content.ToString() });
             };

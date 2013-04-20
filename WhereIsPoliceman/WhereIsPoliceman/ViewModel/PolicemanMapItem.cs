@@ -4,6 +4,7 @@ using Newtonsoft.Json.Linq;
 using RestSharp;
 using System;
 using System.Collections.Generic;
+using System.Device.Location;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
@@ -50,6 +51,37 @@ namespace WhereIsPoliceman.ViewModel
                     this.GetLatLon();
                 };                
             }
+        }
+
+        public double Distance
+        {
+            get
+            {
+                double distanceInMeter;
+
+                double curLat = 0.0;
+                double curLon = 0.0;
+
+                try {
+                    curLat = Convert.ToDouble(ViewModelLocator.MainStatic.Latitued.ToString());
+                } catch {};
+                try
+                {
+                    curLon = Convert.ToDouble(ViewModelLocator.MainStatic.Longitude.ToString());
+                }
+                catch { };
+
+                GeoCoordinate currentLocation = new GeoCoordinate(curLat, curLon);
+                GeoCoordinate clientLocation = new GeoCoordinate(Lat, Lon);
+                distanceInMeter = currentLocation.GetDistanceTo(clientLocation);
+                if (distanceInMeter == 0)
+                {
+                    distanceInMeter = 100500;
+                };
+                return distanceInMeter;
+            }
+
+            private set { }
         }
 
         public void GetLatLon()

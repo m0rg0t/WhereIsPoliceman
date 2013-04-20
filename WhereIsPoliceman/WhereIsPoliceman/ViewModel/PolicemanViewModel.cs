@@ -43,6 +43,21 @@ namespace WhereIsPoliceman.ViewModel
             {
                 _current_policemans_mapitems = value;
                 RaisePropertyChanged("Current_policemans_mapitems");
+                RaisePropertyChanged("Distance_current_policemans_mapitems");
+            }
+        }
+
+        public List<PolicemanMapItem> Distance_current_policemans_mapitems
+        {
+            private set
+            {
+            }
+            get
+            {
+                return (from item in Current_policemans_mapitems
+                        where ((item.Lat!=0.0) && (item.Lon!=0.0))
+                        orderby item.Distance ascending
+                        select item).Take(15).ToList(); 
             }
         }
 
