@@ -45,7 +45,7 @@
                         <telerikPrimitives:RadHubTile Title="Поиск МВД" ImageSource="/Images/search2.png"/>
                         <telerikPrimitives:RadHubTile Title="Поиск участковых" ImageSource="/Images/search2.png" Name="PoliceFind" Tap="PoliceFind_Tap"/>
                         <telerikPrimitives:RadHubTile Title="Памятка" ImageSource="/Images/help2.png" Tap="RadHubTile_Tap"/>
-                        <telerikPrimitives:RadHubTile Title="Вход" ImageSource="/Images/facebook2.png"/>
+                        <telerikPrimitives:RadHubTile Title="Вход" ImageSource="/Images/facebook2.png" Name="FacebookLogin" Tap="FacebookLogin_Tap"/>
                     </telerikPrimitives:RadWrapPanel>
                 </Grid>
             </controls:PanoramaItem>

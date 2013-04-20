@@ -132,6 +132,12 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\InstallControl.xaml.cs">
+      <DependentUpon>InstallControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FacebookPages\FacebookLoginPage.xaml.cs">
+      <DependentUpon>FacebookLoginPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="HelpPolicemanPage.xaml.cs">
       <DependentUpon>HelpPolicemanPage.xaml</DependentUpon>
     </Compile>
@@ -171,6 +177,13 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Page Include="Controls\InstallControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FacebookPages\FacebookLoginPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="HelpPolicemanPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -226,6 +239,7 @@
     <Content Include="Images\ic_ApplicationBar_map.png" />
     <Content Include="Images\map1.png" />
     <Content Include="Images\map2.png" />
+    <Content Include="Images\police_badge.png" />
     <Content Include="Images\search2.png" />
     <Content Include="Libs\GART.dll" />
     <Content Include="SplashScreenImage.jpg" />
@@ -238,9 +252,7 @@
       <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="FacebookPages\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

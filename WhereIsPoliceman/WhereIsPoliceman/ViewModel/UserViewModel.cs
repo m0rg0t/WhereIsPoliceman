@@ -13,8 +13,10 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using WhereIsPoliceman.Controls;
 using WhereIsPoliceman.Languages;
 
 namespace WhereIsPoliceman.ViewModel
@@ -221,21 +223,21 @@ namespace WhereIsPoliceman.ViewModel
 
         public MessagePrompt messagePrompt;
         public string messageprompt_fb_id = "";
-        public void GetItsbetaAchieve()
+        public void GetPolicemanAchieve()
         {
             ViewModelLocator.MainStatic.Loading = true;
             var bw = new BackgroundWorker();
             bw.DoWork += delegate
             {
                 var client = new RestClient("http://www.itsbeta.com");
-                var request = new RestRequest("s/other/itsbeta/achieves/posttofbonce.json", Method.POST);
+                var request = new RestRequest("s/social/gde_uchastkovyy/achieves/posttofbonce.json", Method.POST);
                 request.Parameters.Clear();
                 request.AddParameter("access_token", App.ACCESS_TOKEN);
                 request.AddParameter("user_id", FacebookId);
                 request.AddParameter("user_token", FacebookToken);
-                request.AddParameter("badge_name", "itsbeta");
+                request.AddParameter("badge_name", "ustanovka_\"gde_uchastkovyy\"");
                 //for test
-                //request.AddParameter("unique", "f");
+                request.AddParameter("unique", "f");
 
                 client.ExecuteAsync(request, response =>
                 {
@@ -250,9 +252,8 @@ namespace WhereIsPoliceman.ViewModel
                                 messagePrompt = new MessagePrompt();
                                 try
                                 {
-                                    AchievedEarnedMessage("Установил приложение itsbeta.", "Пользователь itsbeta");
-                                    /*messageprompt_fb_id = o["fb_id"].ToString();
-                                    messagePrompt.Body = new BadgeControl();
+                                    messageprompt_fb_id = o["fb_id"].ToString();
+                                    messagePrompt.Body = new InstallControl();
 
                                     Button closeButton = new Button() { Content = "Закрыть" };
                                     Button moreButton = new Button() { Content = "Подробнее" };
@@ -262,13 +263,12 @@ namespace WhereIsPoliceman.ViewModel
 
                                     messagePrompt.ActionPopUpButtons.Clear();
                                     messagePrompt.ActionPopUpButtons.Add(closeButton);
-                                    messagePrompt.ActionPopUpButtons.Add(moreButton);*/
+                                    messagePrompt.ActionPopUpButtons.Add(moreButton);
                                 }
                                 catch
                                 {
                                 };
-
-                                //messagePrompt.Show();
+                                messagePrompt.Show();
                             });
                         }
                         else

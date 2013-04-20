@@ -72,6 +72,15 @@ namespace WhereIsPoliceman
             }
             catch { };
         }
+
+        private void FacebookLogin_Tap(object sender, GestureEventArgs e)
+        {
+            try
+            {
+                NavigationService.Navigate(new Uri("/FacebookPages/FacebookLoginPage.xaml", UriKind.Relative));
+            }
+            catch { };
+        }
         
     }
 }

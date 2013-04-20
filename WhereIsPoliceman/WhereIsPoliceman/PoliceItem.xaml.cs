@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using WhereIsPoliceman.ViewModel;
 
 namespace WhereIsPoliceman
 {
@@ -24,6 +25,18 @@ namespace WhereIsPoliceman
                 NavigationService.Navigate(new Uri("/CurrentPolicemanMapPage.xaml", UriKind.Relative));
             }
             catch { };
+        }
+
+        private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (ViewModelLocator.MainStatic.CurrentPoliceman.FromSearch == true)
+            {
+                MapAppbarButton.IsEnabled = false;
+            }
+            else
+            {
+                MapAppbarButton.IsEnabled = true;
+            };
         }
     }
 }

@@ -18,10 +18,10 @@
     shell:SystemTray.Opacity="0"
     shell:SystemTray.BackgroundColor="White"
     shell:SystemTray.ForegroundColor="Black"
-    DataContext="{Binding Main, Source={StaticResource Locator}}">
+    DataContext="{Binding Main, Source={StaticResource Locator}}" Loaded="PhoneApplicationPage_Loaded">
 	<phone:PhoneApplicationPage.ApplicationBar>
 		<shell:ApplicationBar>
-            <shell:ApplicationBarIconButton IconUri="/Assets/AppBar/ic_ApplicationBar_map.png" Text="Карта" Click="ApplicationBarIconButton_Click"/>
+            <shell:ApplicationBarIconButton IconUri="/Assets/AppBar/ic_ApplicationBar_map.png" Text="Карта" Click="ApplicationBarIconButton_Click" x:Name="MapAppbarButton"/>
 		</shell:ApplicationBar>
 	</phone:PhoneApplicationPage.ApplicationBar>
 
