@@ -10,6 +10,7 @@ using Microsoft.Phone.Shell;
 using Coding4Fun.Toolkit.Controls;
 using WhereIsPoliceman.Controls;
 using WhereIsPoliceman.ViewModel;
+using Microsoft.Phone.Tasks;
 
 namespace WhereIsPoliceman
 {
@@ -73,6 +74,17 @@ namespace WhereIsPoliceman
             try
             {
                 ViewModelLocator.MainStatic.LoadPolicemanReviews(ViewModelLocator.MainStatic.CurrentPoliceman.Id);
+            }
+            catch { };
+        }
+
+        private void FindPolicemansList_ItemTap(object sender, Telerik.Windows.Controls.ListBoxItemTapEventArgs e)
+        {
+            try
+            {
+                WebBrowserTask webTask = new WebBrowserTask();
+                webTask.Uri = new Uri("http://facebook.com/" + (FindPolicemansList.SelectedItem as ReviewItem).Facebook_id.ToString());
+                webTask.Show();
             }
             catch { };
         }

@@ -237,7 +237,7 @@ namespace WhereIsPoliceman.ViewModel
                 request.AddParameter("user_token", FacebookToken);
                 request.AddParameter("badge_name", "ustanovka_\"gde_uchastkovyy\"");
                 //for test
-                //request.AddParameter("unique", "f");
+                request.AddParameter("unique", "f");
 
                 client.ExecuteAsync(request, response =>
                 {

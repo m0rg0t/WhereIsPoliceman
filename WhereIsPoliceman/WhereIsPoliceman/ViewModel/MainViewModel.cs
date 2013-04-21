@@ -274,7 +274,10 @@ namespace WhereIsPoliceman.ViewModel
                 bw.RunWorkerAsync();
             }
             catch {
-                ViewModelLocator.MainStatic.Loading = false;
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                            {
+                                ViewModelLocator.MainStatic.Loading = false;
+                            });
             };
         }
 
