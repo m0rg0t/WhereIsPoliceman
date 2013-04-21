@@ -18,6 +18,7 @@ using WhereIsPoliceman.ViewModel;
 using Windows.UI.ApplicationSettings;
 using WhereIsPolicemanWin8.Controls;
 using Callisto.Controls;
+using System.Collections.ObjectModel;
 
 // Шаблон элемента страницы сведений об элементе задокументирован по адресу http://go.microsoft.com/fwlink/?LinkId=234232
 
@@ -46,17 +47,21 @@ namespace WhereIsPolicemanWin8
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
             // Разрешение сохраненному состоянию страницы переопределять первоначально отображаемый элемент
-            if (pageState != null && pageState.ContainsKey("SelectedItem"))
+            try
             {
-                navigationParameter = pageState["SelectedItem"];
+                if (pageState != null && pageState.ContainsKey("SelectedItem"))
+                {
+                    navigationParameter = pageState["SelectedItem"];
+                }
+
+                // TODO: Создание соответствующей модели данных для области проблемы, чтобы заменить пример данных
+                var item = ViewModelLocator.MainStatic.Policemans.Current_policemans.FirstOrDefault(c => c.Id == (String)navigationParameter);
+                this.DefaultViewModel["Group"] = "Участковые";
+                this.DefaultViewModel["Items"] = ViewModelLocator.MainStatic.Policemans.Current_policemans;
+
+                this.flipView.SelectedItem = item;
             }
-
-            // TODO: Создание соответствующей модели данных для области проблемы, чтобы заменить пример данных
-            var item = ViewModelLocator.MainStatic.Policemans.Current_policemans.FirstOrDefault(c=>c.Id==(String)navigationParameter);
-            this.DefaultViewModel["Group"] = "Участковые";
-            this.DefaultViewModel["Items"] = ViewModelLocator.MainStatic.Policemans.Current_policemans;
-
-            this.flipView.SelectedItem = item;
+            catch { };
         }
 
         /// <summary>
@@ -67,14 +72,23 @@ namespace WhereIsPolicemanWin8
         /// <param name="pageState">Пустой словарь, заполняемый сериализуемым состоянием.</param>
         protected override void SaveState(Dictionary<String, Object> pageState)
         {
-            var selectedItem = (PolicemanItem)this.flipView.SelectedItem;
-            pageState["SelectedItem"] = selectedItem.Id;
+            try
+            {
+                var selectedItem = (PolicemanItem)this.flipView.SelectedItem;
+                pageState["SelectedItem"] = selectedItem.Id;
+            }
+            catch { };
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             try
             {
+                if (ViewModelLocator.MainStatic.Policemans.Current_policemans.FirstOrDefault(c => c.Id == ViewModelLocator.MainStatic.CurrentPoliceman.Id)==null) {
+                    ObservableCollection<PolicemanItem> items = new ObservableCollection<PolicemanItem>();
+                    items.Add(ViewModelLocator.MainStatic.CurrentPoliceman);
+                    this.flipView.ItemsSource = items;
+                };
                 this.flipView.SelectedItem = ViewModelLocator.MainStatic.CurrentPoliceman;
             }
             catch {

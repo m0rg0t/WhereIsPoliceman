@@ -55,10 +55,26 @@ namespace WhereIsPoliceman.ViewModel
             return await response.Content.ReadAsStringAsync();
         }
 
+        public async Task<ObservableCollection<PolicemanItem>> LoadSearchPolicemans(string query = "")
+        {
+            ObservableCollection<PolicemanItem> items = new ObservableCollection<PolicemanItem>();
+            ViewModelLocator.MainStatic.Loading = true;
+            var responseText = await MakeWebRequest("http://api.openpolice.ru/api/v1/db/Persons/page=1&perpage=35&surname=" + query);
+            try
+            {
+                JObject o = JObject.Parse(responseText.ToString());
+                string policemanslist = o["Persons"]["data"].ToString();
+                items = JsonConvert.DeserializeObject<ObservableCollection<PolicemanItem>>(policemanslist);
+            }
+            catch { };
+            ViewModelLocator.MainStatic.Loading = false;
+            return items;
+        }
+
         public async void LoadCurrentPolicemans()
         {
             ViewModelLocator.MainStatic.Loading = true;
-            var responseText = await MakeWebRequest("http://api.openpolice.ru/api/v1/refbook/Copfinder/place=" + ViewModelLocator.MainStatic.Town + "&street="+ViewModelLocator.MainStatic.Street);
+            var responseText = await MakeWebRequest("http://api.openpolice.ru/api/v1/refbook/Copfinder/place=" + ViewModelLocator.MainStatic.Town + "&street=" + ViewModelLocator.MainStatic.Street);
                 /*var client = new RestClient("http://api.openpolice.ru/");
                 var request = new RestRequest("api/v1/refbook/Copfinder/place=" + ViewModelLocator.MainStatic.Town + "&street=" + ViewModelLocator.MainStatic.Street, Method.GET);
                 request.Parameters.Clear();*/
