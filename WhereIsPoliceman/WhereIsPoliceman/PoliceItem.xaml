@@ -23,6 +23,7 @@
 		<shell:ApplicationBar>
             <shell:ApplicationBarIconButton IconUri="/Assets/AppBar/ic_ApplicationBar_map.png" Text="Карта" Click="ApplicationBarIconButton_Click" x:Name="MapAppbarButton"/>
             <shell:ApplicationBarIconButton x:Name="ReviewAppbarButton" IconUri="/Assets/AppBar/appbar.edit.rest.png" Text="Отзывы" Click="ReviewAppbarButton_Click"/>
+            <shell:ApplicationBarIconButton x:Name="ShareButton" IconUri="/Assets/AppBar/appbar.share.rest.png" Text="Поделиться" Click="ShareButton_Click"/>
 		</shell:ApplicationBar>
 	</phone:PhoneApplicationPage.ApplicationBar>
 

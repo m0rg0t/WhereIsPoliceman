@@ -8,6 +8,7 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using WhereIsPoliceman.ViewModel;
+using Microsoft.Phone.Tasks;
 
 namespace WhereIsPoliceman
 {
@@ -48,6 +49,19 @@ namespace WhereIsPoliceman
             try
             {
                 NavigationService.Navigate(new Uri("/PoliceReviewsPage.xaml", UriKind.Relative));
+            }
+            catch { };
+        }
+
+        private void ShareButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ShareLinkTask shareLinkTask = new ShareLinkTask();
+                shareLinkTask.Title = ViewModelLocator.MainStatic.CurrentPoliceman.Fullname;
+                shareLinkTask.LinkUri = new Uri(ViewModelLocator.MainStatic.CurrentPoliceman.Url, UriKind.Absolute);
+                shareLinkTask.Message = ViewModelLocator.MainStatic.CurrentPoliceman.Position;
+                shareLinkTask.Show();
             }
             catch { };
         }
