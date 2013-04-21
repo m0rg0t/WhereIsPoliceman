@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using BugSense;
 
 // Документацию по шаблону "Приложение таблицы" см. по адресу http://go.microsoft.com/fwlink/?LinkId=234226
 
@@ -33,6 +34,8 @@ namespace WhereIsPolicemanWin8
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+
+            BugSenseHandler.Instance.Init(this, "w8c40d9f");
         }
 
         /// <summary>
