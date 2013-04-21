@@ -178,6 +178,9 @@
     <Compile Include="CurrentPolicemanMapPage.xaml.cs">
       <DependentUpon>CurrentPolicemanMapPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SearchPolicemanSurnamePage.xaml.cs">
+      <DependentUpon>SearchPolicemanSurnamePage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -226,6 +229,10 @@
     <Page Include="SearchPolicemansPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SearchPolicemanSurnamePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>

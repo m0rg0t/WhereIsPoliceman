@@ -83,6 +83,17 @@ namespace WhereIsPoliceman
             catch { };
         }
 
+        private void PoliceSurnameFind_Tap(object sender, GestureEventArgs e)
+        {
+            try
+            {
+                NavigationService.Navigate(new Uri("/SearchPolicemanSurnamePage.xaml", UriKind.Relative));
+            }
+            catch { };
+        }
+
+        
+
         private void RateAppMenuItem_Click(object sender, EventArgs e)
         {
             var marketplaceReviewTask = new MarketplaceReviewTask();

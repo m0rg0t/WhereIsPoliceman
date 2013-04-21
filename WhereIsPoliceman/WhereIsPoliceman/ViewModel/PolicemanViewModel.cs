@@ -137,6 +137,41 @@ namespace WhereIsPoliceman.ViewModel
             bw.RunWorkerAsync();
         }
 
+        public void LoadFindSurnamePolicemans(string surname = "")
+        {
+            ViewModelLocator.MainStatic.Loading = true;
+            var bw = new BackgroundWorker();
+            bw.DoWork += delegate
+            {
+                var client = new RestClient("http://api.openpolice.ru/");
+                var request = new RestRequest("api/v1/db/Persons/page=1&perpage=25&surname=" + surname, Method.GET);
+                request.Parameters.Clear();
+
+                client.ExecuteAsync(request, response =>
+                {
+                    try
+                    {
+                        JObject o = JObject.Parse(response.Content.ToString());
+                        string policemanslist = o["Persons"]["data"].ToString();
+                        ObservableCollection<PolicemanItem> items = JsonConvert.DeserializeObject<ObservableCollection<PolicemanItem>>(policemanslist);
+
+                        foreach (var item in items)
+                        {
+                            item.FromSearch = true;
+                        };
+
+                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+                        {
+                            this.FindPolicemans = items;
+                            ViewModelLocator.MainStatic.Loading = false;
+                        });
+                    }
+                    catch { };
+                });
+            };
+            bw.RunWorkerAsync();
+        }
+
         public void LoadFindPolicemans(string town = "", string street = "")
         {
             ViewModelLocator.MainStatic.Loading = true;

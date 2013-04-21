@@ -36,7 +36,7 @@
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <controls:Panorama Margin="0">
             <controls:Panorama.Title>
-                <TextBlock Text="Где участковый?" Margin="15,130,0,0" FontSize="90"/>
+                <TextBlock Text="Где участковый?" Margin="15,90,0,0" FontSize="90"/>
             </controls:Panorama.Title>
 
             <controls:PanoramaItem>
@@ -50,7 +50,8 @@
                         <telerikPrimitives:RadHubTile Title="Карта участковых" ImageSource="/Images/map2.png" Name="PolicemansMap" Tap="PolicemansMap_Tap"/>
                         <!--<telerikPrimitives:RadHubTile Title="Карта МВД" ImageSource="/Images/map2.png" Name="MVDMap" Tap="MVDMap_Tap"/>
                         <telerikPrimitives:RadHubTile Title="Поиск МВД" ImageSource="/Images/search2.png"/>-->
-                        <telerikPrimitives:RadHubTile Title="Поиск участковых" ImageSource="/Images/search2.png" Name="PoliceFind" Tap="PoliceFind_Tap"/>
+                        <telerikPrimitives:RadHubTile Title="По месту" ImageSource="/Images/search2.png" Name="PoliceFind" Tap="PoliceFind_Tap"/>
+                        <telerikPrimitives:RadHubTile Title="По фамилии" ImageSource="/Images/search2.png" Name="PoliceFindSurname" Tap="PoliceSurnameFind_Tap"/>
                         <telerikPrimitives:RadHubTile Title="Памятка" ImageSource="/Images/help2.png" Tap="RadHubTile_Tap"/>
                         <telerikPrimitives:RadHubTile Title="Вход" ImageSource="/Images/facebook2.png" Name="FacebookLogin" Tap="FacebookLogin_Tap"/>
                     </telerikPrimitives:RadWrapPanel>
