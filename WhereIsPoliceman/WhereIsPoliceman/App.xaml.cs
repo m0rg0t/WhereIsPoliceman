@@ -69,12 +69,14 @@ namespace WhereIsPoliceman
         // Этот код не будет выполняться при повторной активации приложения
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
+            FlurryWP7SDK.Api.StartSession("G23B7DTXRZBXDHMHX4J4");
         }
 
         // Код для выполнения при активации приложения (переводится в основной режим)
         // Этот код не будет выполняться при первом запуске приложения
         private void Application_Activated(object sender, ActivatedEventArgs e)
         {
+            FlurryWP7SDK.Api.StartSession("G23B7DTXRZBXDHMHX4J4");
         }
 
         // Код для выполнения при деактивации приложения (отправляется в фоновый режим)
