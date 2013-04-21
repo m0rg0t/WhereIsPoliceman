@@ -13,6 +13,7 @@ using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using WhereIsPoliceman.ViewModel;
+using BugSense;
 
 namespace WhereIsPoliceman
 {
@@ -35,7 +36,9 @@ namespace WhereIsPoliceman
         public App()
         {
             // Global handler for uncaught exceptions. 
-            UnhandledException += Application_UnhandledException;
+            //UnhandledException += Application_UnhandledException;
+            BugSenseHandler.Instance.Init(this, "82bd071c");
+            BugSenseHandler.Instance.UnhandledException += Application_UnhandledException; 
 
             // Standard Silverlight initialization
             InitializeComponent();
