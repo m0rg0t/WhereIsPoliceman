@@ -71,12 +71,17 @@ namespace WhereIsPoliceman.ViewModel
 
                         foreach (var item in items)
                         {
-                            foreach (var adress in item.Terr) {
+                            if (item.Fullname == "")
+                            {
+                                //items.Remove(item);
+                            };
+                            /*foreach (var adress in item.Terr) {
                                 string housenumbers = adress.Split(':')[1].Replace(" ", "").Replace(".", "").Trim();
                                 string street = adress.Split(':')[0].Replace("дома","").Trim();
-                            };
+                            };*/
                         };
                             Current_policemans = items;
+                            RaisePropertyChanged("Current_policemans");
                             ViewModelLocator.MainStatic.Loading = false;
                     }
                     catch { };

@@ -79,7 +79,7 @@
                                         </InlineUIContainer>
                                     </Paragraph>
                                     <Paragraph>
-                                        <Run FontWeight="SemiLight" Text="{Binding Terr}"/>
+                                        <Run FontWeight="SemiLight" Text="{Binding TerrText}"/>
                                     </Paragraph>
                                 </RichTextBlock>
 

@@ -106,6 +106,7 @@ namespace WhereIsPolicemanWin8.ViewModel
                 if (_street != value)
                 {
                     _street = value;
+                    ViewModelLocator.MainStatic.Policemans.LoadCurrentPolicemans();
                     RaisePropertyChanged("Street");
                 };
             }

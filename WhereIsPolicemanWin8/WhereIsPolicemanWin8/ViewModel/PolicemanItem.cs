@@ -94,7 +94,13 @@ namespace WhereIsPoliceman.ViewModel
             {
                 if (this._image == null && this.Img != null)
                 {
-                    this._image = new BitmapImage(new Uri(this.Img));
+                    try
+                    {
+                        this._image = new BitmapImage(new Uri(this.Img));
+                    }
+                    catch {
+                        this._image = new BitmapImage();
+                    };
                 }
                 return this._image;
             }
@@ -222,6 +228,24 @@ namespace WhereIsPoliceman.ViewModel
             {
                 _terr = value;
                 RaisePropertyChanged("Terr");
+                RaisePropertyChanged("TerrText");
+            }
+        }
+
+        public string TerrText
+        {
+            private set
+            {
+            }
+            get
+            {
+                string outstr = "";
+                foreach (var item in Terr) {
+                    outstr += item.ToString() + "\r\n";
+                };
+                return outstr;
+                /*foreach (var item in) {
+                };*/
             }
         }
 
