@@ -74,10 +74,13 @@ namespace WhereIsPolicemanWin8
         /// <param name="e">Данные о событии, описывающие нажатый элемент.</param>
         void ItemView_ItemClick(object sender, ItemClickEventArgs e)
         {
+            ViewModelLocator.MainStatic.CurrentPoliceman = (PolicemanItem)e.ClickedItem;
             // Переход к соответствующей странице назначения и настройка новой страницы
             // путем передачи необходимой информации в виде параметра навигации
             var itemId = ((PolicemanItem)e.ClickedItem).Id;
             this.Frame.Navigate(typeof(ItemDetailPage), itemId);
+
+
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

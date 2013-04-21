@@ -46,7 +46,8 @@
             AutomationProperties.Name="Item Details"
             TabIndex="1"
             Grid.RowSpan="2"
-            ItemsSource="{Binding Source={StaticResource itemsViewSource}}">
+            ItemsSource="{Binding Path=Policemans.Current_policemans}"
+            DataContext="{Binding Main, Source={StaticResource Locator}}">
 
             <FlipView.ItemContainerStyle>
                 <Style TargetType="FlipViewItem">
@@ -66,7 +67,7 @@
 
                             <!-- Содержимое может занимать столько столбцов, сколько потребуется -->
                             <common:RichTextColumns x:Name="richTextColumns" Margin="117,0,117,47">
-                                <RichTextBlock x:Name="richTextBlock" Width="560" Style="{StaticResource ItemRichTextStyle}" IsTextSelectionEnabled="False">
+                                <RichTextBlock x:Name="richTextBlock" Width="460" Style="{StaticResource ItemRichTextStyle}" IsTextSelectionEnabled="False">
                                     <Paragraph>
                                         <Run FontSize="26.667" FontWeight="Light" Text="{Binding Fullname}"/>
                                         <LineBreak/>

@@ -73,6 +73,12 @@ namespace WhereIsPolicemanWin8
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            try
+            {
+                this.flipView.SelectedItem = ViewModelLocator.MainStatic.CurrentPoliceman;
+            }
+            catch {
+            };
             SettingsPane.GetForCurrentView().CommandsRequested += Settings_CommandsRequested;
         }
 

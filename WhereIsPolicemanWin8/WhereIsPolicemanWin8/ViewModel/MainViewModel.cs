@@ -62,19 +62,6 @@ namespace WhereIsPolicemanWin8.ViewModel
             }
         }
 
-        private PolicemanItem _currentPoliceman = new PolicemanItem();
-        public PolicemanItem CurrentPoliceman
-        {
-            get
-            {
-                return _currentPoliceman;
-            }
-            set
-            {
-                _currentPoliceman = value;
-                RaisePropertyChanged("CurrentPoliceman");
-            }
-        }
 
         private string _town = "Череповец";
         public string Town
@@ -90,6 +77,7 @@ namespace WhereIsPolicemanWin8.ViewModel
                     _town = value;
                     ViewModelLocator.MainStatic.Policemans.LoadCurrentPolicemans();
                     RaisePropertyChanged("Town");
+                    RaisePropertyChanged("TownAndStreet");
                 };
             }
         }
@@ -108,7 +96,47 @@ namespace WhereIsPolicemanWin8.ViewModel
                     _street = value;
                     ViewModelLocator.MainStatic.Policemans.LoadCurrentPolicemans();
                     RaisePropertyChanged("Street");
+                    RaisePropertyChanged("TownAndStreet");
                 };
+            }
+        }
+
+        private PolicemanItem _currentPoliceman = new PolicemanItem();
+        public PolicemanItem CurrentPoliceman
+        {
+            get
+            {
+                return _currentPoliceman;
+            }
+            set
+            {
+                if (_currentPoliceman != value)
+                {
+                    _currentPoliceman = value;
+                    RaisePropertyChanged("CurrentPoliceman");
+                };
+            }
+        }
+
+        public string TownAndStreet
+        {
+            get {
+                if ((Town == "") && (Street==""))
+                {
+                    return "(не указано)";
+                };
+                if ((Town == "") && (Street != ""))
+                {
+                    return Street;
+                };
+                if ((Town != "") && (Street == ""))
+                {
+                    return Town;
+                };
+                return "(" + Town + ", " + Street + ")";
+            }
+            private set
+            {
             }
         }
     }

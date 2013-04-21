@@ -10,11 +10,15 @@
     d:DesignWidth="400">
     
     <Grid>
-        <StackPanel>
-            <TextBlock Text="Город"/>
-            <TextBox Text="{Binding Town, Mode=TwoWay}" Name="Town" DataContext="{Binding Main, Source={StaticResource Locator}}" />
-            <TextBlock Text="Улица"/>
-            <TextBox Text="{Binding Street, Mode=TwoWay}" Name="Street" DataContext="{Binding Main, Source={StaticResource Locator}}" />
+        <StackPanel HorizontalAlignment="Stretch">
+            <TextBlock Text="Город" Style="{StaticResource BodyTextStyle}" Margin="0,10,0,0"/>
+            <TextBox Text="{Binding Town, Mode=TwoWay}" Name="Town" 
+                     BorderBrush="Black" HorizontalAlignment="Stretch"
+                     DataContext="{Binding Main, Source={StaticResource Locator}}" />
+            <TextBlock Text="Улица" Style="{StaticResource BodyTextStyle}" Margin="0,10,0,0"/>
+            <TextBox Text="{Binding Street, Mode=TwoWay}" 
+                     BorderBrush="Black" HorizontalAlignment="Stretch"
+                     Name="Street" DataContext="{Binding Main, Source={StaticResource Locator}}" />
         </StackPanel>
     </Grid>
 </UserControl>

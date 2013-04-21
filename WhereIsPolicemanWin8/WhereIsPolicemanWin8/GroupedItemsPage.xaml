@@ -66,7 +66,7 @@
                                 <Button
                                     AutomationProperties.Name="Участковые"
                                     Click="Header_Click"
-                                    Style="{StaticResource TextPrimaryButtonStyle}" >
+                                    Style="{StaticResource TextPrimaryButtonStyle}">
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="{Binding Title}" Margin="3,-7,10,10" Style="{StaticResource GroupHeaderTextStyle}" />
                                         <TextBlock Text="{StaticResource ChevronGlyph}" FontFamily="Segoe UI Symbol" Margin="0,-7,0,10" Style="{StaticResource GroupHeaderTextStyle}"/>
@@ -131,7 +131,10 @@
             <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
             <StackPanel Orientation="Horizontal" Grid.Column="1">
                 <TextBlock x:Name="pageTitle" Text="{StaticResource AppName}" Grid.Column="1" IsHitTestVisible="false" Style="{StaticResource PageHeaderTextStyle}"/>
-                <TextBox Text="{Binding Town, Mode=TwoWay}" Name="Town" DataContext="{Binding Main, Source={StaticResource Locator}}" Height="60" Margin="0,10,0,0" FontSize="36" Width="350"/>
+                <TextBlock x:Name="Town" Text="{Binding TownAndStreet}" 
+                           Grid.Column="1" IsHitTestVisible="false" 
+                           Style="{StaticResource PageHeaderTextStyle}"/>
+                <!--<TextBox Text="{Binding Town, Mode=TwoWay}" Name="Town" DataContext="{Binding Main, Source={StaticResource Locator}}" Height="60" Margin="0,10,0,0" FontSize="36" Width="350"/>-->
             </StackPanel>
         </Grid>
 
