@@ -13,6 +13,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using WhereIsPolicemanWin8.ViewModel;
+using WhereIsPoliceman.ViewModel;
 
 // Шаблон элемента страницы сведений об элементе задокументирован по адресу http://go.microsoft.com/fwlink/?LinkId=234232
 
@@ -47,9 +49,10 @@ namespace WhereIsPolicemanWin8
             }
 
             // TODO: Создание соответствующей модели данных для области проблемы, чтобы заменить пример данных
-            var item = SampleDataSource.GetItem((String)navigationParameter);
-            this.DefaultViewModel["Group"] = item.Group;
-            this.DefaultViewModel["Items"] = item.Group.Items;
+            var item = ViewModelLocator.MainStatic.Policemans.Current_policemans.FirstOrDefault(c=>c.Id==(String)navigationParameter);
+            this.DefaultViewModel["Group"] = "Участковые";
+            this.DefaultViewModel["Items"] = ViewModelLocator.MainStatic.Policemans.Current_policemans;
+
             this.flipView.SelectedItem = item;
         }
 
@@ -61,8 +64,8 @@ namespace WhereIsPolicemanWin8
         /// <param name="pageState">Пустой словарь, заполняемый сериализуемым состоянием.</param>
         protected override void SaveState(Dictionary<String, Object> pageState)
         {
-            var selectedItem = (SampleDataItem)this.flipView.SelectedItem;
-            pageState["SelectedItem"] = selectedItem.UniqueId;
+            var selectedItem = (PolicemanItem)this.flipView.SelectedItem;
+            pageState["SelectedItem"] = selectedItem.Id;
         }
     }
 }

@@ -1,4 +1,5 @@
 using GalaSoft.MvvmLight;
+using WhereIsPoliceman.ViewModel;
 
 namespace WhereIsPolicemanWin8.ViewModel
 {
@@ -29,6 +30,85 @@ namespace WhereIsPolicemanWin8.ViewModel
             ////{
             ////    // Code runs "for real"
             ////}
+        }
+
+        private PolicemanViewModel _policemans = new PolicemanViewModel();
+        public PolicemanViewModel Policemans
+        {
+            get
+            {
+                return _policemans;
+            }
+            set
+            {
+                if (_policemans != value)
+                {
+                    _policemans = value;
+                };
+            }
+        }
+
+        private bool _loading = true;
+        public bool Loading
+        {
+            get
+            {
+                return _loading;
+            }
+            set
+            {
+                _loading = value;
+                RaisePropertyChanged("Loading");
+            }
+        }
+
+        private PolicemanItem _currentPoliceman = new PolicemanItem();
+        public PolicemanItem CurrentPoliceman
+        {
+            get
+            {
+                return _currentPoliceman;
+            }
+            set
+            {
+                _currentPoliceman = value;
+                RaisePropertyChanged("CurrentPoliceman");
+            }
+        }
+
+        private string _town = "Череповец";
+        public string Town
+        {
+            get
+            {
+                return _town;
+            }
+            set
+            {
+                if (_town != value)
+                {
+                    _town = value;
+                    ViewModelLocator.MainStatic.Policemans.LoadCurrentPolicemans();
+                    RaisePropertyChanged("Town");
+                };
+            }
+        }
+
+        private string _street = "Социалистическая";
+        public string Street
+        {
+            get
+            {
+                return _street;
+            }
+            set
+            {
+                if (_street != value)
+                {
+                    _street = value;
+                    RaisePropertyChanged("Street");
+                };
+            }
         }
     }
 }

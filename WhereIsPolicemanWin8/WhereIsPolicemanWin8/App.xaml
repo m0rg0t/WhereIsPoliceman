@@ -1,5 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Application x:Class="WhereIsPolicemanWin8.App" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="using:WhereIsPolicemanWin8" xmlns:localData="using:WhereIsPolicemanWin8.Data" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:vm="clr-namespace:WhereIsPolicemanWin8.ViewModel" mc:Ignorable="d">
+<Application x:Class="WhereIsPolicemanWin8.App" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="using:WhereIsPolicemanWin8" 
+             xmlns:localData="using:WhereIsPolicemanWin8.Data" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:WhereIsPolicemanWin8.ViewModel" mc:Ignorable="d">
   <Application.Resources>
     <ResourceDictionary>
       <ResourceDictionary.MergedDictionaries>
@@ -11,7 +15,7 @@
       </ResourceDictionary.MergedDictionaries>
       <!-- Ресурсы, зависящие от приложения -->
       <x:String x:Key="AppName">Где участковый?</x:String>
-      <!--<vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" />-->
+      <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" />
     </ResourceDictionary>
   </Application.Resources>
 </Application>

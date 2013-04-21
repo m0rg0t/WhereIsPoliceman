@@ -13,6 +13,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using WhereIsPolicemanWin8.ViewModel;
+using WhereIsPoliceman.ViewModel;
 
 // Шаблон элемента страницы сгруппированных элементов задокументирован по адресу http://go.microsoft.com/fwlink/?LinkId=234231
 
@@ -69,8 +71,15 @@ namespace WhereIsPolicemanWin8
         {
             // Переход к соответствующей странице назначения и настройка новой страницы
             // путем передачи необходимой информации в виде параметра навигации
-            var itemId = ((SampleDataItem)e.ClickedItem).UniqueId;
+            var itemId = ((PolicemanItem)e.ClickedItem).Id;
             this.Frame.Navigate(typeof(ItemDetailPage), itemId);
         }
+
+        private void pageRoot_Loaded(object sender, RoutedEventArgs e)
+        {
+            ViewModelLocator.MainStatic.Policemans.LoadCurrentPolicemans();
+        }
+
+
     }
 }

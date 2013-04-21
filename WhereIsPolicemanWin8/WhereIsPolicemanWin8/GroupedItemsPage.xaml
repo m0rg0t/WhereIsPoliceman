@@ -1,7 +1,6 @@
 ﻿<common:LayoutAwarePage
     x:Name="pageRoot"
     x:Class="WhereIsPolicemanWin8.GroupedItemsPage"
-    DataContext="{Binding DefaultViewModel, RelativeSource={RelativeSource Self}}"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:WhereIsPolicemanWin8"
@@ -9,7 +8,8 @@
     xmlns:common="using:WhereIsPolicemanWin8.Common"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    DataContext="{Binding Main, Source={StaticResource Locator}}"
+    mc:Ignorable="d" Loaded="pageRoot_Loaded">
 
     <Page.Resources>
 
@@ -19,8 +19,8 @@
         -->
         <CollectionViewSource
             x:Name="groupedItemsViewSource"
-            Source="{Binding Groups}"
-            IsSourceGrouped="true"
+            Source="{Binding Path=Policemans.Current_policemans}"
+            IsSourceGrouped="False"
             ItemsPath="TopItems"
             d:Source="{Binding AllGroups, Source={d:DesignInstance Type=data:SampleDataSource, IsDesignTimeCreatable=True}}"/>
     </Page.Resources>
@@ -61,7 +61,7 @@
                         <DataTemplate>
                             <Grid Margin="1,0,0,6">
                                 <Button
-                                    AutomationProperties.Name="Group Title"
+                                    AutomationProperties.Name="Участковые"
                                     Click="Header_Click"
                                     Style="{StaticResource TextPrimaryButtonStyle}" >
                                     <StackPanel Orientation="Horizontal">

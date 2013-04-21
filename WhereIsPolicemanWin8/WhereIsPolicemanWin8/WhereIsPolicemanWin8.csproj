@@ -121,6 +121,10 @@
     <Compile Include="Common\RichTextColumns.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\PolicemanItem.cs" />
+    <Compile Include="ViewModel\PolicemanViewModel.cs" />
+    <Compile Include="ViewModel\ReviewItem.cs" />
+    <Compile Include="ViewModel\UserViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
   </ItemGroup>
   <ItemGroup>
