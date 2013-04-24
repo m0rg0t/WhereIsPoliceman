@@ -68,7 +68,7 @@ namespace WhereIsPoliceman.ViewModel
             }
         }
 
-        private string _town = "";
+        private string _town = "Москва";
         public string Town
         {
             get
@@ -86,7 +86,7 @@ namespace WhereIsPoliceman.ViewModel
             }
         }
 
-        private string _street = "";
+        private string _street = "Арбат";
         public string Street
         {
             get

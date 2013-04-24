@@ -19,6 +19,7 @@ using Callisto.Controls;
 using Windows.UI.ApplicationSettings;
 using WhereIsPolicemanWin8.Controls;
 using Windows.ApplicationModel.DataTransfer;
+using Windows.Devices.Geolocation;
 
 // Шаблон элемента страницы сгруппированных элементов задокументирован по адресу http://go.microsoft.com/fwlink/?LinkId=234231
 
@@ -171,7 +172,7 @@ namespace WhereIsPolicemanWin8
 
                     settingsFlyout.IsOpen = true;
                 });
-
+                args.Request.ApplicationCommands.Add(viewAboutMalukahPage);
 
                 var viewStreetAndTownPage = new SettingsCommand("", "Город и улица", cmd =>
                 {
@@ -186,8 +187,18 @@ namespace WhereIsPolicemanWin8
             catch { };
         }
 
-        private void pageRoot_Loaded(object sender, RoutedEventArgs e)
+        private async void pageRoot_Loaded(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                var geolocator = new Geolocator();
+                Geoposition position = await geolocator.GetGeopositionAsync();
+                var str = position.ToString();
+                ViewModelLocator.MainStatic.Latitued = position.Coordinate.Latitude;
+                ViewModelLocator.MainStatic.Longitude = position.Coordinate.Longitude;
+                ViewModelLocator.MainStatic.GetPlaceInfo(ViewModelLocator.MainStatic.Latitued, ViewModelLocator.MainStatic.Longitude);
+            }
+            catch { };
             ViewModelLocator.MainStatic.Policemans.LoadCurrentPolicemans();
         }
 

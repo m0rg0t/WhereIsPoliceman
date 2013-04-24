@@ -57,6 +57,10 @@ namespace WhereIsPoliceman.ViewModel
 
         public async Task<ObservableCollection<PolicemanItem>> LoadSearchPolicemans(string query = "")
         {
+            if (!string.IsNullOrEmpty(query))
+            {
+                query = char.ToUpper(query[0]) + query.Substring(1).ToLower();
+            };
             ObservableCollection<PolicemanItem> items = new ObservableCollection<PolicemanItem>();
             ViewModelLocator.MainStatic.Loading = true;
             var responseText = await MakeWebRequest("http://api.openpolice.ru/api/v1/db/Persons/page=1&perpage=35&surname=" + query);
@@ -71,6 +75,7 @@ namespace WhereIsPoliceman.ViewModel
             return items;
         }
 
+
         public async void LoadCurrentPolicemans()
         {
             ViewModelLocator.MainStatic.Loading = true;
@@ -84,17 +89,12 @@ namespace WhereIsPoliceman.ViewModel
                         JObject o = JObject.Parse(responseText.ToString());
                         string policemanslist = o["Persons"]["data"].ToString();
                         ObservableCollection<PolicemanItem> items = JsonConvert.DeserializeObject<ObservableCollection<PolicemanItem>>(policemanslist);
-
-                        foreach (var item in items)
+                        List<PolicemanItem> item2 = items.ToList();
+                        item2.RemoveAll(s=>s.Fullname=="");
+                        items = new ObservableCollection<PolicemanItem>();
+                        foreach (var item in item2)
                         {
-                            if (item.Fullname == "")
-                            {
-                                //items.Remove(item);
-                            };
-                            /*foreach (var adress in item.Terr) {
-                                string housenumbers = adress.Split(':')[1].Replace(" ", "").Replace(".", "").Trim();
-                                string street = adress.Split(':')[0].Replace("дома","").Trim();
-                            };*/
+                            items.Add(item);
                         };
                             Current_policemans = items;
                             RaisePropertyChanged("Current_policemans");

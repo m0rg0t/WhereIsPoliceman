@@ -12,7 +12,9 @@
     <DefaultLanguage>ru-RU</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <PackageCertificateKeyFile>WhereIsPolicemanWin8_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>WhereIsPolicemanWin8_StoreKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateThumbprint>4CDDA35ED55510EAD865F7950B3FD6E03A05A1BC</PackageCertificateThumbprint>
+    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -145,6 +147,7 @@
     </AppxManifest>
     <None Include="Common\ReadMe.txt" />
     <None Include="packages.config" />
+    <None Include="WhereIsPolicemanWin8_StoreKey.pfx" />
     <None Include="WhereIsPolicemanWin8_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
@@ -156,6 +159,7 @@
     <Content Include="Assets\MediumGray.png" />
     <Content Include="Assets\DarkGray.png" />
     <Content Include="MVVMLight.Nuget.Readme.txt" />
+    <None Include="Package.StoreAssociation.xml" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

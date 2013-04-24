@@ -52,8 +52,7 @@
             IsSwipeEnabled="false"
             IsItemClickEnabled="True"
             ItemClick="ItemView_ItemClick">
-
-            <GridView.ItemsPanel>
+            <!--<GridView.ItemsPanel>
                 <ItemsPanelTemplate>                        
                     <VirtualizingStackPanel Orientation="Horizontal"/>
                 </ItemsPanelTemplate>
@@ -81,7 +80,7 @@
                         </ItemsPanelTemplate>
                     </GroupStyle.Panel>
                 </GroupStyle>
-            </GridView.GroupStyle>
+            </GridView.GroupStyle>-->
         </GridView>
 
         <!-- Список с вертикальной прокруткой используется только в прикрепленном представлении -->

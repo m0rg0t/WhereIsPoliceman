@@ -1,5 +1,10 @@
 using GalaSoft.MvvmLight;
+using Newtonsoft.Json.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
 using WhereIsPoliceman.ViewModel;
+using Windows.Devices.Geolocation;
+using Windows.Devices.Sensors;
 
 namespace WhereIsPolicemanWin8.ViewModel
 {
@@ -32,6 +37,31 @@ namespace WhereIsPolicemanWin8.ViewModel
             ////}
         }
 
+
+        public async Task<string> MakeWebRequest(string url = "")
+        {
+            HttpClient http = new System.Net.Http.HttpClient();
+            HttpResponseMessage response = await http.GetAsync(url);
+            return await response.Content.ReadAsStringAsync();
+        }
+        public async void GetPlaceInfo(double lat, double lon)
+        {
+            var responseText = await MakeWebRequest("http://nominatim.openstreetmap.org/reverse?format=json&zoom=18&addressdetails=1&lat=" + lat.ToString().Replace(",", ".") + "&lon=" + lon.ToString().Replace(",", "."));
+                try
+                {
+                    JObject o = JObject.Parse(responseText.ToString());
+                    string town = o["address"]["city"].ToString();
+                    string road = o["address"]["road"].ToString();
+                    ViewModelLocator.MainStatic.Street = road;
+                    ViewModelLocator.MainStatic.Town = town;
+                }
+                catch
+                {
+                };
+        }
+        public double Latitued = 55.45;
+        public double Longitude = 37.36; 
+
         private PolicemanViewModel _policemans = new PolicemanViewModel();
         public PolicemanViewModel Policemans
         {
@@ -63,7 +93,7 @@ namespace WhereIsPolicemanWin8.ViewModel
         }
 
 
-        private string _town = "Череповец";
+        private string _town = "Москва";
         public string Town
         {
             get
@@ -82,7 +112,7 @@ namespace WhereIsPolicemanWin8.ViewModel
             }
         }
 
-        private string _street = "Социалистическая";
+        private string _street = "Арбат";
         public string Street
         {
             get
