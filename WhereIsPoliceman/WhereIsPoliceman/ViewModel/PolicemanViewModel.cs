@@ -107,28 +107,45 @@ namespace WhereIsPoliceman.ViewModel
                         string policemanslist = o["Persons"]["data"].ToString();
                         ObservableCollection<PolicemanItem> items = JsonConvert.DeserializeObject<ObservableCollection<PolicemanItem>>(policemanslist);
 
-                        foreach (var item in items)
-                        {
-                            foreach (var adress in item.Terr) {
-                                string housenumbers = adress.Split(':')[1].Replace(" ", "").Replace(".", "").Trim();
-                                string street = adress.Split(':')[0].Replace("дома","").Trim();
-
-                                foreach (var housenumber in housenumbers.Split(','))
-                                {
-                                    PolicemanMapItem mapitem = new PolicemanMapItem();
-                                    mapitem.Img = item.Img;
-                                    mapitem.Content = item.Fullname;
-                                    mapitem.Id = item.Id;
-                                    mapitem.Adress = street + " дом " + housenumber.ToString();
-                                    Current_policemans_mapitems.Add(mapitem);
-                                };
-                            };
-                        };
-
                         Deployment.Current.Dispatcher.BeginInvoke(() =>
                         {
                             Current_policemans = items;
                             ViewModelLocator.MainStatic.Loading = false;
+                        });
+
+                        int i = 0;
+                        foreach (var item in items)
+                        {
+                            foreach (var adress in item.Terr) {
+                                try
+                                {
+                                    string housenumbers = adress.Split(':')[1].Replace(" ", "").Replace(".", "").Trim();
+                                    string street = adress.Split(':')[0].Replace("дома", "").Trim();
+
+                                    foreach (var housenumber in housenumbers.Split(','))
+                                    {
+                                        try
+                                        {
+                                            PolicemanMapItem mapitem = new PolicemanMapItem();
+                                            mapitem.Img = item.Img;
+                                            mapitem.Content = item.Fullname;
+                                            mapitem.Id = item.Id;
+                                            mapitem.Adress = street + " дом " + housenumber.ToString();
+                                            if (Current_policemans_mapitems.FirstOrDefault(c => c.Adress == mapitem.Adress)==null)
+                                            {
+                                            Current_policemans_mapitems.Add(mapitem);
+                                            };
+                                            i++;
+                                        }
+                                        catch { };
+                                    };
+                                }
+                                catch { };
+                            };
+                        };
+                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+                        {
+                            MessageBox.Show(i.ToString());
                         });
                     }
                     catch {

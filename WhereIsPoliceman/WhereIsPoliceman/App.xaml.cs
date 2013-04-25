@@ -14,6 +14,7 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using WhereIsPoliceman.ViewModel;
 using BugSense;
+using Telerik.Windows.Controls;
 
 namespace WhereIsPoliceman
 {
@@ -125,16 +126,24 @@ namespace WhereIsPoliceman
             if (phoneApplicationInitialized)
                 return;
 
+            RadPhoneApplicationFrame frame = new RadPhoneApplicationFrame();
+            RootFrame = frame;
+            RootFrame.Navigated += CompleteInitializePhoneApplication;
+            // Handle navigation failures
+            RootFrame.NavigationFailed += RootFrame_NavigationFailed;
+            // Ensure we don't initialize again
+            phoneApplicationInitialized = true;
+
             // Создайте кадр, но не задавайте для него значение RootVisual; это позволит
             // экрану-заставке оставаться активным, пока приложение не будет готово для визуализации.
-            RootFrame = new PhoneApplicationFrame();
+            /*RootFrame = new PhoneApplicationFrame();
             RootFrame.Navigated += CompleteInitializePhoneApplication;
 
             // Обработка сбоев навигации
             RootFrame.NavigationFailed += RootFrame_NavigationFailed;
 
             // Убедитесь, что инициализация не выполняется повторно
-            phoneApplicationInitialized = true;
+            phoneApplicationInitialized = true;*/
         }
 
         // Не добавляйте в этот метод дополнительный код

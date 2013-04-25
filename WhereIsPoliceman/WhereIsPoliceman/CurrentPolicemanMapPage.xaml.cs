@@ -55,24 +55,28 @@ namespace WhereIsPoliceman
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
-            // Start AR services
-            ObservableCollection<ARItem> aritems = new ObservableCollection<ARItem>();
-            foreach (var item in ViewModelLocator.MainStatic.Policemans.Current_distance_current_policemans_mapitems)
+            try
             {
-                aritems.Add(item);
-            };
-            //aritems = new ObservableCollection<ARItem>();
-            PolicemanMapItem item1 = new PolicemanMapItem()
-            {
-                Content = "Тут",
-                Lat = ViewModelLocator.MainStatic.Latitued,
-                Lon = ViewModelLocator.MainStatic.Longitude,
-                GeoLocation = new GeoCoordinate() { Latitude = ViewModelLocator.MainStatic.Latitued, Longitude = ViewModelLocator.MainStatic.Longitude },
-                Adress = ""
-            };
-            aritems.Add(item1);
-            ARDisplay.ARItems = aritems;      
-            ARDisplay.StartServices();
+                // Start AR services
+                ObservableCollection<ARItem> aritems = new ObservableCollection<ARItem>();
+                foreach (var item in ViewModelLocator.MainStatic.Policemans.Current_distance_current_policemans_mapitems)
+                {
+                    aritems.Add(item);
+                };
+                //aritems = new ObservableCollection<ARItem>();
+                PolicemanMapItem item1 = new PolicemanMapItem()
+                {
+                    Content = "Тут",
+                    Lat = ViewModelLocator.MainStatic.Latitued,
+                    Lon = ViewModelLocator.MainStatic.Longitude,
+                    GeoLocation = new GeoCoordinate() { Latitude = ViewModelLocator.MainStatic.Latitued, Longitude = ViewModelLocator.MainStatic.Longitude },
+                    Adress = ""
+                };
+                aritems.Add(item1);
+                ARDisplay.ARItems = aritems;
+                ARDisplay.StartServices();
+            }
+            catch { };
 
             base.OnNavigatedTo(e);
         }
