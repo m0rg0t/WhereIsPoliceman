@@ -12,6 +12,8 @@ using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using WhereIsPoliceman.ViewModel;
 using Microsoft.Phone.Tasks;
+using Coding4Fun.Toolkit.Controls;
+using WhereIsPoliceman.Languages;
 
 namespace WhereIsPoliceman
 {
@@ -98,6 +100,18 @@ namespace WhereIsPoliceman
         {
             var marketplaceReviewTask = new MarketplaceReviewTask();
             marketplaceReviewTask.Show();
+        }
+
+        private void PrivacyPolicyMenuItem_Click(object sender, EventArgs e)
+        {
+            var messagePrompt = new MessagePrompt
+            {
+                Title = "Политика конфиденциальности",
+                Body = new TextBlock { Text = AppResources.PrivacyText, MaxHeight = 500, TextWrapping=TextWrapping.Wrap },
+                IsAppBarVisible = false,
+                IsCancelVisible = false
+            };
+            messagePrompt.Show();
         }
         
     }

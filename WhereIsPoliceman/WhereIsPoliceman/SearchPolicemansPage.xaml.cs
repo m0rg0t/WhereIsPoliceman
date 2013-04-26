@@ -21,6 +21,7 @@ namespace WhereIsPoliceman
         private void FindPolicemans_Click(object sender, EventArgs e)
         {
             ViewModelLocator.MainStatic.Policemans.LoadFindPolicemans(this.City.Text, this.Street.Text);
+            this.Focus();
         }
 
         private void FindPolicemansList_ItemTap(object sender, Telerik.Windows.Controls.ListBoxItemTapEventArgs e)

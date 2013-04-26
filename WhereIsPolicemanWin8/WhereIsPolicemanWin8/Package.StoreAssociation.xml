@@ -363,7 +363,7 @@
   <PackageInfoList LandingUrl="https://appdev.microsoft.com:443/StorePortals/Developer/Catalog/ReleaseAnchor/1195c1aa-8bf4-4eec-90c4-a39493b22891">
     <PackageInfo>
       <PackageArchitecture>neutral</PackageArchitecture>
-      <PackageMaxArchitectureVersion>0.4.0.0</PackageMaxArchitectureVersion>
+      <PackageMaxArchitectureVersion>0.4.1.1</PackageMaxArchitectureVersion>
     </PackageInfo>
   </PackageInfoList>
 </StoreAssociation>

@@ -20,6 +20,7 @@ using Windows.UI.ApplicationSettings;
 using WhereIsPolicemanWin8.Controls;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Devices.Geolocation;
+using Windows.UI.Popups;
 
 // Шаблон элемента страницы сгруппированных элементов задокументирован по адресу http://go.microsoft.com/fwlink/?LinkId=234231
 
@@ -174,18 +175,19 @@ namespace WhereIsPolicemanWin8
                 });
                 args.Request.ApplicationCommands.Add(viewAboutMalukahPage);
 
-                var viewStreetAndTownPage = new SettingsCommand("", "Город и улица", cmd =>
+                viewStreetAndTownPage = new SettingsCommand("TownAndStreet", "Город и улица", cmd =>
                 {
                     var settingsFlyout = new SettingsFlyout();
                     settingsFlyout.Content = new TownAndStreetControl();
                     settingsFlyout.HeaderText = "Город и улица";
-
                     settingsFlyout.IsOpen = true;
                 });
                 args.Request.ApplicationCommands.Add(viewStreetAndTownPage);
             }
             catch { };
         }
+
+        public SettingsCommand viewStreetAndTownPage;
 
         private async void pageRoot_Loaded(object sender, RoutedEventArgs e)
         {
@@ -200,6 +202,29 @@ namespace WhereIsPolicemanWin8
             }
             catch { };
             ViewModelLocator.MainStatic.Policemans.LoadCurrentPolicemans();
+        }
+
+        private void Town_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            
+            //var settingsFlyout = new Flyout();
+            //settingsFlyout.Content = new TownAndStreetControl();
+            //settingsFlyout.Ti = "Город и улица";
+            //settingsFlyout.IsOpen = true;
+        }
+
+        private async void StackPanel_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            //MessageDialog md = new MessageDialog("This is a MessageDialog", "Title");
+            //await md.ShowAsync();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var settingsFlyout = new SettingsFlyout();
+            settingsFlyout.Content = new TownAndStreetControl();
+            settingsFlyout.HeaderText = "Город и улица";
+            settingsFlyout.IsOpen = true;
         }
 
 

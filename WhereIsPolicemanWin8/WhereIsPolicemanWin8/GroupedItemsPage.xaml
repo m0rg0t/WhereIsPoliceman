@@ -24,6 +24,20 @@
             ItemsPath="TopItems"
             d:Source="{Binding AllGroups, Source={d:DesignInstance Type=data:SampleDataSource, IsDesignTimeCreatable=True}}"/>
     </Page.Resources>
+	<common:LayoutAwarePage.BottomAppBar>
+		<AppBar>
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition/>
+					<ColumnDefinition/>
+				</Grid.ColumnDefinitions>
+				<StackPanel Orientation="Horizontal"/>
+				<StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal">
+					<Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource SettingsAppBarButtonStyle}" Click="Button_Click"/>
+				</StackPanel>
+			</Grid>
+		</AppBar>
+	</common:LayoutAwarePage.BottomAppBar>
 
     <!--
         Эта сетка выступает в роли корневой области страницы и определяет две строки:
@@ -128,11 +142,11 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
-            <StackPanel Orientation="Horizontal" Grid.Column="1">
+            <StackPanel Orientation="Horizontal" Grid.Column="1" Tapped="StackPanel_Tapped">
                 <TextBlock x:Name="pageTitle" Text="{StaticResource AppName}" Grid.Column="1" IsHitTestVisible="false" Style="{StaticResource PageHeaderTextStyle}"/>
                 <TextBlock x:Name="Town" Text="{Binding TownAndStreet}" 
                            Grid.Column="1" IsHitTestVisible="false" 
-                           Style="{StaticResource PageHeaderTextStyle}"/>
+                           Style="{StaticResource PageHeaderTextStyle}" Tapped="Town_Tapped"/>
                 <!--<TextBox Text="{Binding Town, Mode=TwoWay}" Name="Town" DataContext="{Binding Main, Source={StaticResource Locator}}" Height="60" Margin="0,10,0,0" FontSize="36" Width="350"/>-->
             </StackPanel>
         </Grid>

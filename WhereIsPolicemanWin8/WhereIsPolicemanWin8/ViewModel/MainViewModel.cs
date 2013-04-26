@@ -98,12 +98,28 @@ namespace WhereIsPolicemanWin8.ViewModel
         {
             get
             {
+                try
+                {
+                    var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
+                    if (roamingSettings.Values["town"].ToString() != "")
+                    {
+                        return roamingSettings.Values["town"].ToString();
+                    }
+                    else {
+                        return _town;
+                    };
+                }
+                catch { };
+
                 return _town;
             }
             set
             {
                 if (_town != value)
                 {
+                    var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
+                    roamingSettings.Values["town"] = value;
+
                     _town = value;
                     ViewModelLocator.MainStatic.Policemans.LoadCurrentPolicemans();
                     RaisePropertyChanged("Town");
@@ -117,12 +133,29 @@ namespace WhereIsPolicemanWin8.ViewModel
         {
             get
             {
+                try
+                {
+                    var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
+                    if (roamingSettings.Values["street"].ToString() != "")
+                    {
+                        return roamingSettings.Values["street"].ToString();
+                    }
+                    else
+                    {
+                        return _street;
+                    };
+                }
+                catch { };
+
                 return _street;
             }
             set
             {
                 if (_street != value)
                 {
+                    var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
+                    roamingSettings.Values["street"] = value;
+
                     _street = value;
                     ViewModelLocator.MainStatic.Policemans.LoadCurrentPolicemans();
                     RaisePropertyChanged("Street");
