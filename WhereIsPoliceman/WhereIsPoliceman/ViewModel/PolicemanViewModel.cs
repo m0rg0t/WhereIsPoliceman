@@ -145,7 +145,6 @@ namespace WhereIsPoliceman.ViewModel
                         };
                         Deployment.Current.Dispatcher.BeginInvoke(() =>
                         {
-                            MessageBox.Show(i.ToString());
                         });
                     }
                     catch {

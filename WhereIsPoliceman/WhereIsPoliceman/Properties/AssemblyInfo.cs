@@ -32,6 +32,6 @@ using System.Resources;
 //
 // Можно указать все значения или задать для номеров редакции и построения значения по умолчанию 
 // с помощью символа '*', как показано ниже:
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("0.4.5")]
+[assembly: AssemblyFileVersion("0.4.5")]
 [assembly: NeutralResourcesLanguageAttribute("ru-RU")]

@@ -23,7 +23,14 @@ namespace WhereIsPoliceman
         {
             try
             {
-                NavigationService.Navigate(new Uri("/CurrentPolicemanMapPage.xaml", UriKind.Relative));
+                if (ViewModelLocator.MainStatic.GeolocationStatus)
+                {
+                    NavigationService.Navigate(new Uri("/CurrentPolicemanMapPage.xaml", UriKind.Relative));
+                }
+                else
+                {
+                    MessageBox.Show("Вы отключили геолокацию и не сможете использовать карты и AR режим.");
+                };
             }
             catch { };
         }

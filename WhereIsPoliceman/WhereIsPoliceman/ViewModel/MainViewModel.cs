@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Device.Location;
 using System.Windows;
+using WhereIsPoliceman.Libs;
 
 
 namespace WhereIsPoliceman.ViewModel
@@ -38,6 +39,15 @@ namespace WhereIsPoliceman.ViewModel
             ////{
             ////    // Code runs "for real"
             ////}
+            try
+            {
+                 bool geo = true;
+                 if (AppSettings.TryGetSetting<bool>("GeolocationStatus",out geo))
+                 {
+                     GeolocationStatus = geo;
+                 };
+            }
+            catch { };
         }
 
         private bool _loading = true;
@@ -51,6 +61,24 @@ namespace WhereIsPoliceman.ViewModel
             {
                 _loading = value;
                 RaisePropertyChanged("Loading");
+            }
+        }
+
+        private bool _geolocationStatus = true;
+        public bool GeolocationStatus
+        {
+            get
+            {
+                return _geolocationStatus;
+            }
+            set
+            {
+                if (_geolocationStatus != value)
+                {
+                    _geolocationStatus = value;
+                    AppSettings.StoreSetting<bool>("GeolocationStatus", value);
+                    RaisePropertyChanged("GeolocationStatus");
+                };
             }
         }
 
@@ -107,10 +135,13 @@ namespace WhereIsPoliceman.ViewModel
         {
             try
             {
-                myCoordinateWatcher.Stop();
-                myCoordinateWatcher = new GeoCoordinateWatcher(GeoPositionAccuracy.Default);
-                myCoordinateWatcher.PositionChanged += new EventHandler<GeoPositionChangedEventArgs<GeoCoordinate>>(myCoordinateWatcher_PositionChanged);
-                myCoordinateWatcher.Start();
+                if (ViewModelLocator.MainStatic.GeolocationStatus)
+                {
+                    myCoordinateWatcher.Stop();
+                    myCoordinateWatcher = new GeoCoordinateWatcher(GeoPositionAccuracy.Default);
+                    myCoordinateWatcher.PositionChanged += new EventHandler<GeoPositionChangedEventArgs<GeoCoordinate>>(myCoordinateWatcher_PositionChanged);
+                    myCoordinateWatcher.Start();
+                };
             }
             catch { };
         }
@@ -119,6 +150,8 @@ namespace WhereIsPoliceman.ViewModel
 
         void myCoordinateWatcher_PositionChanged(object sender, GeoPositionChangedEventArgs<GeoCoordinate> e)
         {
+            if (ViewModelLocator.MainStatic.GeolocationStatus)
+            {
             //if (ViewModelLocator.MainStatic.Settings.Location == true)
             //{
                 if (((!e.Position.Location.IsUnknown) && (_getCoordinates == false)))
@@ -135,6 +168,7 @@ namespace WhereIsPoliceman.ViewModel
                 Latitued = 55.45;
                 Longitude = 37.36;
             };*/
+            };
         }
 
         public void GetPlaceInfo(double lat, double lon)

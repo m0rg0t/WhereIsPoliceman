@@ -27,7 +27,14 @@ namespace WhereIsPoliceman
 
         private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
         {
-            ViewModelLocator.MainStatic.UpdateCoordinatesWatcher();
+            if (ViewModelLocator.MainStatic.GeolocationStatus)
+            {
+                ViewModelLocator.MainStatic.UpdateCoordinatesWatcher();
+            }
+            else
+            {
+                ViewModelLocator.MainStatic.Policemans.LoadCurrentPolicemans();
+            };
         }
 
         private void Policemans_ItemTap(object sender, Telerik.Windows.Controls.ListBoxItemTapEventArgs e)
@@ -98,20 +105,42 @@ namespace WhereIsPoliceman
 
         private void RateAppMenuItem_Click(object sender, EventArgs e)
         {
-            var marketplaceReviewTask = new MarketplaceReviewTask();
-            marketplaceReviewTask.Show();
+            try
+            {
+                var marketplaceReviewTask = new MarketplaceReviewTask();
+                marketplaceReviewTask.Show();
+            }
+            catch { };
         }
 
         private void PrivacyPolicyMenuItem_Click(object sender, EventArgs e)
         {
-            var messagePrompt = new MessagePrompt
+            try
             {
-                Title = "Политика конфиденциальности",
-                Body = new TextBlock { Text = AppResources.PrivacyText, MaxHeight = 500, TextWrapping=TextWrapping.Wrap },
-                IsAppBarVisible = false,
-                IsCancelVisible = false
-            };
-            messagePrompt.Show();
+                var messagePrompt = new MessagePrompt
+                {
+                    Title = "Политика конфиденциальности",
+                    Body = new TextBlock { Text = AppResources.PrivacyText, MaxHeight = 500, TextWrapping = TextWrapping.Wrap },
+                    IsAppBarVisible = false,
+                    IsCancelVisible = false
+                };
+                messagePrompt.Show();
+            }
+            catch { };
+        }
+
+        private void DisableGPSMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SettingsMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                NavigationService.Navigate(new Uri("/SettingsPage.xaml", UriKind.Relative));
+            }
+            catch { };
         }
         
     }
