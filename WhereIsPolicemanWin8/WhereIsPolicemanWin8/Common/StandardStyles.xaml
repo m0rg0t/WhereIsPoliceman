@@ -1145,6 +1145,12 @@
     </Style>
     -->
 
+    <Style x:Key="MapAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
+        <Setter Property="AutomationProperties.AutomationId" Value="MapAppBarButton"/>
+        <Setter Property="AutomationProperties.Name" Value="Карта"/>
+        <Setter Property="Content" Value="&#xE1C4;"/>
+    </Style>
+
     <!--
     <Style x:Key="UnderlineAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
         <Setter Property="AutomationProperties.AutomationId" Value="UnderlineAppBarButton"/>

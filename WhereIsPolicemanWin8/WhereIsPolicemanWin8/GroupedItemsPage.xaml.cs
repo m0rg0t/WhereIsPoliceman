@@ -65,7 +65,9 @@ namespace WhereIsPolicemanWin8
 
             // Переход к соответствующей странице назначения и настройка новой страницы
             // путем передачи необходимой информации в виде параметра навигации
-            this.Frame.Navigate(typeof(GroupDetailPage), ((SampleDataGroup)group).UniqueId);
+            if (((WhereIsPolicemanWin8.ViewModel.GroupItem)group).Id!="CurrentPolicemans") {
+            this.Frame.Navigate(typeof(GroupDetailPage), ((WhereIsPolicemanWin8.ViewModel.GroupItem)group).Id);
+            };
         }
 
         /// <summary>
@@ -76,13 +78,19 @@ namespace WhereIsPolicemanWin8
         /// <param name="e">Данные о событии, описывающие нажатый элемент.</param>
         void ItemView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            ViewModelLocator.MainStatic.CurrentPoliceman = (PolicemanItem)e.ClickedItem;
-            // Переход к соответствующей странице назначения и настройка новой страницы
-            // путем передачи необходимой информации в виде параметра навигации
-            var itemId = ((PolicemanItem)e.ClickedItem).Id;
-            this.Frame.Navigate(typeof(ItemDetailPage), itemId);
-
-
+            if (e.ClickedItem.GetType() == typeof(PolicemanItem))
+            {
+                ViewModelLocator.MainStatic.CurrentPoliceman = (PolicemanItem)e.ClickedItem;
+                // Переход к соответствующей странице назначения и настройка новой страницы
+                // путем передачи необходимой информации в виде параметра навигации
+                var itemId = ((CommonItem)e.ClickedItem).Id;
+                this.Frame.Navigate(typeof(ItemDetailPage), itemId);
+            }
+            else
+            {
+                var itemId = ((NewsItem)e.ClickedItem).Id;
+                this.Frame.Navigate(typeof(NewsDetailPage), itemId);
+            };
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -191,7 +199,7 @@ namespace WhereIsPolicemanWin8
 
         private async void pageRoot_Loaded(object sender, RoutedEventArgs e)
         {
-            try
+            /*try
             {
                 var geolocator = new Geolocator();
                 Geoposition position = await geolocator.GetGeopositionAsync();
@@ -201,7 +209,7 @@ namespace WhereIsPolicemanWin8
                 ViewModelLocator.MainStatic.GetPlaceInfo(ViewModelLocator.MainStatic.Latitued, ViewModelLocator.MainStatic.Longitude);
             }
             catch { };
-            ViewModelLocator.MainStatic.Policemans.LoadCurrentPolicemans();
+            ViewModelLocator.MainStatic.Policemans.LoadCurrentPolicemans();*/
         }
 
         private void Town_Tapped(object sender, TappedRoutedEventArgs e)
@@ -225,6 +233,15 @@ namespace WhereIsPolicemanWin8
             settingsFlyout.Content = new TownAndStreetControl();
             settingsFlyout.HeaderText = "Город и улица";
             settingsFlyout.IsOpen = true;
+        }
+
+        private void MapButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                this.Frame.Navigate(typeof(MapPage));
+            }
+            catch { };
         }
 
 

@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using BugSense;
+using WhereIsPolicemanWin8.ViewModel;
 
 // Документацию по шаблону "Приложение таблицы" см. по адресу http://go.microsoft.com/fwlink/?LinkId=234226
 
@@ -87,6 +88,8 @@ namespace WhereIsPolicemanWin8
             }
             // Обеспечение активности текущего окна
             Window.Current.Activate();
+
+            ViewModelLocator.MainStatic.LoadData();
         }
 
         /// <summary>

@@ -161,6 +161,12 @@ namespace WhereIsPoliceman.ViewModel
         public void LoadFindSurnamePolicemans(string surname = "")
         {
             ViewModelLocator.MainStatic.Loading = true;
+
+            if (!string.IsNullOrEmpty(surname))
+            {
+                surname = char.ToUpper(surname[0]) + surname.Substring(1).ToLower();
+            };
+
             var bw = new BackgroundWorker();
             bw.DoWork += delegate
             {
@@ -187,7 +193,12 @@ namespace WhereIsPoliceman.ViewModel
                             ViewModelLocator.MainStatic.Loading = false;
                         });
                     }
-                    catch { };
+                    catch {
+                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+                        {
+                            ViewModelLocator.MainStatic.Loading = false;
+                        });
+                    };
                 });
             };
             bw.RunWorkerAsync();

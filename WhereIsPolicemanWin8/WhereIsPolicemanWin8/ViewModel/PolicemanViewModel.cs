@@ -76,9 +76,9 @@ namespace WhereIsPoliceman.ViewModel
         }
 
 
-        public async void LoadCurrentPolicemans()
+        public async Task<bool> LoadCurrentPolicemans()
         {
-            ViewModelLocator.MainStatic.Loading = true;
+            //ViewModelLocator.MainStatic.Loading = true;
             var responseText = await MakeWebRequest("http://api.openpolice.ru/api/v1/refbook/Copfinder/place=" + ViewModelLocator.MainStatic.Town + "&street=" + ViewModelLocator.MainStatic.Street);
                 /*var client = new RestClient("http://api.openpolice.ru/");
                 var request = new RestRequest("api/v1/refbook/Copfinder/place=" + ViewModelLocator.MainStatic.Town + "&street=" + ViewModelLocator.MainStatic.Street, Method.GET);
@@ -92,15 +92,32 @@ namespace WhereIsPoliceman.ViewModel
                         List<PolicemanItem> item2 = items.ToList();
                         item2.RemoveAll(s=>s.Fullname=="");
                         items = new ObservableCollection<PolicemanItem>();
+                        GroupItem policemans = new GroupItem() { Id="CurrentPolicemans", Title="Участковые"};
+                        bool equal_data = true;
                         foreach (var item in item2)
                         {
                             items.Add(item);
+                            if (Current_policemans.FirstOrDefault(c=>c.Id==item.Id)==null)
+                            {
+                                equal_data = false;
+                            };
+                            policemans.Items.Add(item);
                         };
+                        if (!equal_data)
+                        {
+                            try
+                            {
+                                ViewModelLocator.MainStatic.Groups.Remove(ViewModelLocator.MainStatic.Groups.FirstOrDefault(c => c.Id == "CurrentPolicemans"));
+                            }
+                            catch { };
+                            ViewModelLocator.MainStatic.Groups.Add(policemans);
                             Current_policemans = items;
                             RaisePropertyChanged("Current_policemans");
-                            ViewModelLocator.MainStatic.Loading = false;
+                        };
+                            //ViewModelLocator.MainStatic.Loading = false;
                     }
                     catch { };
+                    return true;
         }
 
         /*public void LoadFindPolicemans(string town = "", string street = "")

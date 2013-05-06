@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using WhereIsPolicemanWin8.ViewModel;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 
@@ -12,7 +13,7 @@ namespace WhereIsPoliceman.ViewModel
     /// <summary>
     /// Класс полицейского-участкового
     /// </summary>
-    public class PolicemanItem: ViewModelBase
+    public class PolicemanItem : CommonItem
     {
         public PolicemanItem()
         {
@@ -69,47 +70,6 @@ namespace WhereIsPoliceman.ViewModel
             }
         }
 
-        private string _img = "";
-        /// <summary>
-        /// Изображение искомого полицейского
-        /// </summary>
-        public string Img
-        {
-            get
-            {
-                return _img;
-            }
-            set
-            {
-                _img = value;
-                RaisePropertyChanged("Img");
-                RaisePropertyChanged("Image");
-            }
-        }
-
-        private ImageSource _image = null;
-        public ImageSource Image
-        {
-            get
-            {
-                if (this._image == null && this.Img != null)
-                {
-                    try
-                    {
-                        this._image = new BitmapImage(new Uri(this.Img));
-                    }
-                    catch {
-                        this._image = new BitmapImage();
-                    };
-                }
-                return this._image;
-            }
-            set
-            {
-                this.Img = null;
-                //this.SetProperty(ref this._image, value);
-            }
-        }
 
         private string _level1 = "";
         /// <summary>
@@ -196,6 +156,16 @@ namespace WhereIsPoliceman.ViewModel
             }
         }
 
+        public string Title
+        {
+            private set
+            {
+            }
+            get
+            {
+                return _fullname;
+            }
+        }
 
         private string _position = "";
         /// <summary>

@@ -355,6 +355,7 @@
     <MainPackageIdentityName>43337m0rg0t.Victorium-</MainPackageIdentityName>
     <MainPackageIdentityName>43337m0rg0t.61938D133BA94</MainPackageIdentityName>
     <MainPackageIdentityName>43337m0rg0t.6385682C0B40</MainPackageIdentityName>
+    <MainPackageIdentityName>43337m0rg0t.336746D1E5EC8</MainPackageIdentityName>
     <MainPackageIdentityName>43337m0rg0t.544352BC4813B</MainPackageIdentityName>
     <MainPackageIdentityName>43337m0rg0t.58210C9F7D1E8</MainPackageIdentityName>
     <MainPackageIdentityName>43337m0rg0t.54199DE04DE4D</MainPackageIdentityName>
@@ -363,7 +364,7 @@
   <PackageInfoList LandingUrl="https://appdev.microsoft.com:443/StorePortals/Developer/Catalog/ReleaseAnchor/1195c1aa-8bf4-4eec-90c4-a39493b22891">
     <PackageInfo>
       <PackageArchitecture>neutral</PackageArchitecture>
-      <PackageMaxArchitectureVersion>0.4.1.1</PackageMaxArchitectureVersion>
+      <PackageMaxArchitectureVersion>0.4.5.3</PackageMaxArchitectureVersion>
     </PackageInfo>
   </PackageInfoList>
 </StoreAssociation>

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
-  <Identity Name="43337m0rg0t.4529039618FD7" Publisher="CN=F7642D27-CCE9-4988-9BED-35B1F14EED65" Version="0.4.5.3" />
+  <Identity Name="43337m0rg0t.4529039618FD7" Publisher="CN=F7642D27-CCE9-4988-9BED-35B1F14EED65" Version="0.5.0.4" />
   <Properties>
     <DisplayName>Где участковый?</DisplayName>
     <PublisherDisplayName>m0rg0t</PublisherDisplayName>
@@ -15,9 +15,13 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="WhereIsPolicemanWin8.App">
-      <VisualElements DisplayName="Где участковый?" Logo="Assets\Logo.png" SmallLogo="Assets\SmallLogo.png" Description="WhereIsPolicemanWin8" ForegroundText="light" BackgroundColor="#464646">
+      <VisualElements DisplayName="Где участковый?" Logo="Assets\Logo.png" SmallLogo="Assets\SmallLogo.png" Description="WhereIsPolicemanWin8" ForegroundText="light" BackgroundColor="#1BA0E1">
         <DefaultTile ShowName="allLogos" />
         <SplashScreen Image="Assets\SplashScreen.png" />
+        <InitialRotationPreference>
+          <Rotation Preference="landscape" />
+          <Rotation Preference="landscapeFlipped" />
+        </InitialRotationPreference>
       </VisualElements>
       <Extensions>
         <Extension Category="windows.search" />

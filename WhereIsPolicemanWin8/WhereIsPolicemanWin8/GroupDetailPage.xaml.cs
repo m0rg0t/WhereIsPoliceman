@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using WhereIsPolicemanWin8.ViewModel;
 
 // Шаблон элемента страницы сведений о группе задокументирован по адресу http://go.microsoft.com/fwlink/?LinkId=234229
 
@@ -41,7 +42,7 @@ namespace WhereIsPolicemanWin8
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
             // TODO: Создание соответствующей модели данных для области проблемы, чтобы заменить пример данных
-            var group = SampleDataSource.GetGroup((String)navigationParameter);
+            var group = (WhereIsPolicemanWin8.ViewModel.GroupItem)ViewModelLocator.MainStatic.Groups.FirstOrDefault(c=>c.Id==(String)navigationParameter);
             this.DefaultViewModel["Group"] = group;
             this.DefaultViewModel["Items"] = group.Items;
         }
@@ -56,8 +57,8 @@ namespace WhereIsPolicemanWin8
         {
             // Переход к соответствующей странице назначения и настройка новой страницы
             // путем передачи необходимой информации в виде параметра навигации
-            var itemId = ((SampleDataItem)e.ClickedItem).UniqueId;
-            this.Frame.Navigate(typeof(ItemDetailPage), itemId);
+            var itemId = ((NewsItem)e.ClickedItem).Id;
+            this.Frame.Navigate(typeof(NewsDetailPage), itemId);
         }
     }
 }

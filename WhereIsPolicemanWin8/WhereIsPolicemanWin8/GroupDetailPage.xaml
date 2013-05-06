@@ -51,10 +51,10 @@
             ItemClick="ItemView_ItemClick">
 
             <GridView.Header>
-                <StackPanel Width="480" Margin="0,4,14,0">
-                    <TextBlock Text="{Binding Subtitle}" Margin="0,0,18,20" Style="{StaticResource SubheaderTextStyle}" MaxHeight="60"/>
-                    <Image Source="{Binding Image}" Height="400" Margin="0,0,18,20" Stretch="UniformToFill" AutomationProperties.Name="{Binding Title}"/>
-                    <TextBlock Text="{Binding Description}" Margin="0,0,18,0" Style="{StaticResource BodyTextStyle}"/>
+                <StackPanel Width="280" Margin="0,4,14,0">
+                    <!--<TextBlock Text="{Binding Subtitle}" Margin="0,0,18,20" Style="{StaticResource SubheaderTextStyle}" MaxHeight="60"/>-->
+                    <Image Source="{Binding Image}" Margin="0,0,18,20" AutomationProperties.Name="{Binding Title}" VerticalAlignment="Top"/>
+                    <TextBlock Text="Министерство внутренних дел Российской Федерации (МВД России) — федеральный орган исполнительной власти, осуществляющий функции по выработке и реализации государственной политики и нормативно-правовому регулированию в сфере внутренних дел, а также по выработке государственной политики в сфере миграции." Margin="0,0,18,0" Style="{StaticResource BodyTextStyle}" VerticalAlignment="Top" TextAlignment="Justify"/>
                 </StackPanel>
             </GridView.Header>
             <GridView.ItemContainerStyle>
