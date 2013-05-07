@@ -176,6 +176,7 @@
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\NewsViewModel.cs" />
     <Compile Include="ViewModel\PolicemanItem.cs" />
     <Compile Include="ViewModel\PolicemanMapItem.cs" />
     <Compile Include="ViewModel\PolicemanViewModel.cs" />
