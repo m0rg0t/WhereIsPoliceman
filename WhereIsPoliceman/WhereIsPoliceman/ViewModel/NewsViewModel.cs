@@ -48,11 +48,11 @@ namespace WhereIsPoliceman.ViewModel
         {
             //if ((ViewModelLocator.MainStatic.News.Items.Count() == 0) || (ViewModelLocator.MainStatic.Settings.NewsUpdated.AddHours(1) < DateTime.Now))
             //{
-                //var bw = new BackgroundWorker();
-                //bw.DoWork += delegate
-                //{
-                    var client = new RestClient("http://yadonor.ru");
-                    var request = new RestRequest("ru/news_rss/", Method.GET);
+                var bw = new BackgroundWorker();
+                bw.DoWork += delegate
+                {
+                    var client = new RestClient("http://mvd.ru");
+                    var request = new RestRequest("news/rss/", Method.GET);
                     request.Parameters.Clear();
 
                     client.ExecuteAsync(request, response =>
@@ -68,16 +68,16 @@ namespace WhereIsPoliceman.ViewModel
                                     foreach (XElement item in xdoc.Descendants("item"))
                                     {
                                         var itemnews = new NewsViewModel();
-                                        itemnews.Nid = 0;
-                                        itemnews.Url = item.Element("guid").Value.ToString();
+                                        itemnews.Url = item.Element("link").Value.ToString();
                                         itemnews.Title = item.Element("title").Value.ToString();
                                         itemnews.Body = item.Element("description").Value.ToString();
-                                        itemnews.ObjectId = item.Element("guid").Value.ToString();
+                                        itemnews.ObjectId = item.Element("link").Value.ToString();
                                         itemnews.Created = item.Element("pubDate").Value.ToString();
                                         DateTime origin = new DateTime(1970, 1, 1, 0, 0, 0, 0);
                                         DateTime date = DateTime.Parse(item.Element("pubDate").Value.ToString());
                                         TimeSpan diff = date - origin;
                                         itemnews.CreatedTimestamp = (long)Math.Round(Math.Floor(diff.TotalSeconds));
+                                        itemnews.Image = item.Element("enclosure").FirstAttribute.Value.ToString();
                                         newslist1.Add(itemnews);
                                     };
                                 }
@@ -85,14 +85,12 @@ namespace WhereIsPoliceman.ViewModel
                                 {
                                 };
 
-                                //Deployment.Current.Dispatcher.BeginInvoke(() =>
-                                //{
-                                    //ViewModelLocator.MainStatic.Settings.NewsUpdated = DateTime.Now;
-                                    //ViewModelLocator.MainStatic.SaveSettingsToStorage();
+                                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                                {
                                     this.Items = new ObservableCollection<NewsViewModel>(newslist1);
                                     RaisePropertyChanged("Items");
-                                    //IsolatedStorageHelper.SaveSerializableObject<ObservableCollection<NewsViewModel>>(ViewModelLocator.MainStatic.News.Items, "news.xml");
-                                //});
+                                    RaisePropertyChanged("SortedItems");   
+                                });
                             }
                             catch { };
                         }
@@ -100,8 +98,8 @@ namespace WhereIsPoliceman.ViewModel
                         {
                         };
                     });
-                //};
-                //bw.RunWorkerAsync();
+                };
+                bw.RunWorkerAsync();
             //};
         }
 
@@ -116,6 +114,7 @@ namespace WhereIsPoliceman.ViewModel
                     RaisePropertyChanged("NewItems");
                 }; 
             } }
+
         public List<NewsViewModel> NewItems { 
             get 
             {
@@ -126,6 +125,20 @@ namespace WhereIsPoliceman.ViewModel
                 return outnews;
             }
             private set { } }
+
+        public List<NewsViewModel> SortedItems
+        {
+            get
+            {
+                var newitems = (from news in this.Items
+                                orderby news.CreatedTimestamp descending
+                                select news);
+                List<NewsViewModel> outnews = newitems.ToList();
+                return outnews;
+            }
+            private set { }
+        }
+
     }
 
 
@@ -152,6 +165,20 @@ namespace WhereIsPoliceman.ViewModel
             }
         }
 
+        private string _image;
+        public string Image
+        {
+            get
+            {
+                return _image;
+            }
+            set 
+            {
+                _image = value;
+                RaisePropertyChanged("Image");
+            }
+        }         
+
         public string ObjectId { get; set; }
 
 
@@ -165,40 +192,6 @@ namespace WhereIsPoliceman.ViewModel
             get
             {
                 string _outbody = _body;
-
-                string pattern = @"\*\*.*\*\*";
-                Regex rgx = new Regex(pattern);
-                var items = rgx.Matches(_outbody);
-                foreach (var item in items)
-                {
-                    string item1 = "<br/><b>" + item.ToString().Trim('*') + "</b><br/>";
-                    _outbody = _outbody.Replace(item.ToString(), item1);
-                };
-
-                pattern = @"\*.*\*";
-                rgx = new Regex(pattern);
-                items = rgx.Matches(_outbody);
-                foreach (var item in items)
-                {
-                    string item1 = "<i>" + item.ToString().Trim('*') + "</i>";
-                    _outbody = _outbody.Replace(item.ToString(), item1);
-                };
-
-                pattern = @"\[([^]]*)\]\s*\(([^)]*)\)";
-                rgx = new Regex(pattern);
-                var items2 = rgx.Matches(_outbody);
-                foreach (Match item in items2)
-                {
-                    string item1 = item.ToString();
-                    _outbody = _outbody.Replace(item.ToString(), item.Groups[1].Value.ToString());
-                };
-
-                pattern = @"\[inline([^]]*)\]";
-                rgx = new Regex(pattern);
-                _outbody = rgx.Replace(_outbody, "");
-
-                _outbody = _outbody.Replace("<!--break-->", "");
-
                 return _outbody;
             }
         }
@@ -208,19 +201,13 @@ namespace WhereIsPoliceman.ViewModel
         {
             get
             {
-                if (this.Nid != 0)
-                {
-                    return "http://www.pdari-zhizn.ru/main/node/" + this.Nid.ToString();
-                } else {
-                    return _url;
-                };
+                return _url;
             }
             set {
                 _url = value;
                 RaisePropertyChanged("Url");
             }
         }
-        public int Nid { get; set; }
 
         private string _sbody = "";
         public string ShortBody {

@@ -196,6 +196,7 @@ namespace WhereIsPoliceman.ViewModel
                     catch {
                         Deployment.Current.Dispatcher.BeginInvoke(() =>
                         {
+                            this.FindPolicemans = new ObservableCollection<PolicemanItem>();
                             ViewModelLocator.MainStatic.Loading = false;
                         });
                     };
@@ -233,7 +234,13 @@ namespace WhereIsPoliceman.ViewModel
                             ViewModelLocator.MainStatic.Loading = false;
                         });
                     }
-                    catch { };
+                    catch {
+                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+                        {
+                            this.FindPolicemans = new ObservableCollection<PolicemanItem>();
+                            ViewModelLocator.MainStatic.Loading = false;
+                        });
+                    };
                 });
             };
             bw.RunWorkerAsync();

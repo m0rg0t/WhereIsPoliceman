@@ -159,6 +159,12 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="NewsListPage.xaml.cs">
+      <DependentUpon>NewsListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NewsPage.xaml.cs">
+      <DependentUpon>NewsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PoliceItem.xaml.cs">
       <DependentUpon>PoliceItem.xaml</DependentUpon>
     </Compile>
@@ -216,6 +222,12 @@
     <Page Include="MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="NewsListPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="NewsPage.xaml">
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="PoliceItem.xaml">
       <SubType>Designer</SubType>
@@ -285,6 +297,7 @@
     <Content Include="Images\ic_ApplicationBar_map.png" />
     <Content Include="Images\map1.png" />
     <Content Include="Images\map2.png" />
+    <Content Include="Images\news1.png" />
     <Content Include="Images\police_badge.png" />
     <Content Include="Images\search2.png" />
     <Content Include="Libs\GART.dll" />

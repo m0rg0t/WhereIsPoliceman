@@ -50,6 +50,23 @@ namespace WhereIsPoliceman.ViewModel
             catch { };
         }
 
+
+
+
+        private NewsListViewModel _news = new NewsListViewModel();
+        public NewsListViewModel News
+        {
+            get
+            {
+                return _news;
+            }
+            set
+            {
+                _news = value;
+                RaisePropertyChanged("News");
+            }
+        }
+
         private bool _loading = true;
         public bool Loading
         {

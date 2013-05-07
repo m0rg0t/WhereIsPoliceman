@@ -47,7 +47,8 @@
                 </controls:PanoramaItem.Header>
                 <Grid Margin="10,-10,10,0">
                     <telerikPrimitives:RadWrapPanel x:Name="MenuPanel">
-                        <telerikPrimitives:RadHubTile Title="Карта участковых" ImageSource="/Images/map2.png" Name="PolicemansMap" Tap="PolicemansMap_Tap"/>
+                        <telerikPrimitives:RadHubTile Title="Карта" ImageSource="/Images/map2.png" Name="PolicemansMap" Tap="PolicemansMap_Tap"/>
+                        <telerikPrimitives:RadHubTile Title="Новости" ImageSource="/Images/news1.png" Name="NewsList" Tap="NewsList_Tap"/>
                         <!--<telerikPrimitives:RadHubTile Title="Карта МВД" ImageSource="/Images/map2.png" Name="MVDMap" Tap="MVDMap_Tap"/>
                         <telerikPrimitives:RadHubTile Title="Поиск МВД" ImageSource="/Images/search2.png"/>-->
                         <telerikPrimitives:RadHubTile Title="По месту" ImageSource="/Images/search2.png" Name="PoliceFind" Tap="PoliceFind_Tap"/>
@@ -87,6 +88,38 @@
                 </telerikPrimitives:RadDataBoundListBox>
                 <!--<TextBlock Text="123" FontFamily="Segoe WP"/>-->
             </controls:PanoramaItem>
+
+            <controls:PanoramaItem>
+                <controls:PanoramaItem.Header>
+                    <Border Margin="-12,0,0,0">
+                        <TextBlock Text="Новости" FontSize="60" Margin="15,-15,0,0"/>
+                    </Border>
+                </controls:PanoramaItem.Header>
+                <telerikData:RadJumpList 
+                Margin="0,0,0,0" Width="Auto"                
+                EmptyContentTemplate="{StaticResource NoDataListTemlate}"
+                x:Name="NewsListRad" 
+                ItemTap="NewsListRad_ItemTap"
+                ItemsSource="{Binding Path=News.NewItems}"
+                DataContext="{Binding Main, Source={StaticResource Locator}}" 
+                HorizontalContentAlignment="Left" HorizontalAlignment="Left">
+                    <telerikData:RadJumpList.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="15,20,0,0" Width="Auto">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="109"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.Column="0" Width="108" Source="{Binding Image}" VerticalAlignment="Top" />
+                                <StackPanel Grid.Column="1" Margin="15,-5,0,0" VerticalAlignment="Top" HorizontalAlignment="Stretch" Width="Auto">
+                                    <TextBlock Text="{Binding Title}" TextWrapping="Wrap" />
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </telerikData:RadJumpList.ItemTemplate>
+                </telerikData:RadJumpList>
+            </controls:PanoramaItem>
+            
         </controls:Panorama>
     </Grid>
  

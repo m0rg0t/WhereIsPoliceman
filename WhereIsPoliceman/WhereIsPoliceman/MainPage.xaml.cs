@@ -27,12 +27,13 @@ namespace WhereIsPoliceman
 
         private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
         {
+            ViewModelLocator.MainStatic.News.LoadNews();
             if (ViewModelLocator.MainStatic.GeolocationStatus)
             {
                 ViewModelLocator.MainStatic.UpdateCoordinatesWatcher();
             }
             else
-            {
+            {                
                 ViewModelLocator.MainStatic.Policemans.LoadCurrentPolicemans();
             };
         }
@@ -139,6 +140,25 @@ namespace WhereIsPoliceman
             try
             {
                 NavigationService.Navigate(new Uri("/SettingsPage.xaml", UriKind.Relative));
+            }
+            catch { };
+        }
+
+        private void NewsList_Tap(object sender, GestureEventArgs e)
+        {
+            try
+            {
+                NavigationService.Navigate(new Uri("/NewsListPage.xaml", UriKind.Relative));
+            }
+            catch { };
+        }
+
+        private void NewsListRad_ItemTap(object sender, Telerik.Windows.Controls.ListBoxItemTapEventArgs e)
+        {
+            try
+            {
+                ViewModelLocator.MainStatic.News.CurrentNews = (NewsViewModel)NewsListRad.SelectedItem;
+                NavigationService.Navigate(new Uri("/NewsPage.xaml", UriKind.Relative));
             }
             catch { };
         }
