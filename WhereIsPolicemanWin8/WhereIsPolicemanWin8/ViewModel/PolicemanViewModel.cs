@@ -84,25 +84,69 @@ namespace WhereIsPoliceman.ViewModel
                 var request = new RestRequest("api/v1/refbook/Copfinder/place=" + ViewModelLocator.MainStatic.Town + "&street=" + ViewModelLocator.MainStatic.Street, Method.GET);
                 request.Parameters.Clear();*/
 
+            JObject o;
+            string policemanslist;
+            ObservableCollection<PolicemanItem> items = new ObservableCollection<PolicemanItem>();
+            List<PolicemanItem> item2;
+            GroupItem policemans = new GroupItem();
+            bool equal_data = true;
+
+
                     try
                     {
-                        JObject o = JObject.Parse(responseText.ToString());
-                        string policemanslist = o["Persons"]["data"].ToString();
-                        ObservableCollection<PolicemanItem> items = JsonConvert.DeserializeObject<ObservableCollection<PolicemanItem>>(policemanslist);
-                        List<PolicemanItem> item2 = items.ToList();
-                        item2.RemoveAll(s=>s.Fullname=="");
-                        items = new ObservableCollection<PolicemanItem>();
-                        GroupItem policemans = new GroupItem() { Id="CurrentPolicemans", Title="Участковые"};
-                        bool equal_data = true;
-                        foreach (var item in item2)
+                        try
                         {
-                            items.Add(item);
-                            if (Current_policemans.FirstOrDefault(c=>c.Id==item.Id)==null)
+                            o = JObject.Parse(responseText.ToString());
+                            policemanslist = o["Persons"]["data"].ToString();
+                            items = JsonConvert.DeserializeObject<ObservableCollection<PolicemanItem>>(policemanslist);
+                            item2 = items.ToList();
+                            item2.RemoveAll(s => s.Fullname == "");
+                            items = new ObservableCollection<PolicemanItem>();
+                            policemans = new GroupItem() { Id = "CurrentPolicemans", Title = "Участковые" };
+                            equal_data = true;
+                            foreach (var item in item2)
                             {
-                                equal_data = false;
+                                try
+                                {
+                                    items.Add(item);
+                                    try
+                                    {
+                                        if (Current_policemans.FirstOrDefault(c => c.Id == item.Id) == null)
+                                        {
+                                            equal_data = false;
+                                        };
+                                    }
+                                    catch { };
+                                    policemans.Items.Add(item);
+                                }
+                                catch { };
                             };
-                            policemans.Items.Add(item);
-                        };
+                        }
+                        catch { };
+
+                        try
+                        {
+                            if (policemans.Items.Count() == 0)
+                            {
+                                responseText = await MakeWebRequest("http://api.openpolice.ru/api/v1/db/Persons/surname=Иванов&page=1&perpage=6");
+                                equal_data = false;
+
+                                o = JObject.Parse(responseText.ToString());
+                                policemanslist = o["Persons"]["data"].ToString();
+                                items = JsonConvert.DeserializeObject<ObservableCollection<PolicemanItem>>(policemanslist);
+                                item2 = items.ToList();
+                                item2.RemoveAll(s => s.Fullname == "");
+                                items = new ObservableCollection<PolicemanItem>();
+                                policemans = new GroupItem() { Id = "CurrentPolicemans", Title = "Участковые" };
+                                foreach (var item in item2)
+                                {
+                                    items.Add(item);
+                                    policemans.Items.Add(item);
+                                };
+                            };
+                        }
+                        catch { };
+
                         if (!equal_data)
                         {
                             try

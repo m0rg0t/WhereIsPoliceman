@@ -95,6 +95,8 @@ namespace WhereIsPolicemanWin8
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            ViewModelLocator.MainStatic.LoadData();
+
             SettingsPane.GetForCurrentView().CommandsRequested += Settings_CommandsRequested;
             // Register the current page as a share source.
             this.dataTransferManager = DataTransferManager.GetForCurrentView();

@@ -88,8 +88,6 @@ namespace WhereIsPolicemanWin8
             }
             // Обеспечение активности текущего окна
             Window.Current.Activate();
-
-            ViewModelLocator.MainStatic.LoadData();
         }
 
         /// <summary>

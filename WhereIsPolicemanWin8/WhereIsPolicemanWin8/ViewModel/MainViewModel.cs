@@ -267,6 +267,7 @@ namespace WhereIsPolicemanWin8.ViewModel
                     var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
                     if (roamingSettings.Values["town"].ToString() != "")
                     {
+                        _town = roamingSettings.Values["town"].ToString();
                         return roamingSettings.Values["town"].ToString();
                     }
                     else {
@@ -283,8 +284,8 @@ namespace WhereIsPolicemanWin8.ViewModel
                 {
                     var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
                     roamingSettings.Values["town"] = value;
-
                     _town = value;
+
                     ViewModelLocator.MainStatic.Policemans.LoadCurrentPolicemans();
                     RaisePropertyChanged("Town");
                     RaisePropertyChanged("TownAndStreet");
@@ -302,6 +303,7 @@ namespace WhereIsPolicemanWin8.ViewModel
                     var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
                     if (roamingSettings.Values["street"].ToString() != "")
                     {
+                        _street = roamingSettings.Values["street"].ToString();
                         return roamingSettings.Values["street"].ToString();
                     }
                     else
