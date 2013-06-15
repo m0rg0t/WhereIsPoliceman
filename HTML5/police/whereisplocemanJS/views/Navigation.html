@@ -1,0 +1,66 @@
+﻿<div data-options="dxView : { name: 'Navigation', title: 'Navigation', layout: 'empty' } " >
+    <div class="navigation" data-options="dxContent : { targetPlaceholder: 'content' } " >
+        <div data-bind="dxToolbar: { items: toolbar.items }"></div>
+        <div>
+            <img data-bind="attr: { src: navbar.currentImage }" class="content-image"/>
+        </div>
+        <div class="navbar-wrapper">
+            <div data-bind="dxNavBar: { items: navbar.items , itemClickAction: navbar.itemClickAction, selectedIndex: navbar.selectedIndex }"></div>
+        </div>
+    </div>
+</div>
+
+<div data-options="dxView : { name: 'Navigation', title: 'Navigation', layout: 'empty', platform: 'win8' } " >
+    <div class="navigation" data-options="dxContent : { targetPlaceholder: 'content' } " >
+        <div data-bind="dxToolbar: { items: [
+              {
+                  align: 'left',
+                  widget: 'button',
+                  options: {
+                      type: 'back',
+                      text: 'Back',
+                      clickAction: function(e) {
+                            KitchenSink.app.navigate('Home');
+                      }
+                  }
+              },
+              {
+                  align: 'left',
+                  text: 'Navbar'
+              }
+            ] 
+        }"></div>
+        <div class="navbar-wrapper">
+            <div data-bind="dxNavBar: { items: navbar.items , itemClickAction: navbar.itemClickAction, selectedIndex: navbar.selectedIndex }"></div>
+        </div>
+        <div>
+            <img data-bind="attr: { src: navbar.currentImage }" class="content-image"/>
+        </div>
+        <div class="bottom-toolbar">
+            <div data-bind="dxToolbar: { items: [
+                  {
+                      align: 'center',
+                      widget: 'button',
+                      options: {
+                          icon: 'plus',
+                          clickAction: function(e) {
+                              console.log('plus click')
+                          }
+                      }
+                  },
+                  {
+                      align: 'center',
+                      widget: 'dropDownMenu',
+                      options: {
+                          items: [
+                              'Add',
+                              'Edit',
+                              'Remove'
+                          ]
+                      }
+                  }
+                ] 
+            }"></div>
+        </div>
+    </div>
+</div>

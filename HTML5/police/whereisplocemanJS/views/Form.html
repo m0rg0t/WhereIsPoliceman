@@ -1,0 +1,29 @@
+﻿<div data-options="dxView : { name: 'Form', title: 'Поиск по адресу' } ">
+    <div class="form" data-options="dxContent : { targetPlaceholder: 'content' } ">
+        <div class="content" data-bind="dxScrollView: { }">
+            <div class="dx-fieldset">
+                <div class="dx-field">
+                    <div class="dx-field-label">Город</div>
+                    <div class="dx-field-value">
+                        <div data-bind="dxTextBox: { value: city, placeholder: 'Город', valueUpdateEvent: 'keyup'}"></></div>
+                    </div>
+                </div>
+                <div class="dx-field">
+                    <div class="dx-field-label">Улица</div>
+                    <div class="dx-field-value">
+                        <div data-bind="dxTextBox: { value: street, placeholder: 'Улица', valueUpdateEvent: 'keyup' }"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dx-fieldset button">
+                <div class="dx-field">
+                    <div class="dx-field-value">
+                        <div data-bind="dxButton: {text: 'Поиск участковых'}, dxAction: '#Lists/{city}/{street}'"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -28,6 +28,7 @@ namespace WhereIsPoliceman
         private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
         {
             ViewModelLocator.MainStatic.News.LoadNews();
+            ViewModelLocator.MainStatic.Info.LoadInfo();
             if (ViewModelLocator.MainStatic.GeolocationStatus)
             {
                 ViewModelLocator.MainStatic.UpdateCoordinatesWatcher();
@@ -70,7 +71,8 @@ namespace WhereIsPoliceman
         {
             try
             {
-                NavigationService.Navigate(new Uri("/HelpPolicemanPage.xaml", UriKind.Relative));
+                //NavigationService.Navigate(new Uri("/HelpPolicemanPage.xaml", UriKind.Relative));
+                NavigationService.Navigate(new Uri("/InfoListPage.xaml", UriKind.Relative));
             }
             catch { };
         }

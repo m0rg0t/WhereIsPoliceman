@@ -89,14 +89,14 @@ namespace WhereIsPoliceman.ViewModel
             }
         }
 
-        public void LoadCurrentPolicemans()
+        public void LoadCurrentCityPolicemans()
         {
             ViewModelLocator.MainStatic.Loading = true;
             var bw = new BackgroundWorker();
             bw.DoWork += delegate
             {
                 var client = new RestClient("http://api.openpolice.ru/");
-                var request = new RestRequest("api/v1/refbook/Copfinder/place=" + ViewModelLocator.MainStatic.Town + "&street=" + ViewModelLocator.MainStatic.Street, Method.GET);
+                var request = new RestRequest("api/v1/db/Persons/level2=" + ViewModelLocator.MainStatic.Town + "&page=1&perpage=12", Method.GET);
                 request.Parameters.Clear();
 
                 client.ExecuteAsync(request, response =>
@@ -109,6 +109,82 @@ namespace WhereIsPoliceman.ViewModel
 
                         Deployment.Current.Dispatcher.BeginInvoke(() =>
                         {
+                            Current_policemans = items;
+                            ViewModelLocator.MainStatic.Loading = false;
+                        });
+
+                        int i = 0;
+                        foreach (var item in items)
+                        {
+                            foreach (var adress in item.Terr)
+                            {
+                                try
+                                {
+                                    string housenumbers = adress.Split(':')[1].Replace(" ", "").Replace(".", "").Trim();
+                                    string street = adress.Split(':')[0].Replace("дома", "").Trim();
+
+                                    foreach (var housenumber in housenumbers.Split(','))
+                                    {
+                                        try
+                                        {
+                                            PolicemanMapItem mapitem = new PolicemanMapItem();
+                                            mapitem.Img = item.Img;
+                                            mapitem.Content = item.Fullname;
+                                            mapitem.Id = item.Id;
+                                            mapitem.Adress = street + " дом " + housenumber.ToString();
+                                            if (Current_policemans_mapitems.FirstOrDefault(c => c.Adress == mapitem.Adress) == null)
+                                            {
+                                                Current_policemans_mapitems.Add(mapitem);
+                                            };
+                                            i++;
+                                        }
+                                        catch { };
+                                    };
+                                }
+                                catch { };
+                            };
+                        };
+                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+                        {
+                        });
+                    }
+                    catch
+                    {
+                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+                        {
+                            ViewModelLocator.MainStatic.Loading = false;
+                        });
+                    };
+                });
+            };
+            bw.RunWorkerAsync();
+        }
+
+        public void LoadCurrentPolicemans()
+        {
+            ViewModelLocator.MainStatic.Loading = true;
+            var bw = new BackgroundWorker();
+            bw.DoWork += delegate
+            {
+                //ViewModelLocator.MainStatic.Street = "Урбпинская";
+                var client = new RestClient("http://api.openpolice.ru/");
+                var request = new RestRequest("api/v1/refbook/Copfinder/place=" + ViewModelLocator.MainStatic.Town + "&street=" + ViewModelLocator.MainStatic.Street + "&page=1&perpage=12", Method.GET);
+                request.Parameters.Clear();
+
+                client.ExecuteAsync(request, response =>
+                {
+                    try
+                    {
+                        JObject o = JObject.Parse(response.Content.ToString());
+                        string policemanslist = o["Persons"]["data"].ToString();
+                        ObservableCollection<PolicemanItem> items = JsonConvert.DeserializeObject<ObservableCollection<PolicemanItem>>(policemanslist);
+
+                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+                        {
+                            if (items.Count() < 1)
+                            {
+                                LoadCurrentCityPolicemans();
+                            };
                             Current_policemans = items;
                             ViewModelLocator.MainStatic.Loading = false;
                         });
@@ -150,6 +226,7 @@ namespace WhereIsPoliceman.ViewModel
                     catch {
                         Deployment.Current.Dispatcher.BeginInvoke(() =>
                         {
+                            LoadCurrentCityPolicemans();
                             ViewModelLocator.MainStatic.Loading = false;
                         });
                     };

@@ -1,0 +1,34 @@
+﻿.home-splash
+{    
+    height: 100%;    
+    cursor: pointer;
+    background: #313234;
+    background: -moz-linear-gradient(top,  #313234 0%, #19191a 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#313234), color-stop(100%,#19191a));
+    background: -webkit-linear-gradient(top,  #313234 0%,#19191a 100%);
+    background: -o-linear-gradient(top,  #313234 0%,#19191a 100%);
+    background: -ms-linear-gradient(top,  #313234 0%,#19191a 100%);
+    background: linear-gradient(to bottom,  #313234 0%,#19191a 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#313234', endColorstr='#19191a',GradientType=0 );
+}
+
+.home-demo-logo
+{
+    position: absolute;    
+    top: 50%;
+    left: 50%;
+    width: 234px;
+    height: 308px;
+    margin-top: -180px;
+    margin-left: -117px;
+    background: url(../content/images/demo-logo.png) no-repeat center center;
+}
+
+.home-dx-logo
+{
+    position: absolute;
+    bottom: 20px;
+    height: 22px;
+    width: 100%;
+    background: url(../content/images/dx-logo.png) no-repeat center center;
+}

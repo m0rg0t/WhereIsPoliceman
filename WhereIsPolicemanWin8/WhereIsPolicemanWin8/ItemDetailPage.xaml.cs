@@ -78,27 +78,7 @@ namespace WhereIsPolicemanWin8
                 pageState["SelectedItem"] = selectedItem.Id;
             }
             catch { };
-        }
-
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            try
-            {
-                if (ViewModelLocator.MainStatic.Policemans.Current_policemans.FirstOrDefault(c => c.Id == ViewModelLocator.MainStatic.CurrentPoliceman.Id)==null) {
-                    ObservableCollection<PolicemanItem> items = new ObservableCollection<PolicemanItem>();
-                    items.Add(ViewModelLocator.MainStatic.CurrentPoliceman);
-                    this.flipView.ItemsSource = items;
-                };
-                this.flipView.SelectedItem = ViewModelLocator.MainStatic.CurrentPoliceman;
-            }
-            catch {
-            };
-            SettingsPane.GetForCurrentView().CommandsRequested += Settings_CommandsRequested;
-        }
-
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
-        {
-            SettingsPane.GetForCurrentView().CommandsRequested -= Settings_CommandsRequested;
+            //SettingsPane.GetForCurrentView().CommandsRequested -= Settings_CommandsRequested;
         }
 
         void Settings_CommandsRequested(SettingsPane sender, SettingsPaneCommandsRequestedEventArgs args)
@@ -124,19 +104,24 @@ namespace WhereIsPolicemanWin8
 
                     settingsFlyout.IsOpen = true;
                 });
-
-
-                var viewStreetAndTownPage = new SettingsCommand("", "Город и улица", cmd =>
-                {
-                    var settingsFlyout = new SettingsFlyout();
-                    settingsFlyout.Content = new TownAndStreetControl();
-                    settingsFlyout.HeaderText = "Город и улица";
-
-                    settingsFlyout.IsOpen = true;
-                });
-                args.Request.ApplicationCommands.Add(viewStreetAndTownPage);
             }
             catch { };
         }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            try
+            {
+                if (ViewModelLocator.MainStatic.Policemans.Current_policemans.FirstOrDefault(c => c.Id == ViewModelLocator.MainStatic.CurrentPoliceman.Id)==null) {
+                    ObservableCollection<PolicemanItem> items = new ObservableCollection<PolicemanItem>();
+                    items.Add(ViewModelLocator.MainStatic.CurrentPoliceman);
+                    this.flipView.ItemsSource = items;
+                };
+                this.flipView.SelectedItem = ViewModelLocator.MainStatic.CurrentPoliceman;
+            }
+            catch {
+            };            
+        }
+
     }
 }

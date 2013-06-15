@@ -95,19 +95,25 @@ namespace WhereIsPolicemanWin8
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            ViewModelLocator.MainStatic.LoadData();
-
-            SettingsPane.GetForCurrentView().CommandsRequested += Settings_CommandsRequested;
+            if (ViewModelLocator.MainStatic.Loaded == false)
+            {
+                ViewModelLocator.MainStatic.LoadData();
+                SettingsPane.GetForCurrentView().CommandsRequested += Settings_CommandsRequested;
+            };
             // Register the current page as a share source.
             this.dataTransferManager = DataTransferManager.GetForCurrentView();
             this.dataTransferManager.DataRequested += new TypedEventHandler<DataTransferManager, DataRequestedEventArgs>(this.OnDataRequested);
+            
+            base.OnNavigatedTo(e);
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
-            SettingsPane.GetForCurrentView().CommandsRequested -= Settings_CommandsRequested;
+            //SettingsPane.GetForCurrentView().CommandsRequested -= Settings_CommandsRequested;
             // Unregister the current page as a share source.
             this.dataTransferManager.DataRequested -= new TypedEventHandler<DataTransferManager, DataRequestedEventArgs>(this.OnDataRequested);
+           
+            base.OnNavigatedFrom(e);
         }
 
         private async void OnDataRequested(DataTransferManager sender, DataRequestedEventArgs e)

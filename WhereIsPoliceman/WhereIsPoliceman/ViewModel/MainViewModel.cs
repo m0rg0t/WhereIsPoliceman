@@ -67,6 +67,20 @@ namespace WhereIsPoliceman.ViewModel
             }
         }
 
+        private InfoListViewModel _info = new InfoListViewModel();
+        public InfoListViewModel Info
+        {
+            get
+            {
+                return _info;
+            }
+            set
+            {
+                _info = value;
+                RaisePropertyChanged("Info");
+            }
+        }
+
         private bool _loading = true;
         public bool Loading
         {

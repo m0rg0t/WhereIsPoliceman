@@ -144,6 +144,12 @@
     <Compile Include="Controls\InstallControl.xaml.cs">
       <DependentUpon>InstallControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="InfoListPage.xaml.cs">
+      <DependentUpon>InfoListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="InfoPage.xaml.cs">
+      <DependentUpon>InfoPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FacebookPages\FacebookLoginPage.xaml.cs">
       <DependentUpon>FacebookLoginPage.xaml</DependentUpon>
     </Compile>
@@ -175,12 +181,18 @@
       <DependentUpon>PoliceReviewsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\AppResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AppResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="SearchPolicemansPage.xaml.cs">
       <DependentUpon>SearchPolicemansPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\InfoViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\NewsViewModel.cs" />
     <Compile Include="ViewModel\PolicemanItem.cs" />
@@ -211,6 +223,12 @@
     <Page Include="Controls\InstallControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InfoListPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="InfoPage.xaml">
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="FacebookPages\FacebookLoginPage.xaml">
       <SubType>Designer</SubType>
@@ -308,6 +326,10 @@
   <ItemGroup>
     <EmbeddedResource Include="Languages\AppResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\AppResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>

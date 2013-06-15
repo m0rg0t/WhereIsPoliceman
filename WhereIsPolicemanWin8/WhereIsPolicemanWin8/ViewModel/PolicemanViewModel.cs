@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using WhereIsPolicemanWin8.ViewModel;
+using Windows.UI.Popups;
 
 namespace WhereIsPoliceman.ViewModel
 {
@@ -108,21 +109,29 @@ namespace WhereIsPoliceman.ViewModel
                             {
                                 try
                                 {
-                                    items.Add(item);
-                                    try
-                                    {
-                                        if (Current_policemans.FirstOrDefault(c => c.Id == item.Id) == null)
+                                    if ((item.Fullname!="") || (item.Fullname!=null)) {
+                                        items.Add(item);
+                                        try
                                         {
-                                            equal_data = false;
-                                        };
-                                    }
-                                    catch { };
-                                    policemans.Items.Add(item);
+                                            if (Current_policemans.FirstOrDefault(c => c.Id == item.Id) == null)
+                                            {
+                                                equal_data = false;
+                                            };
+                                        }
+                                        catch { };
+                                        policemans.Items.Add(item);
+                                    };
                                 }
                                 catch { };
                             };
                         }
-                        catch { };
+                        catch {
+                            if (policemans.Items.Count() == 0)
+                            {
+                                MessageDialog msgDialog = new MessageDialog("К сожалению не удалось найти участковых по запросу с данным городом и улицей. Сейчас попробуем загрузить несколько участковых по фамилии. Также вы можете использовать поиск, для того чтобы найти нужного вам участкового по его фамилии.", "Нет данных по этому адресу");
+                                msgDialog.ShowAsync();
+                            };
+                        };
 
                         try
                         {

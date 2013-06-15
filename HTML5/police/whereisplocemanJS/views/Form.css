@@ -1,0 +1,48 @@
+﻿.form .button-wrapper {
+    float: left;
+    margin: 5px 2px;
+}
+.form .input-cell {
+    width: 250px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+#overlay {
+    background: url(../content/images/overlay-background.jpg) no-repeat 0 0;
+    -moz-box-shadow: 0 0 10px rgba(0, 0, 0, .5);
+    -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, .5);
+    box-shadow: 0 0 10px rgba(0, 0, 0, .5);
+    border: solid 1px #444;
+    padding: 10px;
+    text-align: center;
+}
+#hideButton {
+    float: right;
+}
+.title-button {
+    float: right;
+}
+.form .dx-popup #popup.dx-overlay-content .dx-popup-content,
+.form .dx-popup #popup.dx-overlay-content .dx-popup-content div {
+    height: 100%;
+    padding: 0;
+}
+.popup-content {
+    background: url(../content/images/popup-background.jpg) no-repeat 0 0;
+}
+.dx-theme-win8 .form .dx-popup #popup.dx-overlay-content .dx-popup-content div.popup-content {
+    height: 300px;
+    width: 481px;
+    background-size: 100%;
+    margin: 0 auto 20px;
+}
+.dx-toast-custom {
+    background-color: darkgray;
+    color: white;
+}
+#toast-custom .dx-icon {
+    float: left;
+    height: 56px;
+    width: 56px;
+    margin-right: 5px;
+}

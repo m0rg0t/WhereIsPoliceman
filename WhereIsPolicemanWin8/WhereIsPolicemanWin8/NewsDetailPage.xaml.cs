@@ -80,34 +80,6 @@ namespace WhereIsPolicemanWin8
             catch { };
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            /*try
-            {
-                if (ViewModelLocator.MainStatic.Policemans.Current_policemans.FirstOrDefault(c => c.Id == ViewModelLocator.MainStatic.CurrentPoliceman.Id)==null) {
-                    ObservableCollection<PolicemanItem> items = new ObservableCollection<PolicemanItem>();
-                    items.Add(ViewModelLocator.MainStatic.CurrentPoliceman);
-                    this.flipView.ItemsSource = items;
-                };
-                this.flipView.SelectedItem = ViewModelLocator.MainStatic.CurrentPoliceman;
-            }
-            catch {
-            };*/
-            try
-            {
-                this.DefaultViewModel["Group"] = ViewModelLocator.MainStatic.NewsGroup;
-            }
-            catch { };
-            SettingsPane.GetForCurrentView().CommandsRequested += Settings_CommandsRequested;
-            base.OnNavigatedTo(e);
-        }
-
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
-        {
-            SettingsPane.GetForCurrentView().CommandsRequested -= Settings_CommandsRequested;
-            base.OnNavigatedFrom(e);
-        }
-
         void Settings_CommandsRequested(SettingsPane sender, SettingsPaneCommandsRequestedEventArgs args)
         {
             try
@@ -133,7 +105,7 @@ namespace WhereIsPolicemanWin8
                 });
 
 
-                var viewStreetAndTownPage = new SettingsCommand("", "Город и улица", cmd =>
+                /*var viewStreetAndTownPage = new SettingsCommand("", "Город и улица", cmd =>
                 {
                     var settingsFlyout = new SettingsFlyout();
                     settingsFlyout.Content = new TownAndStreetControl();
@@ -141,9 +113,40 @@ namespace WhereIsPolicemanWin8
 
                     settingsFlyout.IsOpen = true;
                 });
-                args.Request.ApplicationCommands.Add(viewStreetAndTownPage);
+                args.Request.ApplicationCommands.Add(viewStreetAndTownPage);*/
             }
             catch { };
         }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            SettingsPane.GetForCurrentView().CommandsRequested += Settings_CommandsRequested;
+            /*try
+            {
+                if (ViewModelLocator.MainStatic.Policemans.Current_policemans.FirstOrDefault(c => c.Id == ViewModelLocator.MainStatic.CurrentPoliceman.Id)==null) {
+                    ObservableCollection<PolicemanItem> items = new ObservableCollection<PolicemanItem>();
+                    items.Add(ViewModelLocator.MainStatic.CurrentPoliceman);
+                    this.flipView.ItemsSource = items;
+                };
+                this.flipView.SelectedItem = ViewModelLocator.MainStatic.CurrentPoliceman;
+            }
+            catch {
+            };*/
+            try
+            {
+                this.DefaultViewModel["Group"] = ViewModelLocator.MainStatic.NewsGroup;
+            }
+            catch { };
+            
+            base.OnNavigatedTo(e);
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            SettingsPane.GetForCurrentView().CommandsRequested -= Settings_CommandsRequested;
+            base.OnNavigatedFrom(e);
+        }
+
+
     }
 }

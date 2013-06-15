@@ -26,6 +26,7 @@ using Windows.UI.Xaml.Navigation;
 using Windows.System;
 using System.IO;
 using System.Xml.Linq;
+using System.Diagnostics;
 
 namespace WhereIsPolicemanWin8.ViewModel
 {
@@ -62,22 +63,27 @@ namespace WhereIsPolicemanWin8.ViewModel
         {
             try
             {
-                Loading = true;
-                try
+                if (Loaded == false)
                 {
-                    var geolocator = new Geolocator();
-                    Geoposition position = await geolocator.GetGeopositionAsync();
-                    var str = position.ToString();
-                    Latitued = position.Coordinate.Latitude;
-                    Longitude = position.Coordinate.Longitude;
-                    GetPlaceInfo(Latitued, Longitude);
-                }
-                catch { };                
-                await AddGroupForFeedAsync("http://mvd.ru/news/rss/");
-                await Policemans.LoadCurrentPolicemans();
-                Loading = false;
+                    Loading = true;
+                    try
+                    {
+                        var geolocator = new Geolocator();
+                        Geoposition position = await geolocator.GetGeopositionAsync();
+                        var str = position.ToString();
+                        Latitued = position.Coordinate.Latitude;
+                        Longitude = position.Coordinate.Longitude;
+                        GetPlaceInfo(Latitued, Longitude);
+                    }
+                    catch { };
+                    await AddGroupForFeedAsync("http://mvd.ru/news/rss/");
+                    await Policemans.LoadCurrentPolicemans();
+                    Loading = false;
+                    Loaded = true;
+                };
             }
-            catch {
+            catch(Exception ex) {
+                //Debug.WriteLine(ex);
                 Loading = false;
             };
         }
@@ -124,39 +130,52 @@ namespace WhereIsPolicemanWin8.ViewModel
 
             foreach (var i in feed.Items)
             {
-                string imagePath = null;
                 try
                 {
-                    //imagePath = GetImageFromPostContents(i); ;
-                }
-                catch { };
-                if (imagePath == null)
-                {                    
-                    var url_attr = rss.Element("channel").Elements("item").ToList()[count].Element("enclosure").Attribute("url");
-                    imagePath = url_attr.Value.ToString();
-                };
+                    string imagePath = null;
+                    try
+                    {
+                        //imagePath = GetImageFromPostContents(i); ;
+                    }
+                    catch { };
+                    if (imagePath == null)
+                    {
+                        try
+                        {
+                            var url_attr = rss.Element("channel").Elements("item").ToList()[count].Element("enclosure").Attribute("url");
+                            imagePath = url_attr.Value.ToString();
+                        }
+                        catch { };
+                    };
 
-                if (i.Summary != null)
-                    clearedContent = Windows.Data.Html.HtmlUtilities.ConvertToText(i.Summary.Text);
-                else
-                    if (i.Content != null)
-                        clearedContent = Windows.Data.Html.HtmlUtilities.ConvertToText(i.Content.Text);
+                    if (i.Summary != null)
+                        clearedContent = Windows.Data.Html.HtmlUtilities.ConvertToText(i.Summary.Text);
+                    else
+                        if (i.Content != null)
+                            clearedContent = Windows.Data.Html.HtmlUtilities.ConvertToText(i.Content.Text);
 
-                if (imagePath != null && feedGroup.Image == null)
-                    feedGroup.SetImage(imagePath);
+                    if (imagePath != null && feedGroup.Image == null)
+                        feedGroup.SetImage(imagePath);
 
-                if (imagePath == null) imagePath = "ms-appx:///Assets/DarkGray.png";
+                    if (imagePath == null) imagePath = "ms-appx:///Assets/DarkGray.png";
 
-                try
-                {
-                    feedGroup.Items.Add(new NewsItem() { Id = i.Title.Text.ToString(), Title = i.Title.Text.ToString(), Img = imagePath, Content = clearedContent });
+                    try
+                    {
+                        feedGroup.Items.Add(new NewsItem() { Id = i.Title.Text.ToString(), Title = i.Title.Text.ToString(), Img = imagePath, Content = clearedContent });
                         //uniqueId: i.Id, title: i.Title.Text, subtitle: null, imagePath: imagePath,
                         //description: null, content: clearedContent, @group: feedGroup));
+                    }
+                    catch { };
+                    count++;
                 }
                 catch { };
-                count++;
             }
 
+            try
+            {
+                Groups.Remove(Groups.FirstOrDefault(c => c.Id == "http://mvd.ru/news/rss/"));
+            }
+            catch { };
             Groups.Add(feedGroup);
             //AllGroups = SortItems();
             return true;
@@ -253,6 +272,20 @@ namespace WhereIsPolicemanWin8.ViewModel
             {
                 _loading = value;
                 RaisePropertyChanged("Loading");
+            }
+        }
+
+        private bool _loaded = false;
+        public bool Loaded
+        {
+            get
+            {
+                return _loaded;
+            }
+            set
+            {
+                _loaded = value;
+                RaisePropertyChanged("Loaded");
             }
         }
 

@@ -1,0 +1,66 @@
+﻿.navigation .navbar-wrapper {
+    position: absolute;
+    width: 100%;
+    bottom: -4px;
+}
+
+.dx-theme-win8 .navbar-wrapper {
+    top: 50px;
+}
+
+.dx-theme-win8 .navbar-wrapper .dx-icon {
+    display: none;
+}
+
+.dx-theme-win8 .navigation .bottom-toolbar {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+}
+
+.dx-theme-win8 .navigation .bottom-toolbar .dx-toolbar {
+    background: #000;
+}
+
+.navigation .content-image {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -200px;
+    margin-top: -200px;
+}
+
+
+@media only screen 
+and (max-height : 600px) 
+and (orientation : landscape) {
+    .navigation .content-image {
+        width: 300px;
+        height: 300px;
+        margin-left: -150px;
+        margin-top: -150px;
+    }
+}
+
+@media only screen 
+and (max-height : 360px) 
+and (orientation : landscape) {
+    .navigation .content-image {
+        width: 150px;
+        height: 150px;
+        margin-left: -75px;
+        margin-top: -75px;
+    }
+}
+
+@media only screen 
+and (max-width : 360px) 
+and (orientation : portrait) {
+    .navigation .content-image {
+        width: 250px;
+        height: 250px;
+        margin-left: -125px;
+        margin-top: -125px;
+    }
+}

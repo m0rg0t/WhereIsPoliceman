@@ -367,10 +367,14 @@ namespace WhereIsPolicemanWin8.Common
         /// задает группу для отображения.</param>
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
-            var frameState = SuspensionManager.SessionStateForFrame(this.Frame);
-            var pageState = new Dictionary<String, Object>();
-            this.SaveState(pageState);
-            frameState[_pageKey] = pageState;
+            try
+            {
+                var frameState = SuspensionManager.SessionStateForFrame(this.Frame);
+                var pageState = new Dictionary<String, Object>();
+                this.SaveState(pageState);
+                frameState[_pageKey] = pageState;
+            }
+            catch { };
         }
 
         /// <summary>
