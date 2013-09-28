@@ -10,7 +10,7 @@ using System.Resources;
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("WhereIsPoliceman")]
+[assembly: AssemblyProduct("Где участковый?")]
 [assembly: AssemblyCopyright("Copyright ©  2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -32,6 +32,6 @@ using System.Resources;
 //
 // Можно указать все значения или задать для номеров редакции и построения значения по умолчанию 
 // с помощью символа '*', как показано ниже:
-[assembly: AssemblyVersion("0.4.5")]
-[assembly: AssemblyFileVersion("0.4.5")]
+[assembly: AssemblyVersion("0.7")]
+[assembly: AssemblyFileVersion("0.7")]
 [assembly: NeutralResourcesLanguageAttribute("ru-RU")]
