@@ -200,7 +200,7 @@ namespace WhereIsPoliceman.ViewModel
             HttpClient http = new System.Net.Http.HttpClient();
             List<KeyValuePair<string, string>> values = new List<KeyValuePair<string, string>>();
 
-            var data = "{\"PolicemanId\": \"" + this.Id + "\", \"Img\": \"" + this.Img + "\", \"Town\": \"" + this.Town + "\", \"Street\": \"" + this.Street + "\", ";
+            var data = "{\"Fullname\": \"" + this.Fullname + "\", \"PolicemanId\": \"" + this.Id + "\", \"Img\": \"" + this.Img + "\", \"Town\": \"" + this.Town + "\", \"Street\": \"" + this.Street + "\", ";
             data += "\"Lat\": " + this.Lat.ToString().Replace(",", ".") + ", \"Lon\": " + this.Lon.ToString().Replace(",", ".") + ", \"Address\": \"" + this.Address.ToString() + "\"}";
             /*values = new List<KeyValuePair<string, string>>
             {
@@ -213,6 +213,20 @@ namespace WhereIsPoliceman.ViewModel
             string outdata =  await response.Content.ReadAsStringAsync();
             return true;
         }
+
+        private string _Fullname;
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Fullname
+        {
+            get { return _Fullname; }
+            set { 
+                _Fullname = value;
+                this.Content = _Fullname;
+            }
+        }
+        
 
         private string _img = "";
         public string Img

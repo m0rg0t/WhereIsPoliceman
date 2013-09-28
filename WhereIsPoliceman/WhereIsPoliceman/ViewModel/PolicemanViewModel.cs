@@ -251,6 +251,7 @@ namespace WhereIsPoliceman.ViewModel
                                                 PolicemanMapItem mapitem = new PolicemanMapItem();
                                                 mapitem.Img = item.Img;
                                                 mapitem.Content = item.Fullname;
+                                                mapitem.Fullname = item.Fullname;
                                                 mapitem.Id = item.Id;
                                                 mapitem.Address = street + " дом " + housenumber.ToString();
                                                 mapitem.Street = street;

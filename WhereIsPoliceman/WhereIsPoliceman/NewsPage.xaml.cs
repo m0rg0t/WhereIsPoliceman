@@ -7,6 +7,8 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using WhereIsPoliceman.ViewModel;
+using Microsoft.Phone.Tasks;
 
 namespace WhereIsPoliceman
 {
@@ -19,6 +21,19 @@ namespace WhereIsPoliceman
 
             // Sample code to localize the ApplicationBar
             //BuildLocalizedApplicationBar();
+        }
+
+        private void ShareButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ShareLinkTask shareLinkTask = new ShareLinkTask();
+                shareLinkTask.Title = ViewModelLocator.MainStatic.News.CurrentNews.Title;
+                shareLinkTask.LinkUri = new Uri(ViewModelLocator.MainStatic.News.CurrentNews.Url, UriKind.Absolute);
+                shareLinkTask.Message = ViewModelLocator.MainStatic.News.CurrentNews.ShortBody;
+                shareLinkTask.Show();
+            }
+            catch { };
         }
 
         // Sample code for building a localized ApplicationBar
