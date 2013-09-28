@@ -40,10 +40,14 @@ namespace WhereIsPoliceman.ViewModel
 
         public override void Cleanup()
         {
-            FacebookId = "";
-            FacebookToken = "";
-            // Clean up if needed
-            base.Cleanup();
+            try
+            {
+                FacebookId = "";
+                FacebookToken = "";
+                // Clean up if needed
+                base.Cleanup();
+            }
+            catch { };
         }
 
         public void GetPlayerId()
@@ -98,77 +102,85 @@ namespace WhereIsPoliceman.ViewModel
         /// <param name="activation_code"></param>
         public void ActivateAchieve(string activation_code)
         {
-            ViewModelLocator.MainStatic.Loading = true;
-            var bw = new BackgroundWorker();
-            bw.DoWork += delegate
+            try
             {
-                var client = new RestClient("http://www.itsbeta.com");
-                var request = new RestRequest("s/activate.json", Method.GET);
-                request.Parameters.Clear();
-                request.AddParameter("access_token", App.ACCESS_TOKEN);
-                request.AddParameter("user_id", FacebookId);
-                request.AddParameter("user_token", FacebookToken);
-                request.AddParameter("activation_code", activation_code);
-
-                client.ExecuteAsync(request, response =>
+                ViewModelLocator.MainStatic.Loading = true;
+                var bw = new BackgroundWorker();
+                bw.DoWork += delegate
                 {
                     try
                     {
-                        ActivateCode = "";
-                        NeedActivate = false;
-                        JObject o = JObject.Parse(response.Content.ToString());
-                        if (o["id"].ToString() != "")
-                        {
-                            Deployment.Current.Dispatcher.BeginInvoke(() =>
-                            {
-                                ViewModelLocator.MainStatic.Loading = false;
-                                //ViewModelLocator.MainStatic.LoadAchievements(o["api_name"].ToString());
-                            });
-                        }
-                        else
-                        {
-                            Deployment.Current.Dispatcher.BeginInvoke(() =>
-                            {
-                                //ViewModelLocator.UserStatic.AchievedEarnedMessage(AppResources.ErrorCantActivate);
-                                ViewModelLocator.MainStatic.Loading = false;
-                            });
-                        };
-                    }
-                    catch
-                    {
-                        try
-                        {
-                            JObject o = JObject.Parse(response.Content.ToString());
-                            if (o["error"].ToString() == "406")
-                            {
-                                Deployment.Current.Dispatcher.BeginInvoke(() =>
-                                {
-                                    //ViewModelLocator.UserStatic.AchievedEarnedMessage(AppResources.Error406activated);
-                                    ViewModelLocator.MainStatic.Loading = false;
-                                });
-                            }
-                            else
-                            {
-                                Deployment.Current.Dispatcher.BeginInvoke(() =>
-                                {
-                                    //ViewModelLocator.UserStatic.AchievedEarnedMessage(AppResources.ErrorCantActivate);
-                                    ViewModelLocator.MainStatic.Loading = false;
-                                });
-                            };
-                        }
-                        catch
-                        {
-                            Deployment.Current.Dispatcher.BeginInvoke(() =>
-                            {
-                                //ViewModelLocator.UserStatic.AchievedEarnedMessage(AppResources.ErrorCantActivate);
-                                ViewModelLocator.MainStatic.Loading = false;
-                            });
-                        };
+                        var client = new RestClient("http://www.itsbeta.com");
+                        var request = new RestRequest("s/activate.json", Method.GET);
+                        request.Parameters.Clear();
+                        request.AddParameter("access_token", App.ACCESS_TOKEN);
+                        request.AddParameter("user_id", FacebookId);
+                        request.AddParameter("user_token", FacebookToken);
+                        request.AddParameter("activation_code", activation_code);
 
-                    };
-                });
-            };
-            bw.RunWorkerAsync();
+                        client.ExecuteAsync(request, response =>
+                        {
+                            try
+                            {
+                                ActivateCode = "";
+                                NeedActivate = false;
+                                JObject o = JObject.Parse(response.Content.ToString());
+                                if (o["id"].ToString() != "")
+                                {
+                                    Deployment.Current.Dispatcher.BeginInvoke(() =>
+                                    {
+                                        ViewModelLocator.MainStatic.Loading = false;
+                                        //ViewModelLocator.MainStatic.LoadAchievements(o["api_name"].ToString());
+                                    });
+                                }
+                                else
+                                {
+                                    Deployment.Current.Dispatcher.BeginInvoke(() =>
+                                    {
+                                        //ViewModelLocator.UserStatic.AchievedEarnedMessage(AppResources.ErrorCantActivate);
+                                        ViewModelLocator.MainStatic.Loading = false;
+                                    });
+                                };
+                            }
+                            catch
+                            {
+                                try
+                                {
+                                    JObject o = JObject.Parse(response.Content.ToString());
+                                    if (o["error"].ToString() == "406")
+                                    {
+                                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+                                        {
+                                            //ViewModelLocator.UserStatic.AchievedEarnedMessage(AppResources.Error406activated);
+                                            ViewModelLocator.MainStatic.Loading = false;
+                                        });
+                                    }
+                                    else
+                                    {
+                                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+                                        {
+                                            //ViewModelLocator.UserStatic.AchievedEarnedMessage(AppResources.ErrorCantActivate);
+                                            ViewModelLocator.MainStatic.Loading = false;
+                                        });
+                                    };
+                                }
+                                catch
+                                {
+                                    Deployment.Current.Dispatcher.BeginInvoke(() =>
+                                    {
+                                        //ViewModelLocator.UserStatic.AchievedEarnedMessage(AppResources.ErrorCantActivate);
+                                        ViewModelLocator.MainStatic.Loading = false;
+                                    });
+                                };
+
+                            };
+                        });
+                    }
+                    catch { };
+                };
+                bw.RunWorkerAsync();
+            }
+            catch { };
         }
 
 
@@ -298,9 +310,13 @@ namespace WhereIsPoliceman.ViewModel
 
         private void moreButton_Click(object sender, RoutedEventArgs e)
         {
-            WebBrowserTask webTask = new WebBrowserTask();
-            webTask.Uri = new Uri("http://www.itsbeta.com/s/other/itsbeta/achieves/fb?locale=ru&name=itsbeta&fb_action_ids=" + messageprompt_fb_id);
-            webTask.Show();
+            try
+            {
+                WebBrowserTask webTask = new WebBrowserTask();
+                webTask.Uri = new Uri("http://www.itsbeta.com/s/other/itsbeta/achieves/fb?locale=ru&name=itsbeta&fb_action_ids=" + messageprompt_fb_id);
+                webTask.Show();
+            }
+            catch { };
         }
 
         public void GetFBUserInfo()

@@ -57,11 +57,17 @@
               Margin="12,0,12,0">
             <ScrollViewer>
                 <StackPanel>
-                    <TextBlock Style="{StaticResource PhoneTextTitle2Style}" Text="{Binding Title}" TextWrapping="Wrap" Margin="12,10,12,15"/>
+                    <TextBlock Style="{StaticResource PhoneTextTitle2Style}" 
+                               Text="{Binding Title}" 
+                               TextWrapping="Wrap" 
+                               Margin="12,10,12,15"/>
                     <Image Source="{Binding Image}"/>
-                    <TextBlock Text="{Binding Body}" TextWrapping="Wrap" Margin="12,15,12,0"/>
-                    <HyperlinkButton NavigateUri="{Binding Url}" Style="{StaticResource PhoneTextTitle2Style}"
-                                     Margin="0,15,0,15" Content="Подробнее..." TargetName="_blank" />
+                    <TextBlock Text="{Binding Body}" 
+                               TextWrapping="Wrap" Margin="12,15,12,0"/>
+                    <HyperlinkButton NavigateUri="{Binding Url}" 
+                                     Margin="0,15,0,15" 
+                                     Content="Подробнее..." 
+                                     TargetName="_blank" />
                 </StackPanel>
             </ScrollViewer>
         </Grid>

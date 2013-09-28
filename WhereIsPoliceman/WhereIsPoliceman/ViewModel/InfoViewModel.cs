@@ -47,71 +47,73 @@ namespace WhereIsPoliceman.ViewModel
 
         public void LoadInfo()
         {
-            InfoViewModel info = new InfoViewModel();
-            info.Title = "Партнётство полиции и общества";
-            info.Url = "http://openpolice.ru/pages/about_police/policiya-i-obshestvo/";
-            info.Body = AppResources.InfoPartners;
-            info.ObjectId = "policiya-i-obshestvo";
-            Items.Add(info);
+            try
+            {
+                InfoViewModel info = new InfoViewModel();
+                info.Title = "Партнётство полиции и общества";
+                info.Url = "http://openpolice.ru/pages/about_police/policiya-i-obshestvo/";
+                info.Body = AppResources.InfoPartners;
+                info.ObjectId = "policiya-i-obshestvo";
+                Items.Add(info);
 
-            info = new InfoViewModel();
-            info.Title = "Организация и назначение полиции";
-            info.Url = "http://openpolice.ru/pages/about_police/organizaciya-i-naznachenie-policii/";
-            info.Body = AppResources.organizaciyainaznacheniepolicii;
-            info.ObjectId = "organizaciya-i-naznachenie-policii";
-            Items.Add(info);
+                info = new InfoViewModel();
+                info.Title = "Организация и назначение полиции";
+                info.Url = "http://openpolice.ru/pages/about_police/organizaciya-i-naznachenie-policii/";
+                info.Body = AppResources.organizaciyainaznacheniepolicii;
+                info.ObjectId = "organizaciya-i-naznachenie-policii";
+                Items.Add(info);
 
-            info = new InfoViewModel();
-            info.Title = "Функции полиции и численность полицейских";
-            info.Url = "http://openpolice.ru/pages/about_police/funkcii-policii-i-chislennost-policejskih/";
-            info.Body = AppResources.funkcii_policii_i_chislennost_policejskih;
-            info.ObjectId = "funkcii_policii_i_chislennost_policejskih";
-            Items.Add(info);
+                info = new InfoViewModel();
+                info.Title = "Функции полиции и численность полицейских";
+                info.Url = "http://openpolice.ru/pages/about_police/funkcii-policii-i-chislennost-policejskih/";
+                info.Body = AppResources.funkcii_policii_i_chislennost_policejskih;
+                info.ObjectId = "funkcii_policii_i_chislennost_policejskih";
+                Items.Add(info);
 
-            info = new InfoViewModel();
-            info.Title = "Направления деятельности и обязанности полиции";
-            info.Url = "http://openpolice.ru/pages/about_police/napravleniya-deyatelnosti-i-obyazannosti-policii/";
-            info.Body = AppResources.napravleniya_deyatelnosti_i_obyazannosti_policii;
-            info.ObjectId = "napravleniya_deyatelnosti_i_obyazannosti_policii";
-            Items.Add(info);
+                info = new InfoViewModel();
+                info.Title = "Направления деятельности и обязанности полиции";
+                info.Url = "http://openpolice.ru/pages/about_police/napravleniya-deyatelnosti-i-obyazannosti-policii/";
+                info.Body = AppResources.napravleniya_deyatelnosti_i_obyazannosti_policii;
+                info.ObjectId = "napravleniya_deyatelnosti_i_obyazannosti_policii";
+                Items.Add(info);
 
-            info = new InfoViewModel();
-            info.Title = "Cтруктура подразделений полиции";
-            info.Url = "http://openpolice.ru/pages/about_police/struktura-podrazdelenij-policii/";
-            info.Body = AppResources.struktura_podrazdelenij_policii;
-            info.ObjectId = "struktura_podrazdelenij_policii";
-            Items.Add(info);
+                info = new InfoViewModel();
+                info.Title = "Cтруктура подразделений полиции";
+                info.Url = "http://openpolice.ru/pages/about_police/struktura-podrazdelenij-policii/";
+                info.Body = AppResources.struktura_podrazdelenij_policii;
+                info.ObjectId = "struktura_podrazdelenij_policii";
+                Items.Add(info);
 
-            info = new InfoViewModel();
-            info.Title = "Праздники МВД РФ";
-            info.Url = "http://openpolice.ru/pages/about_police/prazdniki-mvd/";
-            info.Body = AppResources.prazdniki_mvd;
-            info.ObjectId = "prazdniki_mvd";
-            Items.Add(info);
+                info = new InfoViewModel();
+                info.Title = "Праздники МВД РФ";
+                info.Url = "http://openpolice.ru/pages/about_police/prazdniki-mvd/";
+                info.Body = AppResources.prazdniki_mvd;
+                info.ObjectId = "prazdniki_mvd";
+                Items.Add(info);
 
-            info = new InfoViewModel();
-            info.Title = "Специальные средства полиции";
-            info.Url = "http://openpolice.ru/pages/about_police/specialnye-sredstva-policii/";
-            info.Body = AppResources.specialnye_sredstva_policii;
-            info.ObjectId = "specialnye_sredstva_policii";
-            Items.Add(info);
-            
-            info = new InfoViewModel();
-            info.Title = "Памятки полиции гражданам: как не стать жертвой";
-            info.Url = "http://openpolice.ru/pages/about_police/pamyatki-policii-grazhdanam-kak-ne-stat-zhertvoj/";
-            info.Body = AppResources.pamyatki_policii_grazhdanam_kak_ne_stat_zhertvoj;
-            info.ObjectId = "pamyatki_policii_grazhdanam_kak_ne_stat_zhertvoj";
-            Items.Add(info);
+                info = new InfoViewModel();
+                info.Title = "Специальные средства полиции";
+                info.Url = "http://openpolice.ru/pages/about_police/specialnye-sredstva-policii/";
+                info.Body = AppResources.specialnye_sredstva_policii;
+                info.ObjectId = "specialnye_sredstva_policii";
+                Items.Add(info);
 
-            info = new InfoViewModel();
-            info.Title = "Экстренные телефоны полиции";
-            info.Url = "http://openpolice.ru/pages/about_police/ekstrennnye-telefony-policii/";
-            info.Body = AppResources.ekstrennnye_telefony_policii;
-            info.ObjectId = "ekstrennnye_telefony_policii";
-            Items.Add(info);
+                info = new InfoViewModel();
+                info.Title = "Памятки полиции гражданам: как не стать жертвой";
+                info.Url = "http://openpolice.ru/pages/about_police/pamyatki-policii-grazhdanam-kak-ne-stat-zhertvoj/";
+                info.Body = AppResources.pamyatki_policii_grazhdanam_kak_ne_stat_zhertvoj;
+                info.ObjectId = "pamyatki_policii_grazhdanam_kak_ne_stat_zhertvoj";
+                Items.Add(info);
 
-            
-            
+                info = new InfoViewModel();
+                info.Title = "Экстренные телефоны полиции";
+                info.Url = "http://openpolice.ru/pages/about_police/ekstrennnye-telefony-policii/";
+                info.Body = AppResources.ekstrennnye_telefony_policii;
+                info.ObjectId = "ekstrennnye_telefony_policii";
+                Items.Add(info);
+            }
+            catch { };
+
             RaisePropertyChanged("Items");
         }
 

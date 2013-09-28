@@ -46,7 +46,7 @@
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <ScrollViewer>
                 <StackPanel>
-                    <Image Source="{Binding CurrentPoliceman.Img}" HorizontalAlignment="Center" Width="300"/>
+                    <Image Source="{Binding CurrentPoliceman.Img}" HorizontalAlignment="Center" Width="250"/>
                     <TextBlock Text="{Binding CurrentPoliceman.Fullname}" Margin="0,10,0,10" TextWrapping="Wrap"/>
                     <TextBlock Text="{Binding CurrentPoliceman.Position}" Margin="0,10,0,10" TextWrapping="Wrap"/>
 

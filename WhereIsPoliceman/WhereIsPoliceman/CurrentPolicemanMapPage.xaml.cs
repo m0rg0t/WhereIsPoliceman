@@ -70,7 +70,7 @@ namespace WhereIsPoliceman
                     Lat = ViewModelLocator.MainStatic.Latitued,
                     Lon = ViewModelLocator.MainStatic.Longitude,
                     GeoLocation = new GeoCoordinate() { Latitude = ViewModelLocator.MainStatic.Latitued, Longitude = ViewModelLocator.MainStatic.Longitude },
-                    Adress = ""
+                    Address = ""
                 };
                 aritems.Add(item1);
                 ARDisplay.ARItems = aritems;

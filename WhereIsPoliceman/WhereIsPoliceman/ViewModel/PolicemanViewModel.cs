@@ -7,7 +7,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace WhereIsPoliceman.ViewModel
@@ -68,10 +70,16 @@ namespace WhereIsPoliceman.ViewModel
             }
             get
             {
-                return (from item in Current_policemans_mapitems
-                        where ((item.Lat!=0.0) && (item.Lon!=0.0))
-                        orderby item.Distance ascending
-                        select item).Take(15).ToList(); 
+                try
+                {
+                    return (from item in Current_policemans_mapitems
+                            where ((item.Lat != 0.0) && (item.Lon != 0.0))
+                            orderby item.Distance ascending
+                            select item).Take(15).ToList();
+                }
+                catch {
+                    return new List<PolicemanMapItem>();
+                };
             }
         }
 
@@ -82,10 +90,16 @@ namespace WhereIsPoliceman.ViewModel
             }
             get
             {
-                return (from item in Current_policemans_mapitems
-                        where ((item.Lat != 0.0) && (item.Lon != 0.0)) && (item.Id == ViewModelLocator.MainStatic.CurrentPoliceman.Id)
-                        orderby item.Distance ascending
-                        select item).Take(15).ToList();
+                try
+                {
+                    return (from item in Current_policemans_mapitems
+                            where ((item.Lat != 0.0) && (item.Lon != 0.0)) && (item.Id == ViewModelLocator.MainStatic.CurrentPoliceman.Id)
+                            orderby item.Distance ascending
+                            select item).Take(15).ToList();
+                }
+                catch {
+                    return new List<PolicemanMapItem>();
+                };
             }
         }
 
@@ -116,33 +130,37 @@ namespace WhereIsPoliceman.ViewModel
                         int i = 0;
                         foreach (var item in items)
                         {
-                            foreach (var adress in item.Terr)
+                            try
                             {
-                                try
+                                foreach (var adress in item.Terr)
                                 {
-                                    string housenumbers = adress.Split(':')[1].Replace(" ", "").Replace(".", "").Trim();
-                                    string street = adress.Split(':')[0].Replace("дома", "").Trim();
-
-                                    foreach (var housenumber in housenumbers.Split(','))
+                                    try
                                     {
-                                        try
+                                        string housenumbers = adress.Split(':')[1].Replace(" ", "").Replace(".", "").Trim();
+                                        string street = adress.Split(':')[0].Replace("дома", "").Trim();
+
+                                        foreach (var housenumber in housenumbers.Split(','))
                                         {
-                                            PolicemanMapItem mapitem = new PolicemanMapItem();
-                                            mapitem.Img = item.Img;
-                                            mapitem.Content = item.Fullname;
-                                            mapitem.Id = item.Id;
-                                            mapitem.Adress = street + " дом " + housenumber.ToString();
-                                            if (Current_policemans_mapitems.FirstOrDefault(c => c.Adress == mapitem.Adress) == null)
+                                            try
                                             {
-                                                Current_policemans_mapitems.Add(mapitem);
-                                            };
-                                            i++;
-                                        }
-                                        catch { };
-                                    };
-                                }
-                                catch { };
-                            };
+                                                PolicemanMapItem mapitem = new PolicemanMapItem();
+                                                mapitem.Img = item.Img;
+                                                mapitem.Content = item.Fullname;
+                                                mapitem.Id = item.Id;
+                                                mapitem.Address = street + " дом " + housenumber.ToString();
+                                                if (Current_policemans_mapitems.FirstOrDefault(c => c.Address == mapitem.Address) == null)
+                                                {
+                                                    Current_policemans_mapitems.Add(mapitem);
+                                                };
+                                                i++;
+                                            }
+                                            catch { };
+                                        };
+                                    }
+                                    catch { };
+                                };
+                            }
+                            catch { };
                         };
                         Deployment.Current.Dispatcher.BeginInvoke(() =>
                         {
@@ -160,22 +178,42 @@ namespace WhereIsPoliceman.ViewModel
             bw.RunWorkerAsync();
         }
 
-        public void LoadCurrentPolicemans()
+        public async Task<ObservableCollection<PolicemanMapItem>> LoadMapItemsFromParse(string PolicemanId = "")
+        {
+            try
+            {
+                HttpClient http = new System.Net.Http.HttpClient();
+                http.DefaultRequestHeaders.Add("X-Parse-Application-Id", App.XParseApplicationId);
+                http.DefaultRequestHeaders.Add("X-Parse-REST-API-Key", App.XParseRESTAPIKey);
+
+                HttpResponseMessage response = await http.GetAsync("https://api.parse.com/1/classes/PolicemanMapItem?where={\"PolicemanId\": \"" + PolicemanId + "\"}");
+                string outdata = await response.Content.ReadAsStringAsync();
+                JObject o = JObject.Parse(outdata);
+                ObservableCollection<PolicemanMapItem> items = JsonConvert.DeserializeObject<ObservableCollection<PolicemanMapItem>>(o["results"].ToString());
+                return items;
+            }
+            catch {
+                return new ObservableCollection<PolicemanMapItem>();
+            };
+        }
+
+        public async Task<bool> LoadCurrentPolicemans()
         {
             ViewModelLocator.MainStatic.Loading = true;
             var bw = new BackgroundWorker();
-            bw.DoWork += delegate
+            bw.DoWork += async delegate
             {
-                //ViewModelLocator.MainStatic.Street = "Урбпинская";
-                var client = new RestClient("http://api.openpolice.ru/");
-                var request = new RestRequest("api/v1/refbook/Copfinder/place=" + ViewModelLocator.MainStatic.Town + "&street=" + ViewModelLocator.MainStatic.Street + "&page=1&perpage=12", Method.GET);
-                request.Parameters.Clear();
+                HttpClient http = new System.Net.Http.HttpClient();
+                HttpResponseMessage response = await http.GetAsync("http://api.openpolice.ru/api/v1/refbook/Copfinder/place=" + ViewModelLocator.MainStatic.Town + "&street=" + ViewModelLocator.MainStatic.Street + "&page=1&perpage=12");
+                string outdata = await response.Content.ReadAsStringAsync();
+                //var client = new RestClient("http://api.openpolice.ru/");
+                //var request = new RestRequest("api/v1/refbook/Copfinder/place=" + ViewModelLocator.MainStatic.Town + "&street=" + ViewModelLocator.MainStatic.Street + "&page=1&perpage=12", Method.GET);
 
-                client.ExecuteAsync(request, response =>
-                {
+                //client.ExecuteAsync(request, response =>
+                //{
                     try
                     {
-                        JObject o = JObject.Parse(response.Content.ToString());
+                        JObject o = JObject.Parse(outdata.ToString());
                         string policemanslist = o["Persons"]["data"].ToString();
                         ObservableCollection<PolicemanItem> items = JsonConvert.DeserializeObject<ObservableCollection<PolicemanItem>>(policemanslist);
 
@@ -189,39 +227,61 @@ namespace WhereIsPoliceman.ViewModel
                             ViewModelLocator.MainStatic.Loading = false;
                         });
 
+
+
                         int i = 0;
                         foreach (var item in items)
                         {
-                            foreach (var adress in item.Terr) {
-                                try
-                                {
-                                    string housenumbers = adress.Split(':')[1].Replace(" ", "").Replace(".", "").Trim();
-                                    string street = adress.Split(':')[0].Replace("дома", "").Trim();
+                            ObservableCollection<PolicemanMapItem> parseItems = await LoadMapItemsFromParse(item.Id);
 
-                                    foreach (var housenumber in housenumbers.Split(','))
+                            if (parseItems.Count() < 1)
+                            {
+                                foreach (var adress in item.Terr)
+                                {
+                                    try
                                     {
-                                        try
+                                        string policemanId = item.Id;
+                                        string housenumbers = adress.Split(':')[1].Replace(" ", "").Replace(".", "").Trim();
+                                        string street = adress.Split(':')[0].Replace("дома", "").Trim();
+
+                                        foreach (var housenumber in housenumbers.Split(','))
                                         {
-                                            PolicemanMapItem mapitem = new PolicemanMapItem();
-                                            mapitem.Img = item.Img;
-                                            mapitem.Content = item.Fullname;
-                                            mapitem.Id = item.Id;
-                                            mapitem.Adress = street + " дом " + housenumber.ToString();
-                                            if (Current_policemans_mapitems.FirstOrDefault(c => c.Adress == mapitem.Adress)==null)
+                                            try
                                             {
-                                            Current_policemans_mapitems.Add(mapitem);
-                                            };
-                                            i++;
-                                        }
-                                        catch { };
-                                    };
-                                }
-                                catch { };
+                                                PolicemanMapItem mapitem = new PolicemanMapItem();
+                                                mapitem.Img = item.Img;
+                                                mapitem.Content = item.Fullname;
+                                                mapitem.Id = item.Id;
+                                                mapitem.Address = street + " дом " + housenumber.ToString();
+                                                mapitem.Street = street;
+                                                mapitem.Town = ViewModelLocator.MainStatic.Town.ToString();
+                                                mapitem.GetLatLon();
+                                                //mapitem.SaveMapItem();
+                                                if (Current_policemans_mapitems.FirstOrDefault(c => c.Address == mapitem.Address) == null)
+                                                {
+                                                    Current_policemans_mapitems.Add(mapitem);
+                                                };
+                                                i++;
+                                            }
+                                            catch { };
+                                        };
+                                    }
+                                    catch { };
+                                };
+                            }
+                            else
+                            {
+                                foreach (var parseitem in parseItems)
+                                {
+                                    parseitem.setGeolocation();
+                                    Current_policemans_mapitems.Add(parseitem);
+                                };
                             };
                         };
-                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+
+                        /*Deployment.Current.Dispatcher.BeginInvoke(() =>
                         {
-                        });
+                        });*/
                     }
                     catch {
                         Deployment.Current.Dispatcher.BeginInvoke(() =>
@@ -230,9 +290,11 @@ namespace WhereIsPoliceman.ViewModel
                             ViewModelLocator.MainStatic.Loading = false;
                         });
                     };
-                });
+                //});
             };
             bw.RunWorkerAsync();
+
+            return true;
         }
 
         public void LoadFindSurnamePolicemans(string surname = "")
