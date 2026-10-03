@@ -29,7 +29,7 @@ namespace WhereIsPoliceman.ViewModel
             set
             {
                 _code = value;
-                RaisePropertyChanged("Сode");
+                RaisePropertyChanged("Code");
             }
         }
 
@@ -207,3 +207,4 @@ namespace WhereIsPoliceman.ViewModel
         
     }
 }
+
